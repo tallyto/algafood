@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 //@Primary
-@Qualifier("email") // qualificar o component
+@TipoDoNotificador(value = NivelUrgencia.URGENTE)
 @Component
 public class NotificadorEmail implements Notificador {
 
