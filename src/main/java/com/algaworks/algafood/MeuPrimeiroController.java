@@ -17,10 +17,10 @@ public class MeuPrimeiroController {
 
     @GetMapping("/hello")
     @ResponseBody
-    public String hello(){
+    public String hello() {
         Cliente joao = new Cliente("João", "joao@xyz.com", "3333333");
         ativacaoCliente.ativar(joao);
 
-        return  "Hello!";
+        return "Hello!";
     }
 }
