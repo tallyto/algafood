@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class AtivacaoCliente {
 
-    @TipoDoNotificador(NivelUrgencia.NORMAL)
+    @TipoDoNotificador(NivelUrgencia.URGENTE)
     @Autowired
     private Notificador notificador;
 
