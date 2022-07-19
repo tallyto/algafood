@@ -23,4 +23,10 @@ public class MeuPrimeiroController {
 
         return "Hello!";
     }
+
+    @GetMapping("/")
+    @ResponseBody
+    public String home() {
+        return "<h1>home<h1/>";
+    }
 }
