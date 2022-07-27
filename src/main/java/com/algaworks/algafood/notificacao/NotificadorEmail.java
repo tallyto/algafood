@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Profile("prod")
+@Profile("production")
 @TipoDoNotificador(value = NivelUrgencia.URGENTE)
 @Component
 public class NotificadorEmail implements Notificador {
