@@ -1,10 +1,7 @@
-package com.algaworks.algafood.notificacao;
+package com.algaworks.algafood.notification;
 
-import com.algaworks.algafood.modelo.Cliente;
+import com.algaworks.algafood.model.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +12,7 @@ public class NotificadorEmail implements Notificador {
 
     @Autowired
     private NotificadorProperties properties;
+
     public NotificadorEmail() {
         System.out.println("Notificador email REAL");
     }

@@ -1,6 +1,6 @@
 package com.algaworks.algafood;
 
-import com.algaworks.algafood.modelo.Cliente;
+import com.algaworks.algafood.model.Cliente;
 import com.algaworks.algafood.service.AtivacaoCliente;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
