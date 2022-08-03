@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class EmissaoNotaFiscalService {
 
     @EventListener
-    public void clienteAtivadoListener (ClienteAtivadoEvent event){
+    public void clienteAtivadoListener(ClienteAtivadoEvent event) {
         System.out.println("Emitindo nota fiscal para cliente " + event.getCliente().getNome());
     }
 }

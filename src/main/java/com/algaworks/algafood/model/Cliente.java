@@ -1,4 +1,4 @@
-package com.algaworks.algafood.modelo;
+package com.algaworks.algafood.model;
 
 public class Cliente {
     private String nome;

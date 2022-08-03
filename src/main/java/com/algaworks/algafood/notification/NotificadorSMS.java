@@ -1,9 +1,8 @@
-package com.algaworks.algafood.notificacao;
+package com.algaworks.algafood.notification;
 
-import com.algaworks.algafood.modelo.Cliente;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
+import com.algaworks.algafood.model.Cliente;
 import org.springframework.stereotype.Component;
+
 //@Primary
 @TipoDoNotificador(NivelUrgencia.NORMAL)
 @Component
