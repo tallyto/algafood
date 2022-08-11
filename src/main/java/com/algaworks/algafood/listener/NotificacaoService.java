@@ -15,7 +15,7 @@ public class NotificacaoService {
     private Notificador notificador;
 
     @EventListener // metodo ouvinte de um evento
-    public void clienteAtivadoListener (ClienteAtivadoEvent event){
+    public void clienteAtivadoListener(ClienteAtivadoEvent event) {
         notificador.notificar(event.getCliente(), "Seu cadastro no sistema esta ativo");
     }
 }

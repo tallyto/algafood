@@ -22,7 +22,8 @@ public class Restaurante {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // passa a responsabilidade de gerar a chave para o banco de dados
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // passa a responsabilidade de gerar a chave para o banco de dados
     private Long id;
 
     private String nome;
