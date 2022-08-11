@@ -7,12 +7,10 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity // entidade do banco de dados
-@Table(name = "tab_cozinhas")
 public class Cozinha {
     @Id
     private Long id;
 
-    @Column(name = "nom_cozinha")
     private String nome;
 
     public Long getId() {
