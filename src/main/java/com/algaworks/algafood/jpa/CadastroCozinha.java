@@ -27,4 +27,10 @@ public class CadastroCozinha {
     public Cozinha salvar(Cozinha cozinha) {
         return manager.merge(cozinha);
     }
+
+    @Transactional // (@Transactional) -> Executa o metodo dentro de uma transação
+    public void remover (Cozinha cozinha) {
+        cozinha = buscar(cozinha.getId());
+        manager.remove(cozinha);
+    }
 }
