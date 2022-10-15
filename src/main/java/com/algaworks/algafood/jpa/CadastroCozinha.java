@@ -23,8 +23,8 @@ public class CadastroCozinha {
         return manager.find(Cozinha.class, id);
     }
 
-    @Transactional
-    public Cozinha adicionar(Cozinha cozinha) {
+    @Transactional // Adiciona e atualiza um objeto no banco de dados
+    public Cozinha salvar(Cozinha cozinha) {
         return manager.merge(cozinha);
     }
 }
