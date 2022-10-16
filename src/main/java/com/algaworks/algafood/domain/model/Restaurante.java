@@ -10,7 +10,8 @@ import java.math.BigDecimal;
 @Entity
 public class Restaurante {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // passa a responsabilidade de gerar a chave para o banco de dados
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // passa a responsabilidade de gerar a chave para o banco de dados
     private Long id;
 
     private String nome;
@@ -19,5 +20,6 @@ public class Restaurante {
     private BigDecimal taxaFrete;
 
     @ManyToOne
+    @JoinColumn(name = "cozinha_id")
     Cozinha cozinha;
 }
