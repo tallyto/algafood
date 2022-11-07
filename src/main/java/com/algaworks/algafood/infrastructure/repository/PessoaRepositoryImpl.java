@@ -1,7 +1,7 @@
 package com.algaworks.algafood.infrastructure.repository;
 
-import com.algaworks.algafood.domain.model.Estado;
-import com.algaworks.algafood.domain.repository.EstadoRepository;
+import com.algaworks.algafood.domain.model.Pessoa;
+import com.algaworks.algafood.domain.repository.PessoaRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,31 +11,31 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Component
-public class EstadoRepositoryImpl implements EstadoRepository {
+public class PessoaRepositoryImpl implements PessoaRepository {
     @PersistenceContext // anotacao para injetar a dependencia do JPA
     private EntityManager manager;
 
     @Override
-    public List<Estado> listar() {
-        TypedQuery<Estado> query = manager.createQuery("from Estado", Estado.class);
+    public List<Pessoa> listar() {
+        TypedQuery<Pessoa> query = manager.createQuery("from Pessoa", Pessoa.class);
         return query.getResultList();
     }
 
     @Override
-    public Estado buscar(Long id) {
-        return manager.find(Estado.class, id);
+    public Pessoa buscar(Long id) {
+        return manager.find(Pessoa.class, id);
     }
 
     @Transactional // Adiciona e atualiza um objeto no banco de dados
     @Override
-    public Estado salvar(Estado estado) {
-        return manager.merge(estado);
+    public Pessoa salvar(Pessoa cidade) {
+        return manager.merge(cidade);
     }
 
     @Transactional // (@Transactional) -> Executa o metodo dentro de uma transação
     @Override
-    public void remover(Estado estado) {
-        estado = buscar(estado.getId());
-        manager.remove(estado);
+    public void remover(Pessoa cidade) {
+        cidade = buscar(cidade.getId());
+        manager.remove(cidade);
     }
 }

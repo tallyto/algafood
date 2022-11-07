@@ -2,12 +2,13 @@ package com.algaworks.algafood.infrastructure.repository;
 
 import com.algaworks.algafood.domain.model.Permissao;
 import com.algaworks.algafood.domain.repository.PermissaoRepository;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
-
+@Component
 public class PermissaoRepositoryImpl implements PermissaoRepository {
     @PersistenceContext // anotacao para injetar a dependencia do JPA
     private EntityManager manager;
