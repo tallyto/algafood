@@ -8,7 +8,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Objects;
-@JsonRootName("gastronomia")
+@JsonRootName("cozinha")
 @Data
 @Entity // entidade do banco de dados
 public class Cozinha {
