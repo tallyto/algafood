@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/cozinhas", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/cozinhas")
 public class CozinhaController {
     @Autowired
     private CozinhaRepository cozinhaRepository;
@@ -30,15 +30,15 @@ public class CozinhaController {
     @GetMapping("/{cozinhaId}")
     public ResponseEntity<Cozinha> buscar(@PathVariable Long cozinhaId) {
         Cozinha cozinha = cozinhaRepository.buscar(cozinhaId);
-        if(cozinha != null) {
+        if (cozinha != null) {
             return ResponseEntity.ok(cozinha);
         }
-        return  ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
     public ResponseEntity<Cozinha> adicionar(@RequestBody Cozinha cozinha) {
-       Cozinha response =  cozinhaRepository.salvar(cozinha);
+        Cozinha response = cozinhaRepository.salvar(cozinha);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
