@@ -21,6 +21,7 @@ public class Restaurante {
     private BigDecimal taxaFrete;
 
     @ManyToOne
+//    @OnDelete(action = OnDeleteAction.CASCADE) // Remove o restaurante caso a cozinha seja apagada
     @JoinColumn(name = "cozinha_id", nullable = false)
     Cozinha cozinha;
 }
