@@ -3,7 +3,6 @@ package com.algaworks.algafood.jpa.pessoa;
 import com.algaworks.algafood.AlgafoodApplication;
 import com.algaworks.algafood.domain.model.Pessoa;
 import com.algaworks.algafood.domain.repository.PessoaRepository;
-import com.algaworks.algafood.infrastructure.repository.PessoaRepositoryImpl;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;

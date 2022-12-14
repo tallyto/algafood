@@ -1,7 +1,6 @@
 package com.algaworks.algafood.jpa.restaurante;
 
 import com.algaworks.algafood.AlgafoodApplication;
-import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import org.springframework.boot.WebApplicationType;

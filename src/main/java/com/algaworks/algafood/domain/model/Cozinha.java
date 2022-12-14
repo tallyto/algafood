@@ -1,7 +1,7 @@
 package com.algaworks.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.*;
 
