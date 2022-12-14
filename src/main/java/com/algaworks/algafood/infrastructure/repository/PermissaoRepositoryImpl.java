@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+
 @Component
 public class PermissaoRepositoryImpl implements PermissaoRepository {
     @PersistenceContext // anotacao para injetar a dependencia do JPA

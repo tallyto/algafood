@@ -37,7 +37,9 @@ java -jar .\target\algafood-0.0.1-SNAPSHOT.jar --spring.profiles.active=developm
 ```
 
 ## Alterar ambiente atraves de variavel de ambiente
+
 ### Linux
+
 ```shell
 export SPRING_PROFILES_ACTIVE=production
 ```

@@ -36,10 +36,10 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
     @Transactional // (@Transactional) -> Executa o metodo dentro de uma transação
     @Override
     public void remover(Long id) {
-       Cozinha cozinha = buscar(id);
-       if(cozinha == null){
-           throw new EmptyResultDataAccessException(1);
-       }
+        Cozinha cozinha = buscar(id);
+        if (cozinha == null) {
+            throw new EmptyResultDataAccessException(1);
+        }
         manager.remove(cozinha);
     }
 }
