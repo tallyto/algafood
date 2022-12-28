@@ -39,4 +39,14 @@ public class RestauranteController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @PutMapping("/{restauranteId}")
+    public ResponseEntity<?> atualizar(@PathVariable Long restauranteId, @RequestBody Restaurante restaurante) {
+        try {
+            Restaurante restauranteAtualizado = cadastroRestaurante.atualizar(restauranteId, restaurante);
+            return ResponseEntity.ok(restauranteAtualizado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }
