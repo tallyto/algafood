@@ -35,7 +35,6 @@ public class EstadoRepositoryImpl implements EstadoRepository {
     @Transactional // (@Transactional) -> Executa o metodo dentro de uma transação
     @Override
     public void remover(Estado estado) {
-        estado = buscar(estado.getId());
         manager.remove(estado);
     }
 }
