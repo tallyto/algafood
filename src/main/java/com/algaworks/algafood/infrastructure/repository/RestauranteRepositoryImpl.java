@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 @Component
@@ -20,13 +18,7 @@ public class RestauranteRepositoryImpl implements RestauranteRepository {
 
     @Override
     public List<Restaurante> listar() {
-//        TypedQuery<Restaurante> query = manager.createQuery("from Restaurante", Restaurante.class);
-        CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
-        CriteriaQuery<Restaurante> criteriaQuery = criteriaBuilder.createQuery(Restaurante.class);
-        criteriaQuery.from(Restaurante.class);
-        TypedQuery<Restaurante> query = manager.createQuery(criteriaQuery);
-        // From Restaurante
-
+        TypedQuery<Restaurante> query = manager.createQuery("from Restaurante", Restaurante.class);
         return query.getResultList();
     }
 
