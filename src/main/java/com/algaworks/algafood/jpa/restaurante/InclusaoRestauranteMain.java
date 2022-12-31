@@ -20,7 +20,7 @@ public class InclusaoRestauranteMain {
         Restaurante restaurante1 = new Restaurante();
         restaurante1.setNome("Amor&Cana");
         restaurante1.setTaxaFrete(new BigDecimal("5.0"));
-        restaurante1 = cadastroRestaurante.salvar(restaurante1);
+        restaurante1 = cadastroRestaurante.save(restaurante1);
 
         System.out.printf("%d - %s - %f\n", restaurante1.getId(), restaurante1.getNome(), restaurante1.getTaxaFrete());
 

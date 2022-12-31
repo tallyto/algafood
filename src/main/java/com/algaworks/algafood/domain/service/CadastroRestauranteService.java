@@ -25,15 +25,12 @@ public class CadastroRestauranteService {
                         String.format("Não existe cadastro de cozinha com código %d", cozinhaId)));
 
         restaurante.setCozinha(cozinha);
-        return restauranteRepository.salvar(restaurante);
+        return restauranteRepository.save(restaurante);
     }
 
     public Restaurante atualizar(Long restauranteId, Restaurante restaurante) {
-        Restaurante restauranteAtual = restauranteRepository.buscar(restauranteId);
-        if (restauranteAtual == null) {
-            throw new EntidadeNaoEncontradaException("Não existe restaurante com o código " + restauranteId);
-        }
-        restaurante.setId(restauranteId);
+        restauranteRepository.findById(restauranteId).orElseThrow(
+                () -> new EntidadeNaoEncontradaException(String.format("Não existe cadastro de restaurante com código %d", restauranteId)));
         return salvar(restaurante);
     }
 }

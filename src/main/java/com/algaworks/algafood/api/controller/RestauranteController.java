@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
@@ -26,12 +27,14 @@ public class RestauranteController {
 
     @GetMapping
     public List<Restaurante> listar() {
-        return restauranteRepository.listar();
+        return restauranteRepository.findAll();
     }
 
     @GetMapping("/{restauranteId}")
     public Restaurante buscar(@PathVariable Long restauranteId) {
-        return restauranteRepository.buscar(restauranteId);
+       return   restauranteRepository.findById(restauranteId).orElseThrow(
+                () -> new EntidadeNaoEncontradaException(
+                        String.format("Não existe um cadastro de restaurante com código %d", restauranteId)));
     }
 
     @PostMapping
@@ -56,10 +59,9 @@ public class RestauranteController {
 
     @PatchMapping("/{restauranteId}")
     public ResponseEntity<?> atualizarParcial(@PathVariable Long restauranteId, @RequestBody Map<String, Object> campos) {
-        Restaurante restauranteAtual = restauranteRepository.buscar(restauranteId);
-        if (restauranteAtual == null) {
-            return ResponseEntity.notFound().build();
-        }
+        Restaurante restauranteAtual = restauranteRepository.findById(restauranteId).orElseThrow(
+                () -> new EntidadeNaoEncontradaException(
+                        String.format("Não existe um cadastro de restaurante com código %d", restauranteId)));
         merge(campos,restauranteAtual);
         return atualizar(restauranteId, restauranteAtual);
     }
@@ -69,6 +71,7 @@ public class RestauranteController {
         Restaurante restauranteOrigem = objectMapper.convertValue(dadosOrigem, Restaurante.class);
         dadosOrigem.forEach((nomePropriedade, valorPropriedade) ->{
             Field field = ReflectionUtils.findField(Restaurante.class, nomePropriedade);
+            assert field != null;
             field.setAccessible(true);
             Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
             ReflectionUtils.setField(field, restauranteDestino, novoValor);
