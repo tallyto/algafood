@@ -17,7 +17,7 @@ public class InclusaoPessoaMain {
         Pessoa pessoa = new Pessoa();
         pessoa.setNome("Gustavo");
         pessoa.setIdade(21);
-        pessoa = cadastroPessoa.salvar(pessoa);
+        pessoa = cadastroPessoa.save(pessoa);
 
         System.out.printf("%d - %s - %d\n", pessoa.getId(), pessoa.getNome(), pessoa.getIdade());
 

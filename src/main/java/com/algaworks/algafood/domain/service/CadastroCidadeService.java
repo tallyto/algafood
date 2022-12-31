@@ -19,32 +19,29 @@ public class CadastroCidadeService {
     CadastroEstadoService cadastroEstadoService;
 
     public List<Cidade> listar() {
-        return cidadeRepository.listar();
+        return cidadeRepository.findAll();
     }
 
     public Cidade buscar(Long id) {
-        Cidade cidade = cidadeRepository.buscar(id);
-        if (cidade == null) {
-            throw new EntidadeNaoEncontradaException("Não existe cidade com o código " + id);
-        }
-        return cidade;
+        return cidadeRepository.findById(id).orElseThrow(
+                () -> new EntidadeNaoEncontradaException(String.format("Não existe cadastro de cidade com código %d", id)));
     }
 
     public Cidade salvar(Cidade cidade) {
         Long estadoId = cidade.getEstado().getId();
         Estado estado = cadastroEstadoService.buscar(estadoId);
         cidade.setEstado(estado);
-        return cidadeRepository.salvar(cidade);
+        return cidadeRepository.save(cidade);
     }
 
     public void remover(Long id) {
         Cidade cidade = buscar(id);
-        cidadeRepository.remover(cidade);
+        cidadeRepository.delete(cidade);
     }
 
     public Cidade atualizar(Long id, Cidade cidade) {
         Long estadoId = cidade.getEstado().getId();
-        if(estadoId != null) {
+        if (estadoId != null) {
             Estado estado = cadastroEstadoService.buscar(estadoId);
             cidade.setEstado(estado);
         }

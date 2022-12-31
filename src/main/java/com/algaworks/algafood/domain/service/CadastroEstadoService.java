@@ -18,23 +18,19 @@ public class CadastroEstadoService {
     private EstadoRepository estadoRepository;
 
     public Estado salvar(Estado estado) {
-        return estadoRepository.salvar(estado);
+        return estadoRepository.save(estado);
     }
 
     public Estado atualizar(Long estadoId, Estado estado) {
         Estado estadoAtual = buscar(estadoId);
-        if (estadoAtual == null) {
-            throw new EntidadeNaoEncontradaException("Não existe estado com o código " + estadoId);
-        }
         estadoAtual.setNome(estado.getNome());
-        return estadoRepository.salvar(estadoAtual);
+        return estadoRepository.save(estadoAtual);
     }
 
     public void excluir(Long estadoId) {
         try {
             Estado estado = buscar(estadoId);
-            estadoRepository.remover(estado);
-
+            estadoRepository.delete(estado);
         } catch (EmptyResultDataAccessException e) {
             throw new EntidadeNaoEncontradaException(String.format("Não existe um cadastro de estado com código %d", estadoId));
         } catch (DataIntegrityViolationException e) {
@@ -43,16 +39,11 @@ public class CadastroEstadoService {
     }
 
     public Estado buscar(Long estadoId) {
-        Estado estado = estadoRepository.buscar(estadoId);
-        if (estado == null) {
-            throw new EntidadeNaoEncontradaException(String.format("Não existe um cadastro de estado com código %d", estadoId));
-        }
-        return estado;
+        return estadoRepository.findById(estadoId).orElseThrow(
+                () -> new EntidadeNaoEncontradaException(String.format("Não existe cadastro de estado com código %d", estadoId)));
     }
 
     public List<Estado> listar() {
-        return estadoRepository.listar();
+        return estadoRepository.findAll();
     }
-
-
 }
