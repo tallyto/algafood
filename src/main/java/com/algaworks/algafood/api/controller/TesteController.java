@@ -4,8 +4,6 @@ import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
-import com.algaworks.algafood.infrastructure.repository.spec.RestauranteComFreteGratisSpec;
-import com.algaworks.algafood.infrastructure.repository.spec.RestauranteComNomeSemelhanteSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+
+import static com.algaworks.algafood.infrastructure.repository.spec.RestauranteSpecs.comFreteGratis;
+import static com.algaworks.algafood.infrastructure.repository.spec.RestauranteSpecs.comNomeSemelhante;
 
 @RestController
 @RequestMapping("/teste")
@@ -45,8 +46,8 @@ public class TesteController {
 
     @GetMapping("/restaurantes/por-nome-e-frete")
     public List<Restaurante> restaurantesPorNomeFrete(@RequestParam(value = "nome", required = false) String nome,
-                                                     @RequestParam(value = "taxaInicial", required = false) BigDecimal taxaInicial,
-                                                     @RequestParam(value = "taxaFinal", required = false) BigDecimal taxaFinal) {
+                                                      @RequestParam(value = "taxaInicial", required = false) BigDecimal taxaInicial,
+                                                      @RequestParam(value = "taxaFinal", required = false) BigDecimal taxaFinal) {
 
         return restauranteRepository.find(nome, taxaInicial, taxaFinal);
     }
@@ -85,8 +86,7 @@ public class TesteController {
 
     @GetMapping("/restaurantes/com-frete-gratis")
     public List<Restaurante> restaurantesComFreteGratis(@RequestParam("nome") String nome) {
-        var comFreteGratis = new RestauranteComFreteGratisSpec();
-        var comNomeSemelhante = new RestauranteComNomeSemelhanteSpec(nome);
-        return restauranteRepository.findAll(comFreteGratis.and(comNomeSemelhante));
+        return restauranteRepository.findAll(comFreteGratis()
+            .and(comNomeSemelhante(nome)));
     }
 }
