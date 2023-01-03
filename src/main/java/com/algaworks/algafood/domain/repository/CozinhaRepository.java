@@ -9,7 +9,7 @@ import java.util.Optional;
 // Repositorio orientado a persistencia
 
 @Repository
-public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
+public interface CozinhaRepository extends CustomJpaRepository<Cozinha, Long> {
     List<Cozinha> findAllByNome(String nome);
 
     List<Cozinha> findByNomeContaining(String nome);
