@@ -1,14 +1,17 @@
 package com.algaworks.algafood.domain.model;
 
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Restaurante {
     @Id
@@ -26,6 +29,7 @@ public class Restaurante {
     @JoinColumn(name = "cozinha_id", nullable = false)
     Cozinha cozinha;
 
+    @JsonIgnore // não serializa o campo
     @ManyToMany
     @JoinTable(name = "restaurante_forma_pagamento",
             joinColumns = @JoinColumn(name = "restaurante_id"),
