@@ -1,14 +1,16 @@
 package com.algaworks.algafood.domain.model;
 
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Restaurante {
     @Id
@@ -25,6 +27,9 @@ public class Restaurante {
     @ManyToOne
     @JoinColumn(name = "cozinha_id", nullable = false)
     Cozinha cozinha;
+
+    @Embedded
+    private Endereco endereco;
 
     @ManyToMany
     @JoinTable(name = "restaurante_forma_pagamento",
