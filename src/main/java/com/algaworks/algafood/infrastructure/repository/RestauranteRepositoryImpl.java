@@ -27,7 +27,8 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
     @PersistenceContext
     EntityManager manager;
 
-    @Autowired @Lazy
+    @Autowired
+    @Lazy
     private RestauranteRepository restauranteRepository;
 
     @Override
@@ -58,7 +59,7 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
 
     @Override
     public List<Restaurante> findComFreteGratis(String nome) {
-        return  restauranteRepository.findAll(comFreteGratis()
+        return restauranteRepository.findAll(comFreteGratis()
             .and(comNomeSemelhante(nome)));
     }
 }

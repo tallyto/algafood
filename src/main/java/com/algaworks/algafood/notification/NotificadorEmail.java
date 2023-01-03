@@ -22,6 +22,6 @@ public class NotificadorEmail implements Notificador {
         System.out.println("Host: " + properties.getHostServidor());
         System.out.println("Porta: " + properties.getPortaServidor());
         System.out.printf("Notificando %s atraves do email %s: %s\n", cliente.getNome(),
-                cliente.getEmail(), mensagem);
+            cliente.getEmail(), mensagem);
     }
 }

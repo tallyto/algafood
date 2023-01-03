@@ -40,7 +40,7 @@ public class CadastroEstadoService {
 
     public Estado buscar(Long estadoId) {
         return estadoRepository.findById(estadoId).orElseThrow(
-                () -> new EntidadeNaoEncontradaException(String.format("Não existe cadastro de estado com código %d", estadoId)));
+            () -> new EntidadeNaoEncontradaException(String.format("Não existe cadastro de estado com código %d", estadoId)));
     }
 
     public List<Estado> listar() {

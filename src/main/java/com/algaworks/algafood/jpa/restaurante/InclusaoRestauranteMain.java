@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class InclusaoRestauranteMain {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApplication.class)
-                .web(WebApplicationType.NONE).run(args);
+            .web(WebApplicationType.NONE).run(args);
 
         RestauranteRepository cadastroRestaurante = applicationContext.getBean(RestauranteRepository.class);
 

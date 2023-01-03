@@ -12,15 +12,13 @@ import java.util.Optional;
 public class BuscaCozinhaMain {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApplication.class)
-                .web(WebApplicationType.NONE).run(args);
+            .web(WebApplicationType.NONE).run(args);
 
         CozinhaRepository cadastroCozinha = applicationContext.getBean(CozinhaRepository.class);
 
         Optional<Cozinha> cozinha = cadastroCozinha.findById(1L);
 
-        if(cozinha.isPresent()) {
-            System.out.println(cozinha.get().getNome());
-        }
+        cozinha.ifPresent(value -> System.out.println(value.getNome()));
 
     }
 }

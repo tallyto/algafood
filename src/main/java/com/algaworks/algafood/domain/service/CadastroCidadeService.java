@@ -24,7 +24,7 @@ public class CadastroCidadeService {
 
     public Cidade buscar(Long id) {
         return cidadeRepository.findById(id).orElseThrow(
-                () -> new EntidadeNaoEncontradaException(String.format("Não existe cadastro de cidade com código %d", id)));
+            () -> new EntidadeNaoEncontradaException(String.format("Não existe cadastro de cidade com código %d", id)));
     }
 
     public Cidade salvar(Cidade cidade) {
