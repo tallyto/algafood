@@ -29,6 +29,9 @@ public class Restaurante {
     @JoinColumn(name = "cozinha_id", nullable = false)
     Cozinha cozinha;
 
+    @Embedded
+    private Endereco endereco;
+
     @JsonIgnore // não serializa o campo
     @ManyToMany
     @JoinTable(name = "restaurante_forma_pagamento",
