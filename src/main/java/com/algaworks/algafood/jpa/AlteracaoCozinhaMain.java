@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationContext;
 public class AlteracaoCozinhaMain {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApplication.class)
-                .web(WebApplicationType.NONE).run(args);
+            .web(WebApplicationType.NONE).run(args);
 
         CozinhaRepository cozinhaRepository = applicationContext.getBean(CozinhaRepository.class);
 

@@ -17,6 +17,6 @@ public class NotificadorEmailMock implements Notificador {
     public void notificar(Cliente cliente, String mensagem) {
 
         System.out.printf("MOCK: Notificando seria enviada para %s atraves do email %s: %s\n", cliente.getNome(),
-                cliente.getEmail(), mensagem);
+            cliente.getEmail(), mensagem);
     }
 }

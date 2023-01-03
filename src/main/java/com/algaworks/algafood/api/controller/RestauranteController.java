@@ -32,9 +32,9 @@ public class RestauranteController {
 
     @GetMapping("/{restauranteId}")
     public Restaurante buscar(@PathVariable Long restauranteId) {
-       return   restauranteRepository.findById(restauranteId).orElseThrow(
-                () -> new EntidadeNaoEncontradaException(
-                        String.format("Não existe um cadastro de restaurante com código %d", restauranteId)));
+        return restauranteRepository.findById(restauranteId).orElseThrow(
+            () -> new EntidadeNaoEncontradaException(
+                String.format("Não existe um cadastro de restaurante com código %d", restauranteId)));
     }
 
     @PostMapping
@@ -60,16 +60,16 @@ public class RestauranteController {
     @PatchMapping("/{restauranteId}")
     public ResponseEntity<?> atualizarParcial(@PathVariable Long restauranteId, @RequestBody Map<String, Object> campos) {
         Restaurante restauranteAtual = restauranteRepository.findById(restauranteId).orElseThrow(
-                () -> new EntidadeNaoEncontradaException(
-                        String.format("Não existe um cadastro de restaurante com código %d", restauranteId)));
-        merge(campos,restauranteAtual);
+            () -> new EntidadeNaoEncontradaException(
+                String.format("Não existe um cadastro de restaurante com código %d", restauranteId)));
+        merge(campos, restauranteAtual);
         return atualizar(restauranteId, restauranteAtual);
     }
 
     private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
         ObjectMapper objectMapper = new ObjectMapper();
         Restaurante restauranteOrigem = objectMapper.convertValue(dadosOrigem, Restaurante.class);
-        dadosOrigem.forEach((nomePropriedade, valorPropriedade) ->{
+        dadosOrigem.forEach((nomePropriedade, valorPropriedade) -> {
             Field field = ReflectionUtils.findField(Restaurante.class, nomePropriedade);
             assert field != null;
             field.setAccessible(true);

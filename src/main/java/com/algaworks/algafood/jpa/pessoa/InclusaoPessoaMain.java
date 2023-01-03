@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationContext;
 public class InclusaoPessoaMain {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApplication.class)
-                .web(WebApplicationType.NONE).run(args);
+            .web(WebApplicationType.NONE).run(args);
 
         PessoaRepository cadastroPessoa = applicationContext.getBean(PessoaRepository.class);
         Pessoa pessoa = new Pessoa();

@@ -12,7 +12,7 @@ import java.util.List;
 public class ConsultaCozinhaMain {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApplication.class)
-                .web(WebApplicationType.NONE).run(args);
+            .web(WebApplicationType.NONE).run(args);
 
         CozinhaRepository cadastroCozinha = applicationContext.getBean(CozinhaRepository.class);
 
