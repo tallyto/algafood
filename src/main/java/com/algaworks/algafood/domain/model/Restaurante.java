@@ -1,6 +1,7 @@
 package com.algaworks.algafood.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +32,7 @@ public class Restaurante {
     @Embedded
     private Endereco endereco;
 
+    @JsonIgnore // não serializa o campo
     @ManyToMany
     @JoinTable(name = "restaurante_forma_pagamento",
             joinColumns = @JoinColumn(name = "restaurante_id"),
