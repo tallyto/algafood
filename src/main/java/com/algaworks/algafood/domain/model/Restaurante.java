@@ -2,7 +2,6 @@ package com.algaworks.algafood.domain.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,8 +29,8 @@ public class Restaurante {
     private BigDecimal taxaFrete;
 
 //    @JsonIgnore // não serializa o campo cozinha na resposta
-    @JsonIgnoreProperties("hibernateLazyInitializer") // ignora o campo hibernateLazyInitializer
-    @ManyToOne(fetch = FetchType.LAZY) // lazy = carregamento preguiçoso
+//    @JsonIgnoreProperties("hibernateLazyInitializer") // ignora o campo hibernateLazyInitializer
+    @ManyToOne // (fetch = FetchType.LAZY) lazy = carregamento preguiçoso
     @JoinColumn(name = "cozinha_id", nullable = false)
     Cozinha cozinha;
 
