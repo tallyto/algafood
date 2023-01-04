@@ -9,8 +9,9 @@ insert into pessoa (nome, idade) values ('David', 35);
 insert into cozinha (id, nome) values (1, 'Tailandesa');
 insert into cozinha (id, nome) values (2, 'Indiana');
 insert into cozinha (id, nome) values (3, 'Brasileira');
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) values (1,'Brabas', 9.0, 1, utc_timestamp,utc_timestamp);
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)values (2,'Shinobis', 10.0, 2,utc_timestamp,utc_timestamp);
+insert into cozinha (id, nome) values (4 , 'Macuxi')
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) values (1,'Restaurante Dona Maria', 9.0, 1, utc_timestamp,utc_timestamp);
+insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)values (2,'Lá Casa de Pastel', 10.0, 2,utc_timestamp,utc_timestamp);
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)values (3,'Chico do Carneiro', 0, 2,utc_timestamp,utc_timestamp);
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)values (4,'Bobs', 0, 1,utc_timestamp,utc_timestamp);
 insert into restaurante (id, nome, taxa_frete, cozinha_id, endereco_cidade_id,endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, data_cadastro, data_atualizacao) values (5,'La Casa do Pastel', 0, 1,1, '00000000', 'Rua do Pastel', 1, 'Casa', 'Centro',utc_timestamp,utc_timestamp);
@@ -28,3 +29,5 @@ insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) val
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (3, 1);
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (3, 2);
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (4, 1);
+insert into produto (id, ativo, descricao, nome, preco, restaurante_id)  values (1, true, 'carne de sol na chapa, baião de dois, vatapa e macaxeira frita', 'Carne de Sol na Chapa', 12, 1)
+insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (2, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 2)
