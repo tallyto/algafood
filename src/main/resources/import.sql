@@ -30,4 +30,6 @@ insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) val
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (3, 2);
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (4, 1);
 insert into produto (id, ativo, descricao, nome, preco, restaurante_id)  values (1, true, 'carne de sol na chapa, baião de dois, vatapa e macaxeira frita', 'Carne de Sol na Chapa', 12, 1)
-insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (2, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 2)
+insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (2, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 1)
+insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (3, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 2)
+insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (4, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 3)
