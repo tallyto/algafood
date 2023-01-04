@@ -2,6 +2,7 @@ package com.algaworks.algafood.domain.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,12 +29,14 @@ public class Restaurante {
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
-    @ManyToOne
+//    @JsonIgnore // não serializa o campo cozinha na resposta
+    @JsonIgnoreProperties("hibernateLazyInitializer") // ignora o campo hibernateLazyInitializer
+    @ManyToOne(fetch = FetchType.LAZY) // lazy = carregamento preguiçoso
     @JoinColumn(name = "cozinha_id", nullable = false)
     Cozinha cozinha;
 
     @JsonIgnore
-    @Embedded
+    @Embedded // endereço é um tipo embutido
     private Endereco endereco;
 
     @JsonIgnore
@@ -46,7 +49,7 @@ public class Restaurante {
     @Column(name = "data_atualizacao", nullable = false, columnDefinition = "datetime")
     private LocalDateTime dataAtualizacao;
 
-    @JsonIgnore // não serializa o campo
+//    @JsonIgnore // não serializa o campo
     @ManyToMany
     @JoinTable(name = "restaurante_forma_pagamento",
         joinColumns = @JoinColumn(name = "restaurante_id"),
