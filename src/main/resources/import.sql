@@ -33,3 +33,10 @@ insert into produto (id, ativo, descricao, nome, preco, restaurante_id)  values 
 insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (2, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 1)
 insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (3, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 2)
 insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (4, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 3)
+insert into usuario (id, nome, email, senha, data_cadastro) values (1,'fulano','teste@teste.com', '123456', utc_timestamp);
+insert into grupo (id, nome) values (1, 'admin');
+insert into grupo (id, nome) values (2, 'usuario');
+insert into grupo (id, nome) values (3, 'gerente');
+insert into usuario_grupo (usuario_id, grupo_id) values (1, 1);
+insert into usuario_grupo (usuario_id, grupo_id) values (1, 2);
+
