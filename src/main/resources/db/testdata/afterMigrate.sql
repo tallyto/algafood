@@ -1,9 +1,35 @@
+set foreign_key_checks = 0;
+
+delete from cidade;
+delete from cozinha;
+delete from estado;
+delete from forma_pagamento;
+delete from grupo;
+delete from grupo_permissao;
+delete from permissao;
+delete from restaurante;
+delete from restaurante_forma_pagamento;
+delete from usuario;
+delete from usuario_grupo;
+delete from produto;
+
+set foreign_key_checks = 1;
+
+alter table cidade auto_increment = 1;
+alter table cozinha auto_increment = 1;
+alter table estado auto_increment = 1;
+alter table forma_pagamento auto_increment = 1;
+alter table grupo auto_increment = 1;
+alter table permissao auto_increment = 1;
+alter table restaurante auto_increment = 1;
+alter table usuario auto_increment = 1;
+
 insert into estado (id, nome) values (1, 'Roraima');
 insert into estado (id, nome) values (2, 'Parana');
 insert into estado (id, nome) values (3, 'São Paulo');
 insert into cidade (id,nome, estado_id) values (1,'Boa Vista', 1);
 insert into cidade (id,nome, estado_id) values (2,'Curitiba', 2);
-insert into cidade (id,nome, estado_id) values (3,'São Paulo', 2);
+insert into cidade (id,nome, estado_id) values (3,'São Paulo', 3);
 insert into pessoa (nome, idade) values ('Tállyto', 26);
 insert into pessoa (nome, idade) values ('David', 35);
 insert into cozinha (id, nome) values (1, 'Tailandesa');
@@ -31,8 +57,6 @@ insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) val
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (4, 1);
 insert into produto (id, ativo, descricao, nome, preco, restaurante_id)  values (1, true, 'carne de sol na chapa, baião de dois, vatapa e macaxeira frita', 'Carne de Sol na Chapa', 12, 1);
 insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (2, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 1);
-insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (3, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 2);
-insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (4, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 3);
 insert into usuario (id, nome, email, senha, data_cadastro) values (1,'fulano','teste@teste.com', '123456', utc_timestamp);
 insert into grupo (id, nome) values (1, 'admin');
 insert into grupo (id, nome) values (2, 'usuario');
