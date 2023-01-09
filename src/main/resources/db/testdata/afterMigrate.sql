@@ -12,6 +12,8 @@ delete from restaurante_forma_pagamento;
 delete from usuario;
 delete from usuario_grupo;
 delete from produto;
+delete from pedido;
+delete from item_pedido;
 
 set foreign_key_checks = 1;
 
@@ -23,6 +25,9 @@ alter table grupo auto_increment = 1;
 alter table permissao auto_increment = 1;
 alter table restaurante auto_increment = 1;
 alter table usuario auto_increment = 1;
+alter table produto auto_increment = 1;
+alter table pedido auto_increment = 1;
+
 
 insert into estado (id, nome) values (1, 'Roraima');
 insert into estado (id, nome) values (2, 'Parana');
