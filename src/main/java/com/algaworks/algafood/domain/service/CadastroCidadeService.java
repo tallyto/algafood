@@ -1,19 +1,22 @@
 package com.algaworks.algafood.domain.service;
 
-import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.CozinhaEmUsoException;
+import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Estado;
 import com.algaworks.algafood.domain.repository.CidadeRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CadastroCidadeService {
-    public static final String MSG_CIDADE_NAO_ENCONTRADA = "Não existe cadastro de cidade com código %d";
     @Autowired
     CidadeRepository cidadeRepository;
 
@@ -24,25 +27,30 @@ public class CadastroCidadeService {
         return cidadeRepository.findAll();
     }
 
-    public Cidade buscarOuFalhar(Long id) {
-        return cidadeRepository.findById(id).orElseThrow(
-            () -> new EntidadeNaoEncontradaException(String.format(MSG_CIDADE_NAO_ENCONTRADA, id)));
+    public Cidade buscarOuFalhar(Long cidadeId) {
+        return cidadeRepository.findById(cidadeId).orElseThrow(
+            () -> new CidadeNaoEncontradaException(cidadeId));
     }
 
     public Cidade salvar(Cidade cidade) {
-        Long estadoId = cidade.getEstado().getId();
         try {
+            Long estadoId = cidade.getEstado().getId();
             Estado estado = cadastroEstadoService.buscar(estadoId);
             cidade.setEstado(estado);
-        } catch (EntidadeNaoEncontradaException e) {
-            throw new NegocioException(e.getMessage());
+            return cidadeRepository.save(cidade);
+        } catch (EstadoNaoEncontradoException e) {
+            throw new NegocioException(e.getMessage(),e);
         }
-        return cidadeRepository.save(cidade);
     }
 
     public void remover(Long id) {
-        Cidade cidade = buscarOuFalhar(id);
-        cidadeRepository.delete(cidade);
+        try {
+            cidadeRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new CidadeNaoEncontradaException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new CozinhaEmUsoException(id);
+        }
     }
 
     public Cidade atualizar(Long id, Cidade cidade) {

@@ -28,7 +28,7 @@ public class Restaurante {
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
-//    @JsonIgnore // não serializa o campo cozinha na resposta
+    //    @JsonIgnore // não serializa o campo cozinha na resposta
 //    @JsonIgnoreProperties("hibernateLazyInitializer") // ignora o campo hibernateLazyInitializer
     @ManyToOne // (fetch = FetchType.LAZY) lazy = carregamento preguiçoso
     @JoinColumn(name = "cozinha_id", nullable = false)
