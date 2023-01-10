@@ -1,9 +1,6 @@
 package com.algaworks.algafood.domain.service;
 
-import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
-import com.algaworks.algafood.domain.exception.CozinhaEmUsoException;
-import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
-import com.algaworks.algafood.domain.exception.NegocioException;
+import com.algaworks.algafood.domain.exception.*;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Estado;
 import com.algaworks.algafood.domain.repository.CidadeRepository;
@@ -49,7 +46,7 @@ public class CadastroCidadeService {
         } catch (EmptyResultDataAccessException e) {
             throw new CidadeNaoEncontradaException(id);
         } catch (DataIntegrityViolationException e) {
-            throw new CozinhaEmUsoException(id);
+            throw new CidadeEmUsoException(id);
         }
     }
 
