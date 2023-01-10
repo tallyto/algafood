@@ -4,6 +4,7 @@ import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,5 +35,11 @@ public class CadastroCozinhaService {
         return cozinhaRepository.findById(cozinhaId)
             .orElseThrow(() -> new EntidadeNaoEncontradaException(
                 String.format(MSG_COZINHA_NAO_ENCONTRADA, cozinhaId)));
+    }
+
+    public Cozinha atualizar(long cozinhaId, Cozinha cozinha) {
+        Cozinha cozinhaAtual = buscarOuFalhar(cozinhaId);
+        BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
+        return salvar(cozinhaAtual);
     }
 }

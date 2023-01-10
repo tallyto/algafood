@@ -22,7 +22,7 @@ public class CadastroCidadeService {
         return cidadeRepository.findAll();
     }
 
-    public Cidade buscar(Long id) {
+    public Cidade buscarOuFalhar(Long id) {
         return cidadeRepository.findById(id).orElseThrow(
             () -> new EntidadeNaoEncontradaException(String.format("Não existe cadastro de cidade com código %d", id)));
     }
@@ -35,17 +35,15 @@ public class CadastroCidadeService {
     }
 
     public void remover(Long id) {
-        Cidade cidade = buscar(id);
+        Cidade cidade = buscarOuFalhar(id);
         cidadeRepository.delete(cidade);
     }
 
     public Cidade atualizar(Long id, Cidade cidade) {
         Long estadoId = cidade.getEstado().getId();
-        if (estadoId != null) {
-            Estado estado = cadastroEstadoService.buscar(estadoId);
-            cidade.setEstado(estado);
-        }
-        Cidade cidadeAtual = buscar(id);
+        Estado estado = cadastroEstadoService.buscar(estadoId);
+        cidade.setEstado(estado);
+        Cidade cidadeAtual = buscarOuFalhar(id);
         BeanUtils.copyProperties(cidade, cidadeAtual, "id");
         return salvar(cidadeAtual);
     }
