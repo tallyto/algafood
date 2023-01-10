@@ -11,54 +11,61 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
-
-@ControllerAdvice // dentro do pacote exceptionhandler, temos uma classe que vai ser responsável por tratar as exceções de forma global
+@ControllerAdvice
+// dentro do pacote exceptionhandler, temos uma classe que vai ser responsável por tratar as exceções de forma global
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler { // ResponseEntityExceptionHandler é uma classe do Spring que já tem alguns tratamentos de exceções
 
     @ExceptionHandler(EntidadeNaoEncontradaException.class)
-    public ResponseEntity<?> tratarEntidadeNaoEncontradaException(EntidadeNaoEncontradaException e) {
-        Problema problema = Problema.builder()
-            .dataHora(LocalDateTime.now())
-            .mensagem(e.getMessage())
-            .build();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problema);
+    public ResponseEntity<Object> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ProblemType problemType = ProblemType.ENTIDADE_NAO_ENCONTRADA;
+        String detail = ex.getMessage();
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
 
     }
 
     @ExceptionHandler(NegocioException.class)
-    public ResponseEntity<Object> tratarNegocioException(NegocioException ex, WebRequest request) {
-        Problema problema = Problema.builder()
-            .dataHora(LocalDateTime.now())
-            .mensagem(ex.getMessage())
-            .build();
-        return handleExceptionInternal(ex, problema, new HttpHeaders(),HttpStatus.BAD_REQUEST, request);
+    public ResponseEntity<Object> handleNegocioException(NegocioException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.ERRO_NEGOCIO;
+        String detail = ex.getMessage();
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
 
     @ExceptionHandler(EntidadeEmUsoException.class)
-    public ResponseEntity<Object> tratarEntidadeEmUsoException(EntidadeEmUsoException ex, WebRequest request) {
-        Problema problema = Problema.builder()
-            .dataHora(LocalDateTime.now())
-            .mensagem(ex.getMessage())
-            .build();
-        return handleExceptionInternal(ex, problema, new HttpHeaders(), HttpStatus.CONFLICT, request);
+    public ResponseEntity<Object> handleEntidadeEmUsoException(EntidadeEmUsoException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ProblemType problemType = ProblemType.ENTIDADE_EM_USO;
+        String detail = ex.getMessage();
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
     @Override // sobrescrevendo o método handleExceptionInternal para mudar o corpo da resposta
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (body == null) {
-            body = Problema.builder()
-                .dataHora(LocalDateTime.now())
-                .mensagem(status.getReasonPhrase())
+            body = Problem.builder()
+                .title(status.getReasonPhrase())
+                .status(status.value())
                 .build();
         } else if (body instanceof String) {
-            body = Problema.builder()
-                .dataHora(LocalDateTime.now())
-                .mensagem((String) body)
+            body = Problem.builder()
+                .title((String) body)
+                .status(status.value())
                 .build();
         }
         return super.handleExceptionInternal(ex, body, headers, status, request);
+    }
+
+    private Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType problemType, String detail) {
+        return Problem.builder()
+            .status(status.value())
+            .type(problemType.getUri())
+            .title(problemType.getTitle())
+            .detail(detail);
     }
 
 }
