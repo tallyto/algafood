@@ -1,7 +1,8 @@
 package com.algaworks.algafood.domain.service;
 
-import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
+import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
@@ -16,7 +17,6 @@ import java.util.Map;
 
 @Service
 public class CadastroRestauranteService {
-    public static final String MSG_RESTAURANTE_NAO_ENCONTRADO = "Não existe um cadastro de restaurante com código %d";
     @Autowired
     private RestauranteRepository restauranteRepository;
 
@@ -29,15 +29,15 @@ public class CadastroRestauranteService {
             Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
             restaurante.setCozinha(cozinha);
             return restauranteRepository.save(restaurante);
-        } catch (EntidadeNaoEncontradaException e) {
-            throw new NegocioException(e.getMessage());
+        } catch (CozinhaNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage(), e);
         }
     }
 
     public Restaurante buscar(Long restauranteId) {
         return restauranteRepository.findById(restauranteId).orElseThrow(
-            () -> new EntidadeNaoEncontradaException(
-                String.format(MSG_RESTAURANTE_NAO_ENCONTRADO, restauranteId)));
+            () -> new RestauranteNaoEncontradoException(
+                restauranteId));
     }
 
     public Restaurante atualizar(Long restauranteId, Restaurante restaurante) {
