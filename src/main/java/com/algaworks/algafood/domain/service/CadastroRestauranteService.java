@@ -1,6 +1,7 @@
 package com.algaworks.algafood.domain.service;
 
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
@@ -23,10 +24,14 @@ public class CadastroRestauranteService {
     private CadastroCozinhaService cadastroCozinha;
 
     public Restaurante salvar(Restaurante restaurante) {
-        Long cozinhaId = restaurante.getCozinha().getId();
-        Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
-        restaurante.setCozinha(cozinha);
-        return restauranteRepository.save(restaurante);
+        try {
+            Long cozinhaId = restaurante.getCozinha().getId();
+            Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
+            restaurante.setCozinha(cozinha);
+            return restauranteRepository.save(restaurante);
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
 
     public Restaurante buscar(Long restauranteId) {
@@ -36,10 +41,7 @@ public class CadastroRestauranteService {
     }
 
     public Restaurante atualizar(Long restauranteId, Restaurante restaurante) {
-
-        Restaurante restauranteAtual = restauranteRepository.findById(restauranteId).orElseThrow(() ->
-            new EntidadeNaoEncontradaException(
-                String.format(MSG_RESTAURANTE_NAO_ENCONTRADO, restauranteId)));
+        Restaurante restauranteAtual = buscar(restauranteId);
 
         BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento", "endereco",
             "dataCadastro", "dataAtualizacao");
