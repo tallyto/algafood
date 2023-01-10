@@ -7,11 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
 
 @ControllerAdvice // dentro do pacote exceptionhandler, temos uma classe que vai ser responsável por tratar as exceções de forma global
-public class ApiExceptionHandler {
+public class ApiExceptionHandler extends ResponseEntityExceptionHandler { // ResponseEntityExceptionHandler é uma classe do Spring que já tem alguns tratamentos de exceções
 
     @ExceptionHandler(EntidadeNaoEncontradaException.class)
     public ResponseEntity<?> tratarEntidadeNaoEncontradaException(EntidadeNaoEncontradaException e) {
@@ -32,4 +33,5 @@ public class ApiExceptionHandler {
     public ResponseEntity<?> tratarEntidadeEmUsoException(EntidadeEmUsoException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
+
 }
