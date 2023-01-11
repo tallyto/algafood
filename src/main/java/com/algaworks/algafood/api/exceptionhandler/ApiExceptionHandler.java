@@ -14,9 +14,11 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -89,6 +91,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler { // Res
         String detail = ex.getMessage();
         Problem problem = createProblemBuilder(status, problemType, detail).build();
         return handleExceptionInternal(ex, problem, new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Object> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.PARAMETRO_INVALIDO;
+        String detail = String.format("O parâmetro de URL '%s' recebeu o valor '%s', que é de um tipo inválido. " +
+            "Corrija e informe um valor compatível com o tipo %s.", ex.getName(), ex.getValue(), Objects.requireNonNull(ex.getRequiredType()).getSimpleName());
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
     @Override // sobrescrevendo o método handleExceptionInternal para mudar o corpo da resposta
