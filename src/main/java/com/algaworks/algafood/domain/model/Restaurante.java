@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ public class Restaurante {
     // passa a responsabilidade de gerar a chave para o banco de dados
     private Long id;
 
+    @NotNull
     @Column(nullable = false)
     private String nome;
 
