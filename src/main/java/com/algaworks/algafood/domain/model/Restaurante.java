@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
@@ -36,7 +37,8 @@ public class Restaurante {
     private BigDecimal taxaFrete;
 
     //    @JsonIgnore // não serializa o campo cozinha na resposta
-//    @JsonIgnoreProperties("hibernateLazyInitializer") // ignora o campo hibernateLazyInitializer
+    //    @JsonIgnoreProperties("hibernateLazyInitializer") // ignora o campo hibernateLazyInitializer
+    @Valid // faz a validação dos campos da cozinha
     @ManyToOne // (fetch = FetchType.LAZY) lazy = carregamento preguiçoso
     @JoinColumn(name = "cozinha_id", nullable = false)
     Cozinha cozinha;
