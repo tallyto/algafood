@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @Entity // entidade do banco de dados
 public class Cozinha {
-    @NotNull(groups = Groups.CadastroRestaurante.class)
+    @NotNull(groups = Groups.CozinhaId.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,13 +1,12 @@
 package com.algaworks.algafood.api.controller;
 
-import com.algaworks.algafood.Groups;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ public class RestauranteController {
     }
 
     @PostMapping
-    public Restaurante adicionar(@RequestBody @Validated(Groups.CadastroRestaurante.class) Restaurante restaurante) {
+    public Restaurante adicionar(@RequestBody @Valid Restaurante restaurante) {
         return cadastroRestaurante.salvar(restaurante);
     }
 

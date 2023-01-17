@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,8 @@ import java.util.stream.Collectors;
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public static final String MSG_ERRO_GENERICA_USUARIO_FINAL = "Ocorreu um erro interno inesperado no sistema. Tente novamente e se o problema persistir, entre em contato com o administrador do sistema.";
 
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ApiExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApiExceptionHandler.class);
+
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -168,7 +170,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .timestamp(LocalDateTime.now())
                 .build();
         }
-        logger.error(ex.getMessage(), ex);
+        LOGGER.error(ex.getMessage(), ex);
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 
