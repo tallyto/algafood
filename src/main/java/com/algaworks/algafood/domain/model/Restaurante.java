@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.groups.ConvertGroup;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,18 +29,19 @@ public class Restaurante {
 
 //    @NotNull
 //    @NotEmpty
-    @NotBlank(groups = Groups.CadastroRestaurante.class) // Agrupamento de validação
+    @NotBlank // Agrupamento de validação
     @Column(nullable = false)
     private String nome;
 
 //    @DecimalMin("1")
-    @PositiveOrZero(groups = Groups.CadastroRestaurante.class)
+    @PositiveOrZero
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
     //    @JsonIgnore // não serializa o campo cozinha na resposta
     //    @JsonIgnoreProperties("hibernateLazyInitializer") // ignora o campo hibernateLazyInitializer
     @Valid // faz a validação dos campos da cozinha
+    @ConvertGroup(to = Groups.CozinhaId.class)
     @ManyToOne // (fetch = FetchType.LAZY) lazy = carregamento preguiçoso
     @JoinColumn(name = "cozinha_id", nullable = false)
     Cozinha cozinha;
