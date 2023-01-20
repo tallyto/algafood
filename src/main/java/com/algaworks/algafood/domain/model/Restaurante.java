@@ -27,13 +27,13 @@ public class Restaurante {
     // passa a responsabilidade de gerar a chave para o banco de dados
     private Long id;
 
-//    @NotNull
+    //    @NotNull
 //    @NotEmpty
     @NotBlank // Agrupamento de validação
     @Column(nullable = false)
     private String nome;
 
-//    @DecimalMin("1")
+    //    @DecimalMin("1")
     @PositiveOrZero
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;

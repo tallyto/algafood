@@ -36,7 +36,7 @@ public class CadastroCidadeService {
             cidade.setEstado(estado);
             return cidadeRepository.save(cidade);
         } catch (EstadoNaoEncontradoException e) {
-            throw new NegocioException(e.getMessage(),e);
+            throw new NegocioException(e.getMessage(), e);
         }
     }
 
