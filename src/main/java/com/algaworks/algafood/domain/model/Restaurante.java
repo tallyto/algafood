@@ -28,7 +28,7 @@ public class Restaurante {
     private Long id;
 
     //    @NotNull
-//    @NotEmpty
+    //    @NotEmpty
     @NotBlank // Agrupamento de validação
     @Column(nullable = false)
     private String nome;

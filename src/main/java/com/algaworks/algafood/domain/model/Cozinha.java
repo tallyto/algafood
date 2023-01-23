@@ -4,6 +4,8 @@ import com.algaworks.algafood.Groups;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,8 +13,8 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonRootName("cozinha")
-@Data
+@Getter
+@Setter
 @Entity // entidade do banco de dados
 public class Cozinha {
     @NotNull(groups = Groups.CozinhaId.class)

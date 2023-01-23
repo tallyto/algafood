@@ -8,4 +8,9 @@ public interface Groups {
     interface CadastroCozinha {
     }
 
+    interface RestauranteId {
+    }
+
+    interface EstadoId {
+    }
 }
