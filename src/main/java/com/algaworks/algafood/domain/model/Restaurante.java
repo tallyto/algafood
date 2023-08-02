@@ -14,6 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -38,6 +39,7 @@ public class Restaurante {
     private String nome;
 
     //    @DecimalMin("1")
+    @NotNull
     @TaxaFrete
     @Multiplo(numero = 5)
     @Column(name = "taxa_frete", nullable = false)
