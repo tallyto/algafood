@@ -52,35 +52,8 @@ public class CadastroRestauranteService {
         return salvar(restauranteAtual);
     }
 
-    public Restaurante atualizarParcial(Long restauranteId, Map<String, Object> campos) {
-        Restaurante restauranteAtual = buscar(restauranteId);
-        merge(campos, restauranteAtual);
-        return atualizar(restauranteId, restauranteAtual);
-    }
-
-    @SuppressWarnings("deprecation") // Para evitar o warning do HttpMessageNotReadableException
-    private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
-        try {
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, true);// Falha se houver propriedades ignoradas
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true); // Falha se houver propriedades desconhecidas
-
-            Restaurante restauranteOrigem = objectMapper.convertValue(dadosOrigem, Restaurante.class);
-            dadosOrigem.forEach((nomePropriedade, valorPropriedade) -> {
-                Field field = ReflectionUtils.findField(Restaurante.class, nomePropriedade);
-                assert field != null;
-                field.setAccessible(true);
-                Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
-                ReflectionUtils.setField(field, restauranteDestino, novoValor);
-            });
-
-
-        } catch (IllegalArgumentException e) {
-            Throwable rootCause = ExceptionUtils.getRootCause(e);
-            throw new HttpMessageNotReadableException(e.getMessage(), rootCause);
-        }
-
+    public Restaurante atualizarParcial(Long restauranteId, Restaurante restaurante) {
+        return atualizar(restauranteId, restaurante);
     }
 }
 
