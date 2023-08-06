@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.hamcrest.Matchers;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CadastroCozinhaApiIT {
@@ -21,7 +22,22 @@ public class CadastroCozinhaApiIT {
             .accept(ContentType.JSON)
             .when()
                 .get()
-                .then()
+            .then()
                 .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
+    public void shouldContainCozinhaWhenConsultingCozinha() {
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+        RestAssured.given()
+            .basePath("/cozinhas")
+            .port(port)
+            .accept(ContentType.JSON)
+            .when()
+                .get()
+            .then()
+                .body("nome",  Matchers.hasSize(4))
+                .body("nome", Matchers.hasItems("Indiana", "Tailandesa"));
+
     }
 }
