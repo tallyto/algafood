@@ -28,13 +28,13 @@ class CadastroCozinhaIT {
 
     @Test
     public void shouldSucessoAoCadastrarCozinha() {
-        // cenarario
+        // cenário
         Cozinha novaCozinha = new Cozinha();
         novaCozinha.setNome("Chinesa");
-        // acao
+        // ação
         novaCozinha = cozinhaService.salvar(novaCozinha);
 
-        // validacao
+        // validação
         assertThat(novaCozinha).isNotNull();
         assertThat(novaCozinha.getId()).isNotNull();
     }
