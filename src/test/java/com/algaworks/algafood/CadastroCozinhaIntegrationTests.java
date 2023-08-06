@@ -40,6 +40,18 @@ class CadastroCozinhaIntegrationTests {
     }
 
     @Test
+    public void shouldSuccessOnUpdateCozinha() {
+        Cozinha cozinha = new Cozinha();
+        cozinha.setNome("Brasileira");
+        cozinha = cozinhaService.salvar(cozinha);
+
+        cozinha.setNome("Indiana");
+        cozinha = cozinhaService.atualizar(cozinha.getId(), cozinha);
+
+        assertThat(cozinha.getNome()).isEqualTo("Indiana");
+    }
+
+    @Test
     public void shouldFailAoCadastrarCozinhaSemNome() {
 
         Cozinha cozinha = new Cozinha();
