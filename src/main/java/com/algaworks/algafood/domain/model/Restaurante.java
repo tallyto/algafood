@@ -6,6 +6,7 @@ import com.algaworks.algafood.core.validation.Multiplo;
 import com.algaworks.algafood.core.validation.TaxaFrete;
 import com.algaworks.algafood.core.validation.ValorZeroIncluiDescricao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,25 +29,22 @@ descricaoObrigatoria = "Frete Grátis")
 @Entity
 public class Restaurante {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     // passa a responsabilidade de gerar a chave para o banco de dados
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //    @NotNull
-    //    @NotEmpty
     @NotBlank(message = "Nome é obrigatório")
     @Column(nullable = false)
     private String nome;
 
-    //    @DecimalMin("1")
     @NotNull
     @TaxaFrete
     @Multiplo(numero = 5)
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
-    //    @JsonIgnore // não serializa o campo cozinha na resposta
-    //    @JsonIgnoreProperties("hibernateLazyInitializer") // ignora o campo hibernateLazyInitializer
+    // ignora o campo nome na criação de restaurante, mas permite que ele seja obtido
+    @JsonIgnoreProperties(value = "nome", allowGetters = true)
     @Valid // faz a validação dos campos da cozinha
     @ConvertGroup(to = Groups.CozinhaId.class)
     @ManyToOne // (fetch = FetchType.LAZY) lazy = carregamento preguiçoso
