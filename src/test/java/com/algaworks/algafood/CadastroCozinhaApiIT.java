@@ -31,13 +31,14 @@ public class CadastroCozinhaApiIT {
 
     @Autowired
     private CozinhaRepository cozinhaRepository;
+
     @BeforeEach
     public void setUp() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
         RestAssured.basePath = "/cozinhas";
         databaseCleaner.clearTables();
-        prepararDados();
+        prepareData();
     }
 
     @Test
@@ -45,9 +46,9 @@ public class CadastroCozinhaApiIT {
         RestAssured.given()
             .accept(ContentType.JSON)
             .when()
-                .get()
+            .get()
             .then()
-                .statusCode(HttpStatus.OK.value());
+            .statusCode(HttpStatus.OK.value());
     }
 
     @Test
@@ -57,7 +58,7 @@ public class CadastroCozinhaApiIT {
             .when()
                 .get()
             .then()
-                .body("nome",  Matchers.hasSize(2))
+                .body("nome", Matchers.hasSize(2))
                 .body("nome", Matchers.hasItems("Indiana", "Tailandesa"));
     }
 
@@ -76,7 +77,30 @@ public class CadastroCozinhaApiIT {
                 .statusCode(HttpStatus.CREATED.value());
     }
 
-    private void prepararDados() {
+    @Test
+    public void shouldReturn200WhenGetAnExistentCozinhaById() {
+        RestAssured.given()
+            .pathParam("cozinhaId", 2)
+            .accept(ContentType.JSON)
+            .when()
+                .get("/{cozinhaId}")
+            .then()
+                .body("nome", Matchers.equalTo("Indiana"))
+                .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
+    public void shouldReturn404WhenGetAnNonExistentCozinhaById() {
+        RestAssured.given()
+            .pathParam("cozinhaId", 100)
+            .accept(ContentType.JSON)
+            .when()
+                .get("/{cozinhaId}")
+            .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
+    }
+
+    private void prepareData() {
         Cozinha cozinha1 = new Cozinha();
         cozinha1.setNome("Tailandesa");
         cozinhaRepository.save(cozinha1);
