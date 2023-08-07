@@ -21,6 +21,9 @@ import org.springframework.test.context.TestPropertySource;
 public class CadastroCozinhaApiIT {
 
     public static final int COZINHA_ID_INEXISTENTE = 100;
+
+    private final Cozinha cozinhaDefault = new Cozinha("Americana");
+
     @LocalServerPort
     private int port;
 
@@ -51,9 +54,9 @@ public class CadastroCozinhaApiIT {
         RestAssured.given()
             .accept(ContentType.JSON)
             .when()
-            .get()
+                .get()
             .then()
-            .statusCode(HttpStatus.OK.value());
+                .statusCode(HttpStatus.OK.value());
     }
 
     @Test
@@ -69,13 +72,10 @@ public class CadastroCozinhaApiIT {
 
     @Test
     public void shouldReturn201WhenCreatingCozinha() throws JsonProcessingException {
-        Cozinha novaCozinha = new Cozinha();
-        novaCozinha.setNome("Teste");
-
         RestAssured.given()
             .accept(ContentType.JSON)
             .contentType(ContentType.JSON)
-            .body(objectMapper.writeValueAsString(novaCozinha))
+            .body(objectMapper.writeValueAsString(cozinhaDefault))
             .when()
                 .post()
             .then()
@@ -103,6 +103,45 @@ public class CadastroCozinhaApiIT {
                 .get("/{cozinhaId}")
             .then()
                 .statusCode(HttpStatus.NOT_FOUND.value());
+    }
+
+    @Test
+    public void shouldReturn200WhenUpdatingAnExistentCozinha() throws JsonProcessingException {
+
+        RestAssured.given()
+            .pathParam("cozinhaId", cozinhaSalva.getId())
+            .accept(ContentType.JSON)
+            .contentType(ContentType.JSON)
+            .body(objectMapper.writeValueAsString(cozinhaDefault))
+            .when()
+            .put("/{cozinhaId}")
+            .then()
+            .statusCode(HttpStatus.OK.value())
+            .body("nome", Matchers.equalTo(cozinhaDefault.getNome()));
+    }
+
+    @Test
+    public void shouldReturn404WhenUpdatingANonExistentCozinha() throws JsonProcessingException {
+        RestAssured.given()
+            .pathParam("cozinhaId", COZINHA_ID_INEXISTENTE)
+            .accept(ContentType.JSON)
+            .contentType(ContentType.JSON)
+            .body(objectMapper.writeValueAsString(cozinhaDefault))
+            .when()
+            .put("/{cozinhaId}")
+            .then()
+            .statusCode(HttpStatus.NOT_FOUND.value());
+    }
+
+    @Test
+    public void shouldReturn204WhenDeletingAnExistentCozinha() {
+        RestAssured.given()
+            .pathParam("cozinhaId", cozinhaSalva.getId())
+            .accept(ContentType.JSON)
+            .when()
+            .delete("/{cozinhaId}")
+            .then()
+            .statusCode(HttpStatus.NO_CONTENT.value());
     }
 
     private void prepareData() {

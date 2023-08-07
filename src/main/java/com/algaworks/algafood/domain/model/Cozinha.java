@@ -17,6 +17,12 @@ import java.util.List;
 @Setter
 @Entity // entidade do banco de dados
 public class Cozinha {
+
+    public Cozinha() {}
+    public Cozinha(String nome) {
+        this.nome = nome;
+    }
+
     @NotNull(groups = Groups.CozinhaId.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
