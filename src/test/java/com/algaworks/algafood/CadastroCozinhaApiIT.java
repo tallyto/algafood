@@ -20,6 +20,7 @@ import org.springframework.test.context.TestPropertySource;
 @TestPropertySource("/application-test.properties")
 public class CadastroCozinhaApiIT {
 
+    public static final int COZINHA_ID_INEXISTENTE = 100;
     @LocalServerPort
     private int port;
 
@@ -31,6 +32,10 @@ public class CadastroCozinhaApiIT {
 
     @Autowired
     private CozinhaRepository cozinhaRepository;
+
+    private Integer numeroCozinhas;
+
+    private Cozinha cozinhaSalva;
 
     @BeforeEach
     public void setUp() {
@@ -58,7 +63,7 @@ public class CadastroCozinhaApiIT {
             .when()
                 .get()
             .then()
-                .body("nome", Matchers.hasSize(2))
+                .body("nome", Matchers.hasSize(this.numeroCozinhas))
                 .body("nome", Matchers.hasItems("Indiana", "Tailandesa"));
     }
 
@@ -80,19 +85,19 @@ public class CadastroCozinhaApiIT {
     @Test
     public void shouldReturn200WhenGetAnExistentCozinhaById() {
         RestAssured.given()
-            .pathParam("cozinhaId", 2)
+            .pathParam("cozinhaId", cozinhaSalva.getId())
             .accept(ContentType.JSON)
             .when()
                 .get("/{cozinhaId}")
             .then()
-                .body("nome", Matchers.equalTo("Indiana"))
+                .body("nome", Matchers.equalTo(cozinhaSalva.getNome()))
                 .statusCode(HttpStatus.OK.value());
     }
 
     @Test
     public void shouldReturn404WhenGetAnNonExistentCozinhaById() {
         RestAssured.given()
-            .pathParam("cozinhaId", 100)
+            .pathParam("cozinhaId", COZINHA_ID_INEXISTENTE)
             .accept(ContentType.JSON)
             .when()
                 .get("/{cozinhaId}")
@@ -101,11 +106,12 @@ public class CadastroCozinhaApiIT {
     }
 
     private void prepareData() {
+        this.numeroCozinhas = 2;
         Cozinha cozinha1 = new Cozinha();
         cozinha1.setNome("Tailandesa");
         cozinhaRepository.save(cozinha1);
         Cozinha cozinha2 = new Cozinha();
         cozinha2.setNome("Indiana");
-        cozinhaRepository.save(cozinha2);
+        cozinhaSalva = cozinhaRepository.save(cozinha2);
     }
 }
