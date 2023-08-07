@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.api.model.DTO.RestauranteDTO;
 import com.algaworks.algafood.core.validation.ValidacaoException;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
@@ -40,8 +41,10 @@ public class RestauranteController {
     }
 
     @GetMapping("/{restauranteId}")
-    public Restaurante buscar(@PathVariable Long restauranteId) {
-        return restauranteService.buscar(restauranteId);
+    public RestauranteDTO buscar(@PathVariable Long restauranteId) {
+        Restaurante restaurante = restauranteService.buscar(restauranteId);
+        RestauranteDTO  restauranteDTO = new RestauranteDTO();
+        return restauranteDTO;
     }
 
     @PostMapping
@@ -87,6 +90,7 @@ public class RestauranteController {
 
             dadosOrigem.forEach((nomePropriedade, valorPropriedade) -> {
                 Field field = ReflectionUtils.findField(Restaurante.class, nomePropriedade);
+                assert field != null;
                 field.setAccessible(true);
 
                 Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
