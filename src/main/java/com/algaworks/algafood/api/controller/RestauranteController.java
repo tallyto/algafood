@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.api.model.DTO.CozinhaDTO;
 import com.algaworks.algafood.api.model.DTO.RestauranteDTO;
 import com.algaworks.algafood.core.validation.ValidacaoException;
 import com.algaworks.algafood.domain.model.Restaurante;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("restaurantes")
@@ -36,29 +38,44 @@ public class RestauranteController {
     private SmartValidator validator;
 
     @GetMapping
-    public List<Restaurante> listar() {
-        return restauranteRepository.findAll();
+    public List<RestauranteDTO> listar() {
+        return toCollectionDTO(restauranteRepository.findAll());
     }
 
     @GetMapping("/{restauranteId}")
     public RestauranteDTO buscar(@PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
+        return toDTO(restaurante);
+    }
+
+    private static RestauranteDTO toDTO(Restaurante restaurante) {
         RestauranteDTO  restauranteDTO = new RestauranteDTO();
+        CozinhaDTO cozinhaDTO  = new CozinhaDTO();
+        restauranteDTO.setId(restaurante.getId());
+        restauranteDTO.setNome(restaurante.getNome());
+        restauranteDTO.setTaxaFrete(restaurante.getTaxaFrete());
+        cozinhaDTO.setNome(restaurante.getCozinha().getNome());
+        cozinhaDTO.setId(restaurante.getCozinha().getId());
+        restauranteDTO.setCozinha(cozinhaDTO);
         return restauranteDTO;
     }
 
+    private List<RestauranteDTO> toCollectionDTO(List<Restaurante> restaurantes) {
+       return restaurantes.stream().map(restaurante -> toDTO(restaurante)).collect(Collectors.toList());
+    };
+
     @PostMapping
-    public Restaurante adicionar(@RequestBody @Valid Restaurante restaurante) {
-        return restauranteService.salvar(restaurante);
+    public RestauranteDTO adicionar(@RequestBody @Valid Restaurante restaurante) {
+        return toDTO(restauranteService.salvar(restaurante));
     }
 
     @PutMapping("/{restauranteId}")
-    public Restaurante atualizar(@PathVariable Long restauranteId, @RequestBody @Valid Restaurante restaurante) {
-        return restauranteService.atualizar(restauranteId, restaurante);
+    public RestauranteDTO atualizar(@PathVariable Long restauranteId, @RequestBody @Valid Restaurante restaurante) {
+        return toDTO(restauranteService.atualizar(restauranteId, restaurante));
     }
 
     @PatchMapping("/{restauranteId}")
-    public Restaurante atualizarParcial(@PathVariable Long restauranteId,
+    public RestauranteDTO atualizarParcial(@PathVariable Long restauranteId,
                                         @RequestBody Map<String, Object> campos, HttpServletRequest request) {
         Restaurante restauranteAtual = restauranteService.buscar(restauranteId);
 
