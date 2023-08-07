@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,16 +18,28 @@ public class CadastroEstadoService {
     @Autowired
     private EstadoRepository estadoRepository;
 
+    public List<Estado> listar() {
+        return estadoRepository.findAll();
+    }
+
+    public Estado buscar(Long estadoId) {
+        return estadoRepository.findById(estadoId).orElseThrow(
+            () -> new EstadoNaoEncontradoException(estadoId));
+    }
+
+    @Transactional
     public Estado salvar(Estado estado) {
         return estadoRepository.save(estado);
     }
 
+    @Transactional
     public Estado atualizar(Long estadoId, Estado estado) {
         Estado estadoAtual = buscar(estadoId);
         estadoAtual.setNome(estado.getNome());
         return estadoRepository.save(estadoAtual);
     }
 
+    @Transactional
     public void excluir(Long estadoId) {
         try {
             estadoRepository.deleteById(estadoId);
@@ -35,14 +48,5 @@ public class CadastroEstadoService {
         } catch (EmptyResultDataAccessException e) {
             throw new EstadoNaoEncontradoException(estadoId);
         }
-    }
-
-    public Estado buscar(Long estadoId) {
-        return estadoRepository.findById(estadoId).orElseThrow(
-            () -> new EstadoNaoEncontradoException(estadoId));
-    }
-
-    public List<Estado> listar() {
-        return estadoRepository.findAll();
     }
 }
