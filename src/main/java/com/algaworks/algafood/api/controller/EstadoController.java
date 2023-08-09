@@ -1,7 +1,10 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.api.assembler.EstadoModelAssembler;
+import com.algaworks.algafood.api.model.DTO.EstadoDTO;
+import com.algaworks.algafood.api.model.input.EstadoInput;
 import com.algaworks.algafood.domain.model.Estado;
-import com.algaworks.algafood.domain.service.CadastroEstadoService;
+import com.algaworks.algafood.domain.service.EstadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,26 +16,31 @@ import java.util.List;
 @RequestMapping("/estados")
 public class EstadoController {
     @Autowired
-    CadastroEstadoService cadastroEstado;
+    EstadoService cadastroEstado;
+
+    @Autowired
+    EstadoModelAssembler assembler;
 
     @GetMapping
-    List<Estado> listar() {
-        return cadastroEstado.listar();
+    List<EstadoDTO> listar() {
+        return assembler.toCollectionDTO(cadastroEstado.listar());
     }
 
     @PostMapping
-    Estado adicionar(@RequestBody @Valid Estado estado) {
-        return cadastroEstado.salvar(estado);
+    EstadoDTO adicionar(@RequestBody @Valid EstadoInput estadoInput) {
+        Estado estado = cadastroEstado.salvar(assembler.toEntity(estadoInput));
+        return assembler.toDTO(estado);
     }
 
     @GetMapping("/{estadoId}")
-    Estado buscar(@PathVariable Long estadoId) {
-        return cadastroEstado.buscar(estadoId);
+    EstadoDTO buscar(@PathVariable Long estadoId) {
+        return assembler.toDTO(cadastroEstado.buscar(estadoId));
     }
 
     @PutMapping("/{estadoId}")
-    public Estado atualizar(@PathVariable Long estadoId, @RequestBody @Valid Estado estado) {
-        return cadastroEstado.atualizar(estadoId, estado);
+    public EstadoDTO atualizar(@PathVariable Long estadoId, @RequestBody @Valid EstadoInput estado) {
+        Estado estadoAtulizado = cadastroEstado.atualizar(estadoId, assembler.toEntity(estado));
+        return assembler.toDTO(estadoAtulizado);
     }
 
     @DeleteMapping("/{estadoId}")

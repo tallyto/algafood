@@ -1,6 +1,8 @@
 package com.algaworks.algafood.api.controller;
 
-import com.algaworks.algafood.domain.model.Cozinha;
+import com.algaworks.algafood.api.assembler.CozinhaModelAssembler;
+import com.algaworks.algafood.api.model.DTO.CozinhaDTO;
+import com.algaworks.algafood.api.model.input.CozinhaInput;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,25 +21,30 @@ public class CozinhaController {
     @Autowired
     private CadastroCozinhaService cadastroCozinhaService;
 
+    @Autowired
+    private CozinhaModelAssembler cozinhaModelAssembler;
+
     @GetMapping
-    public List<Cozinha> listar() {
-        return cozinhaRepository.findAll();
+    public List<CozinhaDTO> listar() {
+        return cozinhaModelAssembler.toCollectionDTO(cozinhaRepository.findAll());
     }
 
     @GetMapping("/{cozinhaId}")
-    public Cozinha buscar(@PathVariable Long cozinhaId) {
-        return cadastroCozinhaService.buscarOuFalhar(cozinhaId);
+    public CozinhaDTO buscar(@PathVariable Long cozinhaId) {
+        return cozinhaModelAssembler.toDTO(cadastroCozinhaService.buscarOuFalhar(cozinhaId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cozinha adicionar(@RequestBody @Valid Cozinha cozinha) {
-        return cadastroCozinhaService.salvar(cozinha);
+    public CozinhaDTO adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
+        var cozinha = cozinhaModelAssembler.toEntity(cozinhaInput);
+        return cozinhaModelAssembler.toDTO(cadastroCozinhaService.salvar(cozinha));
     }
 
     @PutMapping("/{cozinhaId}")
-    public Cozinha atualizar(@PathVariable long cozinhaId, @RequestBody @Valid Cozinha cozinha) {
-        return cadastroCozinhaService.atualizar(cozinhaId, cozinha);
+    public CozinhaDTO atualizar(@PathVariable long cozinhaId, @RequestBody @Valid CozinhaInput cozinhaInput) {
+        var cozinha = cozinhaModelAssembler.toEntity(cozinhaInput);
+        return cozinhaModelAssembler.toDTO(cadastroCozinhaService.atualizar(cozinhaId, cozinha));
     }
 
     @DeleteMapping("/{cozinhaId}")

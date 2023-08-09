@@ -19,7 +19,7 @@ public class CadastroCidadeService {
     CidadeRepository cidadeRepository;
 
     @Autowired
-    CadastroEstadoService cadastroEstadoService;
+    EstadoService cadastroEstadoService;
 
     public List<Cidade> listar() {
         return cidadeRepository.findAll();
