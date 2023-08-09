@@ -1,6 +1,5 @@
 package com.algaworks.algafood.api.model.input;
 
-import com.algaworks.algafood.domain.model.Restaurante;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,12 +20,4 @@ public class RestauranteInput {
     private BigDecimal taxaFrete;
     @Valid
     private CozinhaIdInput cozinha;
-
-    public Restaurante toModel() {
-        Restaurante restaurante = new Restaurante();
-        restaurante.setNome(nome);
-        restaurante.setTaxaFrete(taxaFrete);
-        restaurante.setCozinha(cozinha.toModel());
-        return restaurante;
-    }
 }

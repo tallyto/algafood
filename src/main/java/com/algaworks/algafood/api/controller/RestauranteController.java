@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.api.assembler.RestauranteModelAssembler;
 import com.algaworks.algafood.api.model.DTO.RestauranteDTO;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
 import com.algaworks.algafood.core.validation.ValidacaoException;
@@ -37,26 +38,29 @@ public class RestauranteController {
     @Autowired
     private SmartValidator validator;
 
+    @Autowired
+    private RestauranteModelAssembler assembler;
+
     @GetMapping
     public List<RestauranteDTO> listar() {
-        return RestauranteDTO.toCollectionDTO(restauranteRepository.findAll());
+        return assembler.toCollectionDTO(restauranteRepository.findAll());
     }
 
     @GetMapping("/{restauranteId}")
     public RestauranteDTO buscar(@PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
-        return RestauranteDTO.toDTO(restaurante);
+        return assembler.toDTO(restaurante);
     }
 
     @PostMapping
     public RestauranteDTO adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
-        Restaurante  restaurante = restauranteInput.toModel();
-        return RestauranteDTO.toDTO(restauranteService.salvar(restaurante));
+        Restaurante  restaurante = assembler.toEntity(restauranteInput);
+        return assembler.toDTO(restauranteService.salvar(restaurante));
     }
 
     @PutMapping("/{restauranteId}")
     public RestauranteDTO atualizar(@PathVariable Long restauranteId, @RequestBody @Valid Restaurante restaurante) {
-        return RestauranteDTO.toDTO(restauranteService.atualizar(restauranteId, restaurante));
+        return assembler.toDTO(restauranteService.atualizar(restauranteId, restaurante));
     }
 
     @PatchMapping("/{restauranteId}")
