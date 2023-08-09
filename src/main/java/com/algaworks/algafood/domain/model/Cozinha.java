@@ -13,7 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity // entidade do banco de dados
+@Entity
 public class Cozinha {
 
     public Cozinha() {}

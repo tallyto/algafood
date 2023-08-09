@@ -1,5 +1,8 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.api.assembler.CidadeModelAssembler;
+import com.algaworks.algafood.api.model.DTO.CidadeDTO;
+import com.algaworks.algafood.api.model.input.CidadeInput;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +18,28 @@ public class CidadeController {
     @Autowired
     private CadastroCidadeService cadastroCidade;
 
+    @Autowired
+    private CidadeModelAssembler cidadeModelAssembler;
+
     @GetMapping
-    public List<Cidade> listar() {
-        return cadastroCidade.listar();
+    public List<CidadeDTO> listar() {
+        return cidadeModelAssembler.toCollectionDTO(cadastroCidade.listar());
     }
 
     @GetMapping("/{cidadeId}")
-    public Cidade buscar(@PathVariable Long cidadeId) {
-        return cadastroCidade.buscarOuFalhar(cidadeId);
+    public CidadeDTO buscar(@PathVariable Long cidadeId) {
+        return cidadeModelAssembler.toDTO(cadastroCidade.buscarOuFalhar(cidadeId));
     }
 
     @PostMapping
-    public Cidade adicionar(@RequestBody @Valid Cidade cidade) {
-        return cadastroCidade.salvar(cidade);
+    public CidadeDTO adicionar(@RequestBody @Valid Cidade cidade) {
+        return cidadeModelAssembler.toDTO(cadastroCidade.salvar(cidade));
     }
 
     @PutMapping("/{cidadeId}")
-    public Cidade atualizar(@PathVariable Long cidadeId, @RequestBody Cidade cidade) {
-        return cadastroCidade.atualizar(cidadeId, cidade);
+    public CidadeDTO atualizar(@PathVariable Long cidadeId, @RequestBody CidadeInput cidadeInput) {
+        var cidade = cidadeModelAssembler.toEntity(cidadeInput);
+        return cidadeModelAssembler.toDTO(cadastroCidade.atualizar(cidadeId, cidade));
     }
 
     @DeleteMapping("/{cidadeId}")
