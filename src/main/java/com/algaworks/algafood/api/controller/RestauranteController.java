@@ -59,8 +59,13 @@ public class RestauranteController {
     }
 
     @PutMapping("/{restauranteId}")
-    public RestauranteDTO atualizar(@PathVariable Long restauranteId, @RequestBody @Valid Restaurante restaurante) {
-        return assembler.toDTO(restauranteService.atualizar(restauranteId, restaurante));
+    public RestauranteDTO atualizar(@PathVariable Long restauranteId, @RequestBody @Valid RestauranteInput restaurante) {
+
+        Restaurante  restauranteAtual = restauranteService.buscar(restauranteId);
+
+        assembler.copyToEntity(restaurante, restauranteAtual);
+
+        return assembler.toDTO(restauranteService.salvar(restauranteAtual));
     }
 
     @PatchMapping("/{restauranteId}")
@@ -71,8 +76,9 @@ public class RestauranteController {
         merge(campos, restauranteAtual, request);
         validate(restauranteAtual, "restaurante");
 
-        return atualizar(restauranteId, restauranteAtual);
+        return assembler.toDTO(restauranteService.salvar(restauranteAtual));
     }
+
 
     private void validate(Restaurante restaurante, String objectName) {
         BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(restaurante, objectName);
