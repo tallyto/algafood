@@ -43,6 +43,7 @@ public class EstadoService {
     public void excluir(Long estadoId) {
         try {
             estadoRepository.deleteById(estadoId);
+            estadoRepository.flush();
         } catch (DataIntegrityViolationException e) {
             throw new EstadoEmUsoException(estadoId);
         } catch (EmptyResultDataAccessException e) {
