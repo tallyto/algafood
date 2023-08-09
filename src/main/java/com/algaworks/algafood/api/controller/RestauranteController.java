@@ -2,6 +2,7 @@ package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.model.DTO.CozinhaDTO;
 import com.algaworks.algafood.api.model.DTO.RestauranteDTO;
+import com.algaworks.algafood.api.model.input.RestauranteInput;
 import com.algaworks.algafood.core.validation.ValidacaoException;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
@@ -65,7 +66,8 @@ public class RestauranteController {
     };
 
     @PostMapping
-    public RestauranteDTO adicionar(@RequestBody @Valid Restaurante restaurante) {
+    public RestauranteDTO adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
+        Restaurante  restaurante = restauranteInput.toModel();
         return toDTO(restauranteService.salvar(restaurante));
     }
 

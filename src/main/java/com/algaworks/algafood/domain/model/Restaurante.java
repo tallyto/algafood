@@ -20,8 +20,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@ValorZeroIncluiDescricao(valorField = "taxaFrete", descricaoField = "nome",
-descricaoObrigatoria = "Frete Grátis")
+
 @Getter
 @Setter
 @Entity
@@ -37,7 +36,6 @@ public class Restaurante {
 
     @NotNull
     @TaxaFrete
-    @Multiplo(numero = 5)
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
