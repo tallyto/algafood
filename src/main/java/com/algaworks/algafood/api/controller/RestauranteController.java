@@ -22,7 +22,7 @@ import javax.validation.Valid;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("restaurantes")
@@ -39,7 +39,7 @@ public class RestauranteController {
 
     @GetMapping
     public List<RestauranteDTO> listar() {
-        return toCollectionDTO(restauranteRepository.findAll());
+        return RestauranteDTO.toCollectionDTO(restauranteRepository.findAll());
     }
 
     @GetMapping("/{restauranteId}")
@@ -47,12 +47,6 @@ public class RestauranteController {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
         return RestauranteDTO.toDTO(restaurante);
     }
-
-
-
-    private List<RestauranteDTO> toCollectionDTO(List<Restaurante> restaurantes) {
-       return restaurantes.stream().map(restaurante -> RestauranteDTO.toDTO(restaurante)).collect(Collectors.toList());
-    };
 
     @PostMapping
     public RestauranteDTO adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {

@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
 public class RestauranteDTO {
@@ -25,4 +28,9 @@ public class RestauranteDTO {
         restauranteDTO.setCozinha(cozinhaDTO);
         return restauranteDTO;
     }
+
+    public static List<RestauranteDTO> toCollectionDTO(List<Restaurante> restaurantes) {
+        return restaurantes.stream().map(RestauranteDTO::toDTO).collect(Collectors.toList());
+    }
+
 }
