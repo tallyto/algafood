@@ -1,6 +1,5 @@
 package com.algaworks.algafood.api.controller;
 
-import com.algaworks.algafood.api.model.DTO.CozinhaDTO;
 import com.algaworks.algafood.api.model.DTO.RestauranteDTO;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
 import com.algaworks.algafood.core.validation.ValidacaoException;
@@ -46,34 +45,24 @@ public class RestauranteController {
     @GetMapping("/{restauranteId}")
     public RestauranteDTO buscar(@PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
-        return toDTO(restaurante);
+        return RestauranteDTO.toDTO(restaurante);
     }
 
-    private static RestauranteDTO toDTO(Restaurante restaurante) {
-        RestauranteDTO  restauranteDTO = new RestauranteDTO();
-        CozinhaDTO cozinhaDTO  = new CozinhaDTO();
-        restauranteDTO.setId(restaurante.getId());
-        restauranteDTO.setNome(restaurante.getNome());
-        restauranteDTO.setTaxaFrete(restaurante.getTaxaFrete());
-        cozinhaDTO.setNome(restaurante.getCozinha().getNome());
-        cozinhaDTO.setId(restaurante.getCozinha().getId());
-        restauranteDTO.setCozinha(cozinhaDTO);
-        return restauranteDTO;
-    }
+
 
     private List<RestauranteDTO> toCollectionDTO(List<Restaurante> restaurantes) {
-       return restaurantes.stream().map(restaurante -> toDTO(restaurante)).collect(Collectors.toList());
+       return restaurantes.stream().map(restaurante -> RestauranteDTO.toDTO(restaurante)).collect(Collectors.toList());
     };
 
     @PostMapping
     public RestauranteDTO adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
         Restaurante  restaurante = restauranteInput.toModel();
-        return toDTO(restauranteService.salvar(restaurante));
+        return RestauranteDTO.toDTO(restauranteService.salvar(restaurante));
     }
 
     @PutMapping("/{restauranteId}")
     public RestauranteDTO atualizar(@PathVariable Long restauranteId, @RequestBody @Valid Restaurante restaurante) {
-        return toDTO(restauranteService.atualizar(restauranteId, restaurante));
+        return RestauranteDTO.toDTO(restauranteService.atualizar(restauranteId, restaurante));
     }
 
     @PatchMapping("/{restauranteId}")
