@@ -3,6 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V001__criacao_inicial.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V002__cria_tabela_estado.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V003__cria_tabela_cidade.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V004__cria_outras_tabelas.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V006__cria_tabela_pedido.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/testdata/afterMigrate.sql" dialect="MySQL" />
