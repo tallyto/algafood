@@ -17,7 +17,7 @@ public class Endereco {
     private String complemento;
     @Column(name = "endereco_bairro")
     private String bairro;
-    @ManyToOne(fetch = FetchType.LAZY) // lazy = carregamento preguiçoso
+    @ManyToOne // lazy = carregamento preguiçoso
     @JoinColumn(name = "endereco_cidade_id")
     private Cidade cidade;
 
