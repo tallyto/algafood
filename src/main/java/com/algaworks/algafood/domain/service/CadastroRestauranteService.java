@@ -35,5 +35,19 @@ public class CadastroRestauranteService {
             throw new NegocioException(e.getMessage(), e);
         }
     }
+
+    @Transactional
+    public void ativar(Long restauranteId) {
+        Restaurante restauranteAtual = buscar(restauranteId);
+        restauranteAtual.ativar();
+        restauranteRepository.saveAndFlush(restauranteAtual);
+    }
+
+    @Transactional
+    public void inativar(Long restauranteId) {
+        Restaurante restauranteAtual = buscar(restauranteId);
+        restauranteAtual.inativar();
+        restauranteRepository.saveAndFlush(restauranteAtual);
+    }
 }
 
