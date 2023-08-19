@@ -5,7 +5,7 @@ import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
-import com.algaworks.algafood.domain.service.CadastroRestauranteService;
+import com.algaworks.algafood.domain.service.RestauranteService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ class CadastroCozinhaIT {
     CadastroCozinhaService cozinhaService;
 
     @Autowired
-    CadastroRestauranteService restauranteService;
+    RestauranteService restauranteService;
 
     @Test
     public void shouldSucessoAoCadastrarCozinha() {
