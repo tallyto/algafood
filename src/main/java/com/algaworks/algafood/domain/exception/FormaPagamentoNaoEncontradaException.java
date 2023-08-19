@@ -10,7 +10,7 @@ public class FormaPagamentoNaoEncontradaException extends EntidadeNaoEncontradaE
         super(mensagem);
     }
 
-    public FormaPagamentoNaoEncontradaException(Long restauranteId) {
-        this(String.format("Não existe um cadastro de forma de pagamento com código %d", restauranteId));
+    public FormaPagamentoNaoEncontradaException(Long formaPagamentoId) {
+        this(String.format("Não existe um cadastro de forma de pagamento com código %d", formaPagamentoId));
     }
 }
