@@ -2,6 +2,7 @@ package com.algaworks.algafood.domain.service;
 
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.UsuarioNaoEncontradoException;
+import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,9 @@ public class UsuarioService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    GrupoService grupoService;
 
     public List<Usuario> listar() {
         return usuarioRepository.findAll();
@@ -72,4 +76,20 @@ public class UsuarioService {
         usuarioRepository.saveAndFlush(usuario);
     }
 
+    @Transactional
+    public void associarGrupo(Long usuarioId, Long grupoId){
+        Usuario usuario = buscar(usuarioId);
+        Grupo grupo = grupoService.buscar(grupoId);
+        usuario.associar(grupo);
+        usuarioRepository.saveAndFlush(usuario);
+
+    }
+
+    @Transactional
+    public void desassociarGrupo(Long usuarioId, Long grupoId) {
+        Usuario usuario = buscar(usuarioId);
+        Grupo grupo = grupoService.buscar(grupoId);
+        usuario.desassociar(grupo);
+        usuarioRepository.saveAndFlush(usuario);
+    }
 }
