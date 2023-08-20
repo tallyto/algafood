@@ -1,6 +1,9 @@
 package com.algaworks.algafood.domain.service;
 
-import com.algaworks.algafood.domain.exception.*;
+import com.algaworks.algafood.domain.exception.CidadeEmUsoException;
+import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
+import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Estado;
 import com.algaworks.algafood.domain.repository.CidadeRepository;

@@ -1,7 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
 import com.algaworks.algafood.api.model.DTO.UsuarioDTO;
-import com.algaworks.algafood.api.model.input.GrupoInput;
 import com.algaworks.algafood.api.model.input.UsuarioInput;
 import com.algaworks.algafood.api.model.input.UsuarioWithoutPasswordInput;
 import com.algaworks.algafood.domain.model.Usuario;
