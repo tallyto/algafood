@@ -76,5 +76,19 @@ public class RestauranteService {
         restaurante.associarFormaPagamento(formaPagamento);
         restauranteRepository.saveAndFlush(restaurante);
     }
+
+    @Transactional
+    public void abertura(Long restauranteId) {
+        Restaurante restauranteAtual = buscar(restauranteId);
+        restauranteAtual.abertura();
+        restauranteRepository.saveAndFlush(restauranteAtual);
+    }
+
+    @Transactional
+    public void fechamento(Long restauranteId) {
+        Restaurante restauranteAtual = buscar(restauranteId);
+        restauranteAtual.fechamento();
+        restauranteRepository.saveAndFlush(restauranteAtual);
+    }
 }
 
