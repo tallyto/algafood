@@ -39,6 +39,7 @@ public class GrupoService {
     public void remover(Long grupoId){
         Grupo grupo = buscar(grupoId);
         grupoRepository.delete(grupo);
+        grupoRepository.flush();
     }
 
 }
