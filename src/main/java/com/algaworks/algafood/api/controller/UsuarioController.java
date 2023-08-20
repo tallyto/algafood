@@ -53,12 +53,7 @@ public class UsuarioController {
 
     @PutMapping("{usuarioId}/senha")
     public ResponseEntity<?> alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senhaInput) {
-        Usuario usuarioExistente = usuarioService.buscar(usuarioId);
-        if(!usuarioExistente.getSenha().equals(senhaInput.getSenhaAtual())){
-            throw new NegocioException("Senha atual não corresponde");
-        }
-        usuarioExistente.setSenha(senhaInput.getNovaSenha());
-        usuarioRepository.save(usuarioExistente);
+        usuarioService.alterarSenha(usuarioId, senhaInput.getSenhaAtual(), senhaInput.getNovaSenha());
         return ResponseEntity.noContent().build();
     }
 

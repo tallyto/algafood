@@ -1,5 +1,6 @@
 package com.algaworks.algafood.domain.service;
 
+import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.UsuarioNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.repository.UsuarioRepository;
@@ -48,6 +49,16 @@ public class UsuarioService {
           log.error("usuario não encontrado", e);
           throw new UsuarioNaoEncontradoException(id);
       }
+    }
+
+    @Transactional
+    public void alterarSenha(Long usuarioId, String senhaAtual, String novaSenha){
+        Usuario usuario = buscar(usuarioId);
+        if(!usuario.senhaCoincideCom(senhaAtual)){
+            throw new NegocioException("Senha atual informada não coincide com a senha do usuário.");
+        }
+        usuario.setSenha(novaSenha);
+        usuarioRepository.saveAndFlush(usuario);
     }
 
 }

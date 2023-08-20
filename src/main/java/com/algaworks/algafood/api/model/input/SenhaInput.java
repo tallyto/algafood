@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class SenhaInput {
     @NotBlank
-    public String senhaAtual;
+    private String senhaAtual;
     @NotBlank
-    public String novaSenha;
+    private String novaSenha;
 }
