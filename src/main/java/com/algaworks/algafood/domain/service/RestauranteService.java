@@ -3,10 +3,7 @@ package com.algaworks.algafood.domain.service;
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException;
-import com.algaworks.algafood.domain.model.Cidade;
-import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.model.FormaPagamento;
-import com.algaworks.algafood.domain.model.Restaurante;
+import com.algaworks.algafood.domain.model.*;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +22,9 @@ public class RestauranteService {
 
     @Autowired
     private FormaPagamentoService formaPagamentoService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     public Restaurante buscar(Long restauranteId) {
         return restauranteRepository.findById(restauranteId).orElseThrow(
@@ -74,6 +74,22 @@ public class RestauranteService {
         Restaurante restaurante = buscar(restauranteId);
         FormaPagamento formaPagamento = formaPagamentoService.buscar(formaPagamentoId);
         restaurante.associarFormaPagamento(formaPagamento);
+        restauranteRepository.saveAndFlush(restaurante);
+    }
+
+    @Transactional
+    public void desassociarUsuarioResponsavel(Long restauranteId, Long usuarioId) {
+        Restaurante restaurante = buscar(restauranteId);
+        Usuario usuario = usuarioService.buscar(usuarioId);
+        restaurante.desassociarUsuarioResponsavel(usuario);
+        restauranteRepository.saveAndFlush(restaurante);
+    }
+
+    @Transactional
+    public void associarUsuarioResponsavel(Long restauranteId, Long usuarioId) {
+        Restaurante restaurante = buscar(restauranteId);
+        Usuario usuario = usuarioService.buscar(usuarioId);
+        restaurante.associarUsuarioResponsavel(usuario);
         restauranteRepository.saveAndFlush(restaurante);
     }
 
