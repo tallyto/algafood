@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class RestauranteService {
     @Autowired
@@ -28,8 +30,7 @@ public class RestauranteService {
 
     public Restaurante buscar(Long restauranteId) {
         return restauranteRepository.findById(restauranteId).orElseThrow(
-            () -> new RestauranteNaoEncontradoException(
-                restauranteId));
+            () -> new RestauranteNaoEncontradoException(restauranteId));
     }
 
     @Transactional
@@ -105,6 +106,16 @@ public class RestauranteService {
         Restaurante restauranteAtual = buscar(restauranteId);
         restauranteAtual.fechamento();
         restauranteRepository.saveAndFlush(restauranteAtual);
+    }
+
+    @Transactional
+    public void ativar(List<Long> restauranteIds) {
+        restauranteIds.forEach(this::ativar);
+    }
+
+    @Transactional
+    public void inativar(List<Long> restauranteIds) {
+        restauranteIds.forEach(this::inativar);
     }
 }
 
