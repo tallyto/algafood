@@ -23,7 +23,7 @@ public class PedidoService {
     }
 
     public Pedido buscar(Long pedidoId){
-        return pedidoRepository.findById(pedidoId).orElseThrow(()-> new PedidoNaoEncontradoException(pedidoId));
+        return pedidoRepository.findByIdWithAssociations(pedidoId).orElseThrow(()-> new PedidoNaoEncontradoException(pedidoId));
     }
 
     @Transactional
