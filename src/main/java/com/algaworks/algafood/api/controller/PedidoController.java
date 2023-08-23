@@ -1,7 +1,9 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.PedidoAssembler;
+import com.algaworks.algafood.api.assembler.PedidoResumoAssembler;
 import com.algaworks.algafood.api.model.DTO.PedidoDTO;
+import com.algaworks.algafood.api.model.DTO.PedidoResumoDTO;
 import com.algaworks.algafood.api.model.input.PedidoInput;
 import com.algaworks.algafood.domain.model.Pedido;
 import com.algaworks.algafood.domain.service.PedidoService;
@@ -21,10 +23,13 @@ public class PedidoController {
     @Autowired
     private PedidoAssembler assembler;
 
+    @Autowired
+    private PedidoResumoAssembler resumoAssembler;
+
     @GetMapping
-    public List<PedidoDTO> listar(){
+    public List<PedidoResumoDTO> listar(){
         List<Pedido> pedidos = pedidoService.listar();
-        return assembler.toCollectionDTO(pedidos);
+        return resumoAssembler.toCollectionDTO(pedidos);
     }
 
     @GetMapping("{pedidoId}")

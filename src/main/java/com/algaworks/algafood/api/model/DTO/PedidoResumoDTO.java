@@ -1,16 +1,15 @@
 package com.algaworks.algafood.api.model.DTO;
 
-import com.algaworks.algafood.domain.model.*;
+import com.algaworks.algafood.domain.model.FormaPagamento;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.List;
 
 @Getter
 @Setter
-public class PedidoDTO {
+public class PedidoResumoDTO {
     private Long id;
 
     private BigDecimal subtotal;
@@ -20,18 +19,10 @@ public class PedidoDTO {
     private BigDecimal valorTotal;
 
     private OffsetDateTime dataCriacao;
-    
-    private OffsetDateTime dataConfirmacao;
-
-    private OffsetDateTime dataCancelamento;
 
     private OffsetDateTime dataEntrega;
 
     private String status;
-
-    private List<ItemPedidoDTO> itensPedido;
-
-    private FormaPagamento formaPagamento;
 
     private RestauranteResumoDTO restaurante;
 
