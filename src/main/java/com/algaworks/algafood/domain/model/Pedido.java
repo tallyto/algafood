@@ -1,5 +1,6 @@
 package com.algaworks.algafood.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,20 +37,21 @@ public class Pedido {
 
     private OffsetDateTime dataEntrega;
 
-    private StatusPedido status;
+    @Enumerated(EnumType.ORDINAL)
+    private StatusPedido status = StatusPedido.CRIADO;
 
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY)
     private List<ItemPedido> itens;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(nullable = false)
     private FormaPagamento formaPagamento;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Restaurante restaurante;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_client_id", nullable = false)
     private Usuario cliente;
 }

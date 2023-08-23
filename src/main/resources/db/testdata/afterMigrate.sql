@@ -75,6 +75,26 @@ insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) val
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (4, 1);
 insert into produto (id, ativo, descricao, nome, preco, restaurante_id)  values (1, true, 'carne de sol na chapa, baião de dois, vatapa e macaxeira frita', 'Carne de Sol na Chapa', 12, 1);
 insert into produto (id, ativo, descricao, nome, preco, restaurante_id) values (2, true, 'tambaqui assado, acompanha arroz e vinagrete', 'tambaqui assado', 24, 1);
+-- Produto 3
+INSERT INTO produto (ativo, descricao, nome, preco, restaurante_id)
+VALUES (true, 'frango grelhado, batata assada e salada', 'Frango Grelhado', 15, 1);
+
+-- Produto 4
+INSERT INTO produto (ativo, descricao, nome, preco, restaurante_id)
+VALUES (true, 'feijoada completa com arroz, couve, farofa e laranja', 'Feijoada Completa', 18, 1);
+
+-- Produto 5
+INSERT INTO produto (ativo, descricao, nome, preco, restaurante_id)
+VALUES (true, 'salada de alface, tomate, cenoura e molho especial', 'Salada Mista', 8, 1);
+
+-- Produto 6
+INSERT INTO produto (ativo, descricao, nome, preco, restaurante_id)
+VALUES (true, 'sorvete de chocolate com calda de morango', 'Sorvete de Chocolate', 6, 1);
+
+-- Produto 7
+INSERT INTO produto (ativo, descricao, nome, preco, restaurante_id)
+VALUES (true, 'arroz doce com canela e leite condensado', 'Arroz Doce', 4.5, 1);
+
 insert into usuario (id, nome, email, senha, data_cadastro) values (1,'fulano','teste@teste.com', '123456', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro) values (2, 'beltrano', 'beltrano@teste.com', 'abcdef', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro) values (3, 'ciclano', 'ciclano@teste.com', 'ghijkl', utc_timestamp);
@@ -113,3 +133,48 @@ insert into restaurante_usuario_responsavel(restaurante_id, usuario_id) values (
 insert into restaurante_usuario_responsavel(restaurante_id, usuario_id) values (1,2);
 insert into restaurante_usuario_responsavel(restaurante_id, usuario_id) values (2,2);
 insert into restaurante_usuario_responsavel(restaurante_id, usuario_id) values (3,2);
+
+
+
+
+# Inserir pedidos
+-- Inserção Básica
+INSERT INTO pedido (data_criacao, subtotal, taxa_frete, valor_total, usuario_client_id, forma_pagamento_id, restaurante_id)
+VALUES ('2023-08-22 10:00:00', 50.00, 5.00, 55.00, 1, 1, 1);
+
+-- Inserção com Status e Data de Entrega
+INSERT INTO pedido (data_criacao, data_entrega, status, subtotal, taxa_frete, valor_total, usuario_client_id, forma_pagamento_id, restaurante_id)
+VALUES ('2023-08-22 11:30:00', '2023-08-23 18:00:00', 0, 75.00, 8.00, 83.00, 2, 2, 2);
+
+-- Inserção com Cancelamento
+INSERT INTO pedido (data_criacao, data_cancelamento, status, subtotal, taxa_frete, valor_total, usuario_client_id, forma_pagamento_id, restaurante_id)
+VALUES ('2023-08-22 15:45:00', '2023-08-22 16:30:00', 0, 30.00, 3.50, 33.50, 3, 1, 3);
+
+-- Inserção com Confirmação
+INSERT INTO pedido (data_criacao, data_confirmacao, status, subtotal, taxa_frete, valor_total, usuario_client_id, forma_pagamento_id, restaurante_id)
+VALUES ('2023-08-22 09:15:00', '2023-08-22 10:00:00', 0, 60.00, 6.00, 66.00, 4, 3, 4);
+
+-- Inserção Completa
+INSERT INTO pedido (data_criacao, data_confirmacao, data_entrega, data_cancelamento, status, subtotal, taxa_frete, valor_total, usuario_client_id, forma_pagamento_id, restaurante_id)
+VALUES ('2023-08-22 14:20:00', '2023-08-22 15:00:00', '2023-08-23 12:30:00', NULL, 0, 90.00, 10.00, 100.00, 5, 3, 4);
+
+# Inserir items de pedido
+-- Pedido 1
+INSERT INTO item_pedido (observacao, preco_total, preco_unitario, quantidade, pedido_id, produto_id)
+VALUES ('Sem cebola', 12.50, 2.50, 5, 1, 1);
+
+-- Pedido 2
+INSERT INTO item_pedido (observacao, preco_total, preco_unitario, quantidade, pedido_id, produto_id)
+VALUES ('Molho extra', 9.75, 3.25, 3, 2, 2);
+
+-- Pedido 3
+INSERT INTO item_pedido (observacao, preco_total, preco_unitario, quantidade, pedido_id, produto_id)
+VALUES ('Bem passado', 18.00, 6.00, 2, 3, 3);
+
+-- Pedido 4
+INSERT INTO item_pedido (observacao, preco_total, preco_unitario, quantidade, pedido_id, produto_id)
+VALUES (NULL, 6.40, 1.60, 4, 4, 4);
+
+-- Pedido 5
+INSERT INTO item_pedido (observacao, preco_total, preco_unitario, quantidade, pedido_id, produto_id)
+VALUES ('Adicionar queijo', 7.20, 2.40, 3, 5, 5);
