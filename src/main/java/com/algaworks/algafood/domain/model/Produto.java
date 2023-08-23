@@ -26,7 +26,7 @@ public class Produto {
     @Column(nullable = false)
     private boolean ativo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurante_id")
     private Restaurante restaurante;
 }

@@ -1,8 +1,10 @@
 package com.algaworks.algafood.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -18,6 +20,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@ToString
 public class Restaurante {
     @Id
     // passa a responsabilidade de gerar a chave para o banco de dados
@@ -30,8 +33,10 @@ public class Restaurante {
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
-    @ManyToOne // (fetch = FetchType.LAZY) lazy = carregamento preguiçoso
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cozinha_id", nullable = false)
+    @ToString.Exclude
     Cozinha cozinha;
 
     @Embedded // endereço é um tipo embutido
@@ -49,19 +54,22 @@ public class Restaurante {
     @Column(name = "data_atualizacao", nullable = false, columnDefinition = "datetime")
     private OffsetDateTime dataAtualizacao;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "restaurante_forma_pagamento",
         joinColumns = @JoinColumn(name = "restaurante_id"),
         inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
+    @ToString.Exclude
     private Set<FormaPagamento> formasPagamento = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "restaurante_usuario_responsavel",
         joinColumns = @JoinColumn(name = "restaurante_id"),
         inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    @ToString.Exclude
     private Set<Usuario> usuarios = new HashSet<>();
 
-    @OneToMany(mappedBy = "restaurante")
+    @OneToMany(mappedBy = "restaurante", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Produto> produtos = new ArrayList<>();
 
     public void ativar() {

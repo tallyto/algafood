@@ -2,6 +2,7 @@ package com.algaworks.algafood.domain.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,7 +20,7 @@ public class Grupo {
     @Column(nullable = false)
     private String nome;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "grupo_permissao",
         joinColumns = @JoinColumn(name = "grupo_id"),
         inverseJoinColumns = @JoinColumn(name = "permissao_id"))
