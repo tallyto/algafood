@@ -1,5 +1,6 @@
 package com.algaworks.algafood.domain.model;
 
+import com.algaworks.algafood.domain.exception.NegocioException;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.proxy.HibernateProxy;
@@ -51,6 +52,7 @@ public class Pedido {
     @JoinColumn(name = "usuario_cliente_id", nullable = false)
     private Usuario cliente;
 
+    // CascadeType.ALL reflete as alterações para a entidade relacionada
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<ItemPedido> itens = new ArrayList<>();
@@ -59,11 +61,35 @@ public class Pedido {
         getItens().forEach(ItemPedido::calcularPrecoTotal);
 
         this.subtotal = getItens().stream()
-            .map(item -> item.getPrecoTotal())
+            .map(ItemPedido::getPrecoTotal)
             .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         this.valorTotal = this.subtotal.add(this.taxaFrete);
     }
+
+    public void confirmar(){
+        setStatus(StatusPedido.CONFIRMADO);
+        setDataConfirmacao(OffsetDateTime.now());
+    }
+
+    public void entregar(){
+        setStatus(StatusPedido.ENTREGUE);
+        setDataEntrega(OffsetDateTime.now());
+    }
+
+    public void cancelar(){
+        setStatus(StatusPedido.CANCELADO);
+        setDataCancelamento(OffsetDateTime.now());
+    }
+
+    private void setStatus(StatusPedido novoStatus){
+        if(getStatus().naoPodeAlterarPara(novoStatus)){
+            throw new NegocioException(String.format("Status do pedido %d não pode alterado de %s para %s", getId(),
+                getStatus().getDescricao(),novoStatus.getDescricao()));
+        }
+        this.status = novoStatus;
+    }
+
 
     @Override
     public final boolean equals(Object o) {
