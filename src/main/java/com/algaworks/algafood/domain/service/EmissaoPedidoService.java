@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Service
@@ -62,24 +60,14 @@ public class EmissaoPedidoService {
     }
 
     private void validarItens(Pedido pedido) {
-        List<ItemPedido> novosItens = new ArrayList<>();
-
-        for (ItemPedido item : pedido.getItens()) {
+        pedido.getItens().forEach(item -> {
             Produto produto = cadastroProduto.buscarOuFalhar(
                 pedido.getRestaurante().getId(), item.getProduto().getId());
 
-            ItemPedido novoItem = new ItemPedido();
-            novoItem.setPedido(pedido);
-            novoItem.setProduto(produto);
-            novoItem.setPrecoUnitario(produto.getPreco());
-            novoItem.setQuantidade(item.getQuantidade()); // Configura a quantidade do novo item
-            novoItem.setObservacao(item.getObservacao()); // Configura a observação do novo item
-
-            novosItens.add(novoItem);
-        }
-
-        pedido.getItens().clear(); // Limpa a lista de itens atual
-        pedido.getItens().addAll(novosItens); // Adiciona os novos itens à lista do pedido
+            item.setPedido(pedido);
+            item.setProduto(produto);
+            item.setPrecoUnitario(produto.getPreco());
+        });
     }
 
 
