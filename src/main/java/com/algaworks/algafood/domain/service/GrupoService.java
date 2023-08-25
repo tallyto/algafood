@@ -1,10 +1,11 @@
 package com.algaworks.algafood.domain.service;
 
-import com.algaworks.algafood.domain.exception.GrupoNaoEncontradoException;
+import com.algaworks.algafood.domain.exception.*;
 import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.model.Permissao;
 import com.algaworks.algafood.domain.repository.GrupoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +24,12 @@ public class GrupoService {
         return grupoRepository.findAll();
     }
 
-    public Grupo buscar(Long grupoId){
-        return grupoRepository.findById(grupoId).orElseThrow(()-> new GrupoNaoEncontradoException(grupoId));
+    public Grupo buscar(Long grupoId) {
+        return grupoRepository.findById(grupoId).orElseThrow(() -> new GrupoNaoEncontradoException(grupoId));
     }
 
     @Transactional
-    public Grupo criar(Grupo grupo){
+    public Grupo criar(Grupo grupo) {
         return grupoRepository.saveAndFlush(grupo);
     }
 
@@ -40,10 +41,14 @@ public class GrupoService {
     }
 
     @Transactional
-    public void remover(Long grupoId){
-        Grupo grupo = buscar(grupoId);
-        grupoRepository.delete(grupo);
-        grupoRepository.flush();
+    public void remover(Long grupoId) {
+        try {
+            Grupo grupo = buscar(grupoId);
+            grupoRepository.delete(grupo);
+            grupoRepository.flush();
+        } catch (DataIntegrityViolationException e) {
+            throw new GrupoEmUsoException(grupoId);
+        }
     }
 
     @Transactional

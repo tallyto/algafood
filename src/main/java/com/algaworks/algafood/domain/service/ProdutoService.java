@@ -22,6 +22,11 @@ public class ProdutoService {
         return produtoRepository.findById(produtoId).orElseThrow(() -> new ProdutoNaoEncontradoException(produtoId));
     }
 
+    public Produto buscarOuFalhar(Long restauranteId, Long produtoId) {
+        return produtoRepository.findById(restauranteId, produtoId)
+            .orElseThrow(() -> new ProdutoNaoEncontradoException(restauranteId, produtoId));
+    }
+
     @Transactional
     public Produto adicionar(Produto produto) {
         return produtoRepository.save(produto);
