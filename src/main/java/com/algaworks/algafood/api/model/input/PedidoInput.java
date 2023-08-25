@@ -1,37 +1,31 @@
 package com.algaworks.algafood.api.model.input;
 
-import com.algaworks.algafood.domain.model.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
 @Setter
 public class PedidoInput {
 
-    @Min(0)
-    private BigDecimal subtotal;
-
-    @Min(0)
-    private BigDecimal taxaFrete;
-
-    @Min(0)
-    private BigDecimal valorTotal;
-
+    @Valid
     @NotNull
-    private List<ItemPedido> itens;
+    private RestauranteIdInput restaurante;
 
+    @Valid
     @NotNull
-    private FormaPagamento formaPagamento;
+    private EnderecoInput enderecoEntrega;
 
+    @Valid
     @NotNull
-    private Restaurante restaurante;
+    private FormaPagamentoIdInput formaPagamento;
 
+    @Valid
+    @Size(min = 1)
     @NotNull
-    private Usuario cliente;
+    private List<ItemPedidoInput> itens;
 }
