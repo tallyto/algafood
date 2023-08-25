@@ -138,23 +138,23 @@ insert into restaurante_usuario_responsavel(restaurante_id, usuario_id) values (
 # Inserir pedidos
 -- Inserção Básica
 INSERT INTO pedido (data_criacao, subtotal, taxa_frete, valor_total, usuario_cliente_id, forma_pagamento_id, restaurante_id, status)
-VALUES ('2023-08-22 10:00:00', 50.00, 5.00, 55.00, 1, 1, 1, 1);
+VALUES ('2023-08-22 10:00:00', 50.00, 5.00, 55.00, 1, 1, 1, 'CRIADO');
 
 -- Inserção com Status e Data de Entrega
 INSERT INTO pedido (data_criacao, data_entrega, status, subtotal, taxa_frete, valor_total, usuario_cliente_id, forma_pagamento_id, restaurante_id)
-VALUES ('2023-08-22 11:30:00', '2023-08-23 18:00:00', 0, 75.00, 8.00, 83.00, 2, 2, 2);
+VALUES ('2023-08-22 11:30:00', '2023-08-23 18:00:00', 'CRIADO', 75.00, 8.00, 83.00, 2, 2, 2);
 
 -- Inserção com Cancelamento
 INSERT INTO pedido (data_criacao, data_cancelamento, status, subtotal, taxa_frete, valor_total, usuario_cliente_id, forma_pagamento_id, restaurante_id)
-VALUES ('2023-08-22 15:45:00', '2023-08-22 16:30:00', 0, 30.00, 3.50, 33.50, 3, 1, 3);
+VALUES ('2023-08-22 15:45:00', '2023-08-22 16:30:00', 'CRIADO', 30.00, 3.50, 33.50, 3, 1, 3);
 
 -- Inserção com Confirmação
 INSERT INTO pedido (data_criacao, data_confirmacao, status, subtotal, taxa_frete, valor_total, usuario_cliente_id, forma_pagamento_id, restaurante_id)
-VALUES ('2023-08-22 09:15:00', '2023-08-22 10:00:00', 0, 60.00, 6.00, 66.00, 4, 3, 4);
+VALUES ('2023-08-22 09:15:00', '2023-08-22 10:00:00', 'CRIADO', 60.00, 6.00, 66.00, 4, 3, 4);
 
 -- Inserção Completa
 INSERT INTO pedido (data_criacao, data_confirmacao, data_entrega, data_cancelamento, status, subtotal, taxa_frete, valor_total, usuario_cliente_id, forma_pagamento_id, restaurante_id)
-VALUES ('2023-08-22 14:20:00', '2023-08-22 15:00:00', '2023-08-23 12:30:00', NULL, 0, 90.00, 10.00, 100.00, 5, 3, 4);
+VALUES ('2023-08-22 14:20:00', '2023-08-22 15:00:00', '2023-08-23 12:30:00', NULL, 'CRIADO', 90.00, 10.00, 100.00, 5, 3, 4);
 
 # Inserir items de pedido
 -- Pedido 1
