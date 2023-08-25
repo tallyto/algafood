@@ -7,6 +7,7 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V004__cria_outras_tabelas.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V006__cria_tabela_pedido.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V009__cria_tabela_restaurante_usuario_responsavel.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V010__cria-coluna-codigo-pedido.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/testdata/afterMigrate.sql" dialect="MySQL" />
   </component>
 </project>

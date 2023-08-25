@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 public class PedidoResumoDTO {
-    private Long id;
+    private String codigo;
 
     private BigDecimal subtotal;
 
