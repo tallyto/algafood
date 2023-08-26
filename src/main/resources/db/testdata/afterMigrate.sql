@@ -154,15 +154,15 @@ VALUES (true, 'feijoada completa com arroz, couve, farofa e laranja', 'Feijoada 
 
 -- Produto 5
 INSERT INTO produto (ativo, descricao, nome, preco, restaurante_id)
-VALUES (true, 'salada de alface, tomate, cenoura e molho especial', 'Salada Mista', 8, 1);
+VALUES (false, 'salada de alface, tomate, cenoura e molho especial', 'Salada Mista', 8, 1);
 
 -- Produto 6
 INSERT INTO produto (ativo, descricao, nome, preco, restaurante_id)
-VALUES (true, 'sorvete de chocolate com calda de morango', 'Sorvete de Chocolate', 6, 1);
+VALUES (false, 'sorvete de chocolate com calda de morango', 'Sorvete de Chocolate', 6, 1);
 
 -- Produto 7
 INSERT INTO produto (ativo, descricao, nome, preco, restaurante_id)
-VALUES (true, 'arroz doce com canela e leite condensado', 'Arroz Doce', 4.5, 1);
+VALUES (false, 'arroz doce com canela e leite condensado', 'Arroz Doce', 4.5, 1);
 
 insert into usuario (id, nome, email, senha, data_cadastro)
 values (1, 'fulano', 'teste@teste.com', '123456', utc_timestamp);

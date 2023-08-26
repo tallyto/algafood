@@ -6,6 +6,7 @@ import com.algaworks.algafood.api.model.input.ProdutoInput;
 import com.algaworks.algafood.domain.exception.ProdutoNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Produto;
 import com.algaworks.algafood.domain.model.Restaurante;
+import com.algaworks.algafood.domain.repository.ProdutoRepository;
 import com.algaworks.algafood.domain.service.ProdutoService;
 import com.algaworks.algafood.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,21 @@ public class RestauranteProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
     @GetMapping
-    public List<ProdutoDTO> listar(@PathVariable Long restauranteId) {
+    public List<ProdutoDTO> listar(@RequestParam(required = false) boolean incluirInativos, @PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
-        return assembler.toCollectionDTO(restaurante.getProdutos());
+        if(incluirInativos){
+            return assembler.toCollectionDTO(produtoRepository.findAllByRestaurante(restaurante));
+        }
+        return assembler.toCollectionDTO(produtoRepository.findAtivosByRestaurante(restaurante));
     }
 
     @GetMapping("{produtoId}")
     public ProdutoDTO buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
-        List<Produto> produtos = assembler.toCollectionEntity(listar(restauranteId));
+        List<Produto> produtos = restauranteService.buscar(restauranteId).getProdutos();
 
         Produto item = produtos.stream()
             .filter(produto -> produto.getId().equals(produtoId))
