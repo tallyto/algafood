@@ -47,11 +47,11 @@ public class RestauranteController {
     @Autowired
     private RestauranteModelAssembler assembler;
 
-    @JsonView(RestauranteView.Resumo.class)
-    @GetMapping
-    public List<RestauranteDTO> listar() {
-        return assembler.toCollectionDTO(restauranteRepository.findAll());
-    }
+//    @JsonView(RestauranteView.Resumo.class)
+//    @GetMapping
+//    public List<RestauranteDTO> listar() {
+//        return assembler.toCollectionDTO(restauranteRepository.findAll());
+//    }
 
     @GetMapping
     public MappingJacksonValue viewDinamica(@RequestParam(required = false) String projecao){
