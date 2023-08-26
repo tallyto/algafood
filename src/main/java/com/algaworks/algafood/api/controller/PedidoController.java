@@ -38,29 +38,29 @@ public class PedidoController {
     @Autowired
     private PedidoResumoAssembler resumoAssembler;
 
-    @GetMapping
-    public MappingJacksonValue listar(@RequestParam(required = false) String campos) {
-        List<Pedido> todosPedidos = pedidoRepository.findAll();
-        List<PedidoResumoDTO> pedidoResumoDTOS = resumoAssembler.toCollectionDTO(todosPedidos);
-        MappingJacksonValue pedidosWrapper = new MappingJacksonValue(pedidoResumoDTOS);
-        SimpleFilterProvider filterProvider = new SimpleFilterProvider();
-        filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.serializeAll());
-
-        if(StringUtils.isNotBlank(campos)){
-            filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.filterOutAllExcept(campos.split(",")));
-        }
-
-        pedidosWrapper.setFilters(filterProvider);
-
-        return pedidosWrapper;
-    }
-
 //    @GetMapping
-//    public List<PedidoResumoDTO> listar() {
+//    public MappingJacksonValue listar(@RequestParam(required = false) String campos) {
 //        List<Pedido> todosPedidos = pedidoRepository.findAll();
+//        List<PedidoResumoDTO> pedidoResumoDTOS = resumoAssembler.toCollectionDTO(todosPedidos);
+//        MappingJacksonValue pedidosWrapper = new MappingJacksonValue(pedidoResumoDTOS);
+//        SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+//        filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.serializeAll());
 //
-//        return resumoAssembler.toCollectionDTO(todosPedidos);
+//        if(StringUtils.isNotBlank(campos)){
+//            filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.filterOutAllExcept(campos.split(",")));
+//        }
+//
+//        pedidosWrapper.setFilters(filterProvider);
+//
+//        return pedidosWrapper;
 //    }
+
+    @GetMapping
+    public List<PedidoResumoDTO> listar() {
+        List<Pedido> todosPedidos = pedidoRepository.findAll();
+
+        return resumoAssembler.toCollectionDTO(todosPedidos);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
