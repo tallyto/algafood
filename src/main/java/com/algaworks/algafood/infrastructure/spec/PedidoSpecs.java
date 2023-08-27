@@ -1,7 +1,7 @@
 package com.algaworks.algafood.infrastructure.spec;
 
 import com.algaworks.algafood.domain.model.Pedido;
-import com.algaworks.algafood.domain.repository.filter.PedidoFilter;
+import com.algaworks.algafood.domain.model.filter.PedidoFilter;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
@@ -34,10 +34,6 @@ public class PedidoSpecs {
 
             if (filter.getDataCriacaoFim() != null) {
                 predicates.add(builder.lessThanOrEqualTo(root.get("dataCriacao"), filter.getDataCriacaoFim()));
-            }
-
-            if (filter.getOrdernarPor() != null) {
-                query.orderBy(builder.asc(root.get(filter.getOrdernarPor())));
             }
 
             return builder.and(predicates.toArray(new Predicate[0]));
