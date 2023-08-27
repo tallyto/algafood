@@ -1,11 +1,13 @@
 package com.algaworks.algafood.domain.model.filter;
 
+import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.OffsetDateTime;
 
 @Setter
+@Getter
 public class VendaDiariaFilter {
     private Long restauranteId;
 
