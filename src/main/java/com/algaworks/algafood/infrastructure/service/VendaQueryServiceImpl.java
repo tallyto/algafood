@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.Predicate;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -20,7 +20,7 @@ public class VendaQueryServiceImpl implements VendaQueryService {
     private EntityManager manager;
 
     @Override
-    public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filter) {
+    public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filter, String timeOffset) {
         var builder = manager.getCriteriaBuilder();
         var query = builder.createQuery(VendaDiaria.class);
         var root = query.from(Pedido.class);
@@ -44,7 +44,10 @@ public class VendaQueryServiceImpl implements VendaQueryService {
         ));
 
 
-        var functionDateDataCriacao = builder.function("date", LocalDate.class, root.get("dataCriacao"));
+        var functionConvertTzDataCriacao = builder.function("convert_tz", Date.class,  root.get("dataCriacao"),
+            builder.literal("+00:00"), builder.literal(timeOffset));
+
+        var functionDateDataCriacao = builder.function("date", Date.class, functionConvertTzDataCriacao);
 
         var selection = builder.construct(VendaDiaria.class,
             functionDateDataCriacao,
