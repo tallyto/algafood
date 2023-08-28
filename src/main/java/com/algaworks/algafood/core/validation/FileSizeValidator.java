@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class FileSizeValidator implements ConstraintValidator<FileSize, MultipartFile>{
+public class FileSizeValidator implements ConstraintValidator<FileSize, MultipartFile> {
 
     private DataSize maxSize;
 

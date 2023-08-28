@@ -16,7 +16,9 @@ import java.util.List;
 @Entity
 public class Cozinha {
 
-    public Cozinha() {}
+    public Cozinha() {
+    }
+
     public Cozinha(String nome) {
         this.nome = nome;
     }

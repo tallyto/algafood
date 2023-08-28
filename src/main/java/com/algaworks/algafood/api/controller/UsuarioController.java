@@ -31,12 +31,12 @@ public class UsuarioController {
     }
 
     @GetMapping("{usuarioId}")
-    public UsuarioDTO buscar(@PathVariable Long usuarioId){
+    public UsuarioDTO buscar(@PathVariable Long usuarioId) {
         return assembler.toDTO(usuarioService.buscar(usuarioId));
     }
 
     @PostMapping()
-    public UsuarioDTO criar(@RequestBody @Valid UsuarioInput usuarioInput){
+    public UsuarioDTO criar(@RequestBody @Valid UsuarioInput usuarioInput) {
         Usuario usuario = assembler.toEntity(usuarioInput);
         return assembler.toDTO(usuarioService.criar(usuario));
     }
@@ -44,7 +44,7 @@ public class UsuarioController {
     @PutMapping("{usuarioId}")
     public UsuarioDTO atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioWithoutPasswordInput usuarioInput) {
         Usuario usuario = assembler.toEntityUpdate(usuarioInput);
-        return assembler.toDTO(usuarioService.atualizar(usuarioId,usuario));
+        return assembler.toDTO(usuarioService.atualizar(usuarioId, usuario));
     }
 
     @PutMapping("{usuarioId}/senha")

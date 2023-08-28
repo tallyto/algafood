@@ -25,7 +25,7 @@ public class FormaPagamentoService {
 
     public FormaPagamento buscar(Long formaPagamentoId) {
         return formaPagamentoRepository.findById(formaPagamentoId)
-                .orElseThrow(() -> new FormaPagamentoNaoEncontradaException(formaPagamentoId));
+            .orElseThrow(() -> new FormaPagamentoNaoEncontradaException(formaPagamentoId));
     }
 
 

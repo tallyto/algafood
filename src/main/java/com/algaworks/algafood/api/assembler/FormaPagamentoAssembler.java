@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class FormaPagamentoAssembler {
     @Autowired
     ModelMapper modelMapper;
+
     public FormaPagamentoDTO toDTO(FormaPagamento formaPagamento) {
         return modelMapper.map(formaPagamento, FormaPagamentoDTO.class);
     }
@@ -23,7 +24,7 @@ public class FormaPagamentoAssembler {
         return formaPagamentos.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-    public  FormaPagamento toEntity(FormaPagamentoInput formaPagamentoInput) {
+    public FormaPagamento toEntity(FormaPagamentoInput formaPagamentoInput) {
         return modelMapper.map(formaPagamentoInput, FormaPagamento.class);
     }
 

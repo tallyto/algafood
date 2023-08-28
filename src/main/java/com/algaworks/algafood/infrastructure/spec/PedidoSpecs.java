@@ -14,7 +14,7 @@ public class PedidoSpecs {
 
     public static Specification<Pedido> usandoFiltro(PedidoFilter filter) {
         return ((root, query, builder) -> {
-            if(Pedido.class.equals(query.getResultType())){
+            if (Pedido.class.equals(query.getResultType())) {
                 root.fetch("restaurante").fetch("cozinha");
                 root.fetch("cliente");
             }

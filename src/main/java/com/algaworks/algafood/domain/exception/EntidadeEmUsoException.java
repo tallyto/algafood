@@ -1,7 +1,6 @@
 package com.algaworks.algafood.domain.exception;
 
 
-
 import java.io.Serial;
 
 public abstract class EntidadeEmUsoException extends NegocioException {

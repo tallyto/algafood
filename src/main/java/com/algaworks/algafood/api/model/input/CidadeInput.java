@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CidadeInput {
-    private String  nome;
+    private String nome;
     private EstadoIdInput estado;
 }

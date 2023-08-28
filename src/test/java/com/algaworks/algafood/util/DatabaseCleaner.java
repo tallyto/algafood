@@ -56,7 +56,7 @@ public class DatabaseCleaner {
         List<String> tableNames = new ArrayList<>();
 
         DatabaseMetaData metaData = connection.getMetaData();
-        ResultSet rs = metaData.getTables(connection.getCatalog(), null, null, new String[] { "TABLE" });
+        ResultSet rs = metaData.getTables(connection.getCatalog(), null, null, new String[]{"TABLE"});
 
         while (rs.next()) {
             tableNames.add(rs.getString("TABLE_NAME"));

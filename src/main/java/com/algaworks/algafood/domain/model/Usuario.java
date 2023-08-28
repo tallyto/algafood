@@ -39,15 +39,15 @@ public class Usuario {
     @ToString.Exclude
     private Set<Grupo> grupos = new HashSet<>();
 
-    public void associar(Grupo grupo){
+    public void associar(Grupo grupo) {
         grupos.add(grupo);
     }
 
-    public void desassociar(Grupo grupo){
+    public void desassociar(Grupo grupo) {
         grupos.remove(grupo);
     }
 
-    public boolean senhaCoincideCom(String senhaAtual){
+    public boolean senhaCoincideCom(String senhaAtual) {
         return senha.equals(senhaAtual);
     }
 }

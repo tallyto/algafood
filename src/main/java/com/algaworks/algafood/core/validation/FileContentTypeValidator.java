@@ -28,7 +28,7 @@ public class FileContentTypeValidator implements ConstraintValidator<FileContent
      * Verifica se o arquivo MultipartFile possui um tipo de conteúdo permitido.
      *
      * @param multipartFile O arquivo MultipartFile a ser validado.
-     * @param context O contexto de validação.
+     * @param context       O contexto de validação.
      * @return true se o arquivo é nulo ou se seu tipo de conteúdo é permitido; caso contrário, false.
      */
     @Override

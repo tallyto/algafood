@@ -77,7 +77,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void associarGrupo(Long usuarioId, Long grupoId){
+    public void associarGrupo(Long usuarioId, Long grupoId) {
         Usuario usuario = buscar(usuarioId);
         Grupo grupo = grupoService.buscar(grupoId);
         usuario.associar(grupo);

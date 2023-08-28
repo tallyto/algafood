@@ -27,7 +27,7 @@ public class ProdutoAssembler {
         return modelMapper.map(produtoInput, Produto.class);
     }
 
-    public List<Produto> toCollectionEntity(List<ProdutoDTO> produtoDTOS){
-      return   produtoDTOS.stream().map((element) -> modelMapper.map(element, Produto.class)).collect(Collectors.toList());
+    public List<Produto> toCollectionEntity(List<ProdutoDTO> produtoDTOS) {
+        return produtoDTOS.stream().map((element) -> modelMapper.map(element, Produto.class)).collect(Collectors.toList());
     }
 }

@@ -44,7 +44,7 @@ public class VendaQueryServiceImpl implements VendaQueryService {
         ));
 
 
-        var functionConvertTzDataCriacao = builder.function("convert_tz", Date.class,  root.get("dataCriacao"),
+        var functionConvertTzDataCriacao = builder.function("convert_tz", Date.class, root.get("dataCriacao"),
             builder.literal("+00:00"), builder.literal(timeOffset));
 
         var functionDateDataCriacao = builder.function("date", Date.class, functionConvertTzDataCriacao);
