@@ -1,4 +1,4 @@
-package com.algaworks.algafood.jpa.storage;
+package com.algaworks.algafood.infrastructure.service.storage;
 
 import com.algaworks.algafood.domain.exception.StorageException;
 import com.algaworks.algafood.domain.service.FotoStorageService;
@@ -23,7 +23,18 @@ public class LocalFotoStorageService implements FotoStorageService {
 
             FileCopyUtils.copy(novaFoto.getInputStream(), Files.newOutputStream(arquivoPath));
         } catch (IOException e) {
-            throw new StorageException("Não foi possivel armazenar arquivo", e);
+            throw new StorageException("Não foi possível armazenar arquivo", e);
+        }
+    }
+
+    @Override
+    public void remover(String nomeArquivo) {
+        try {
+            Path arquivoPath = getArquivoPath(nomeArquivo);
+
+            Files.deleteIfExists(arquivoPath);
+        } catch (IOException e) {
+            throw new StorageException("Não foi possível remover arquivo", e);
         }
     }
 
