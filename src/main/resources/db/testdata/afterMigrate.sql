@@ -30,6 +30,8 @@ delete
 from item_pedido;
 delete
 from restaurante_usuario_responsavel;
+delete
+from foto_produto;
 
 set foreign_key_checks = 1;
 
