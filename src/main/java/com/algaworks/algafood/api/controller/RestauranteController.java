@@ -54,15 +54,15 @@ public class RestauranteController {
 //    }
 
     @GetMapping
-    public MappingJacksonValue viewDinamica(@RequestParam(required = false) String projecao){
+    public MappingJacksonValue viewDinamica(@RequestParam(required = false) String projecao) {
         List<Restaurante> restaurantes = restauranteRepository.findAll();
         List<RestauranteDTO> restauranteDTOS = assembler.toCollectionDTO(restaurantes);
         MappingJacksonValue restaurantesWrapper = new MappingJacksonValue(restauranteDTOS);
 
-        if(projecao != null) {
-            if(projecao.equals("apenasNome")){
+        if (projecao != null) {
+            if (projecao.equals("apenasNome")) {
                 restaurantesWrapper.setSerializationView(RestauranteView.ApenasNome.class);
-            } else if(projecao.equals("resumo")){
+            } else if (projecao.equals("resumo")) {
                 restaurantesWrapper.setSerializationView(RestauranteView.Resumo.class);
             }
         }
@@ -82,6 +82,7 @@ public class RestauranteController {
     public List<RestauranteDTO> listarApenasNome() {
         return assembler.toCollectionDTO(restauranteRepository.findAll());
     }
+
     @GetMapping("/{restauranteId}")
     public RestauranteDTO buscar(@PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
@@ -90,14 +91,14 @@ public class RestauranteController {
 
     @PostMapping
     public RestauranteDTO adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
-        Restaurante  restaurante = assembler.toEntity(restauranteInput);
+        Restaurante restaurante = assembler.toEntity(restauranteInput);
         return assembler.toDTO(restauranteService.salvar(restaurante));
     }
 
     @PutMapping("/{restauranteId}")
     public RestauranteDTO atualizar(@PathVariable Long restauranteId, @RequestBody @Valid RestauranteInput restaurante) {
 
-        Restaurante  restauranteAtual = restauranteService.buscar(restauranteId);
+        Restaurante restauranteAtual = restauranteService.buscar(restauranteId);
 
         assembler.copyToEntity(restaurante, restauranteAtual);
 
@@ -106,7 +107,7 @@ public class RestauranteController {
 
     @PatchMapping("/{restauranteId}")
     public RestauranteDTO atualizarParcial(@PathVariable Long restauranteId,
-                                        @RequestBody Map<String, Object> campos, HttpServletRequest request) {
+                                           @RequestBody Map<String, Object> campos, HttpServletRequest request) {
         Restaurante restauranteAtual = restauranteService.buscar(restauranteId);
 
         merge(campos, restauranteAtual, request);
@@ -143,22 +144,22 @@ public class RestauranteController {
 
     @PutMapping("/ativacoes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void ativarMultiplos(@RequestBody List<Long> restauranteIds){
-       try {
-           this.restauranteService.ativar(restauranteIds);
-       } catch (RestauranteNaoEncontradoException e){
-           throw new NegocioException(e.getMessage(), e);
-       }
+    public void ativarMultiplos(@RequestBody List<Long> restauranteIds) {
+        try {
+            this.restauranteService.ativar(restauranteIds);
+        } catch (RestauranteNaoEncontradoException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
     }
 
     @DeleteMapping("/ativacoes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void inativarMultiplos(@RequestBody List<Long> restauranteIds){
-       try {
-           this.restauranteService.inativar(restauranteIds);
-       } catch (RestauranteNaoEncontradoException e){
-           throw new NegocioException(e.getMessage(), e);
-       }
+    public void inativarMultiplos(@RequestBody List<Long> restauranteIds) {
+        try {
+            this.restauranteService.inativar(restauranteIds);
+        } catch (RestauranteNaoEncontradoException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
     }
 
 

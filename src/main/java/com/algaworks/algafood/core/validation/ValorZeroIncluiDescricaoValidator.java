@@ -13,6 +13,7 @@ public class ValorZeroIncluiDescricaoValidator implements ConstraintValidator<Va
     private String valorField;
     private String descricaoField;
     private String descricaoObrigatoria;
+
     @Override
     public void initialize(ValorZeroIncluiDescricao constraint) {
         this.valorField = constraint.valorField();
@@ -31,7 +32,7 @@ public class ValorZeroIncluiDescricaoValidator implements ConstraintValidator<Va
             String descricao = (String) Objects.requireNonNull(BeanUtils.getPropertyDescriptor(objetoValidacao.getClass(), descricaoField))
                 .getReadMethod().invoke(objetoValidacao);
 
-            if(valor != null && BigDecimal.ZERO.compareTo(valor) == 0 && descricao != null){
+            if (valor != null && BigDecimal.ZERO.compareTo(valor) == 0 && descricao != null) {
                 valido = descricao.toLowerCase().contains(this.descricaoObrigatoria.toLowerCase());
             }
         } catch (Exception e) {

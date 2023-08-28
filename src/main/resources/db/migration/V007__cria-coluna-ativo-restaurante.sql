@@ -1,1 +1,2 @@
-alter table restaurante add ativo bool not null default 1;
+alter table restaurante
+    add ativo bool not null default 1;

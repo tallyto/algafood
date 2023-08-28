@@ -23,30 +23,30 @@ public class GrupoController {
     private GrupoAssembler assembler;
 
     @GetMapping()
-    public List<GrupoDTO> listar(){
-       return assembler.toCollectionDTO(grupoService.listar());
+    public List<GrupoDTO> listar() {
+        return assembler.toCollectionDTO(grupoService.listar());
     }
 
     @GetMapping("{grupoId}")
-    public GrupoDTO buscar(@PathVariable Long grupoId){
+    public GrupoDTO buscar(@PathVariable Long grupoId) {
         return assembler.toDTO(grupoService.buscar(grupoId));
     }
 
     @PostMapping()
-    public GrupoDTO criar(@RequestBody @Valid GrupoInput grupoInput){
-        Grupo grupo =  grupoService.criar(assembler.toEntity(grupoInput));
+    public GrupoDTO criar(@RequestBody @Valid GrupoInput grupoInput) {
+        Grupo grupo = grupoService.criar(assembler.toEntity(grupoInput));
         return assembler.toDTO(grupo);
     }
 
     @PutMapping("{grupoId}")
-    public GrupoDTO atualizar(@PathVariable Long grupoId, @RequestBody GrupoInput grupoInput){
+    public GrupoDTO atualizar(@PathVariable Long grupoId, @RequestBody GrupoInput grupoInput) {
         Grupo grupoAtualizado = grupoService.atualizar(grupoId, assembler.toEntity(grupoInput));
         return assembler.toDTO(grupoAtualizado);
     }
 
     @DeleteMapping("{grupoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void remover(@PathVariable Long grupoId){
+    public void remover(@PathVariable Long grupoId) {
         grupoService.remover(grupoId);
     }
 

@@ -94,11 +94,11 @@ public class Restaurante {
         formasPagamento.add(formaPagamento);
     }
 
-    public void associarUsuarioResponsavel(Usuario usuario){
+    public void associarUsuarioResponsavel(Usuario usuario) {
         usuarios.add(usuario);
     }
 
-    public void desassociarUsuarioResponsavel(Usuario usuario){
+    public void desassociarUsuarioResponsavel(Usuario usuario) {
         usuarios.remove(usuario);
     }
 

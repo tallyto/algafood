@@ -19,7 +19,7 @@ create table grupo_permissao
 create table permissao
 (
     id        bigint       not null auto_increment,
-    descricao varchar(60) not null,
+    descricao varchar(60)  not null,
     nome      varchar(100) not null,
     primary key (id)
 ) engine = InnoDB;
@@ -28,8 +28,8 @@ create table produto
 (
     id             bigint         not null auto_increment,
     ativo          bit            not null,
-    descricao      text   not null,
-    nome           varchar(80)   not null,
+    descricao      text           not null,
+    nome           varchar(80)    not null,
     preco          decimal(19, 2) not null,
     restaurante_id bigint,
     primary key (id)
@@ -40,7 +40,7 @@ create table restaurante
     data_atualizacao     datetime       not null,
     data_cadastro        datetime       not null,
 
-    nome                 varchar(80)   not null,
+    nome                 varchar(80)    not null,
     taxa_frete           decimal(19, 2) not null,
     endereco_bairro      varchar(60),
     endereco_cep         varchar(9),
@@ -64,7 +64,7 @@ create table usuario
     id            bigint       not null auto_increment,
     data_cadastro datetime     not null,
     email         varchar(100) not null,
-    nome          varchar(80) not null,
+    nome          varchar(80)  not null,
     senha         varchar(100) not null,
     primary key (id)
 ) engine = InnoDB;

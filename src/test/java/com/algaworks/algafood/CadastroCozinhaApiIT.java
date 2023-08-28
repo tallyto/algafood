@@ -54,9 +54,9 @@ public class CadastroCozinhaApiIT {
         RestAssured.given()
             .accept(ContentType.JSON)
             .when()
-                .get()
+            .get()
             .then()
-                .statusCode(HttpStatus.OK.value());
+            .statusCode(HttpStatus.OK.value());
     }
 
     @Test
@@ -64,10 +64,10 @@ public class CadastroCozinhaApiIT {
         RestAssured.given()
             .accept(ContentType.JSON)
             .when()
-                .get()
+            .get()
             .then()
-                .body("nome", Matchers.hasSize(this.numeroCozinhas))
-                .body("nome", Matchers.hasItems("Indiana", "Tailandesa"));
+            .body("nome", Matchers.hasSize(this.numeroCozinhas))
+            .body("nome", Matchers.hasItems("Indiana", "Tailandesa"));
     }
 
     @Test
@@ -77,9 +77,9 @@ public class CadastroCozinhaApiIT {
             .contentType(ContentType.JSON)
             .body(objectMapper.writeValueAsString(cozinhaDefault))
             .when()
-                .post()
+            .post()
             .then()
-                .statusCode(HttpStatus.CREATED.value());
+            .statusCode(HttpStatus.CREATED.value());
     }
 
     @Test
@@ -88,10 +88,10 @@ public class CadastroCozinhaApiIT {
             .pathParam("cozinhaId", cozinhaSalva.getId())
             .accept(ContentType.JSON)
             .when()
-                .get("/{cozinhaId}")
+            .get("/{cozinhaId}")
             .then()
-                .body("nome", Matchers.equalTo(cozinhaSalva.getNome()))
-                .statusCode(HttpStatus.OK.value());
+            .body("nome", Matchers.equalTo(cozinhaSalva.getNome()))
+            .statusCode(HttpStatus.OK.value());
     }
 
     @Test
@@ -100,9 +100,9 @@ public class CadastroCozinhaApiIT {
             .pathParam("cozinhaId", COZINHA_ID_INEXISTENTE)
             .accept(ContentType.JSON)
             .when()
-                .get("/{cozinhaId}")
+            .get("/{cozinhaId}")
             .then()
-                .statusCode(HttpStatus.NOT_FOUND.value());
+            .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     @Test

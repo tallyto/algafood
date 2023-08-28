@@ -13,6 +13,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryQueries {
 
     @PersistenceContext
     private EntityManager entityManager;
+
     @Transactional
     @Override
     public FotoProduto save(FotoProduto fotoProduto) {

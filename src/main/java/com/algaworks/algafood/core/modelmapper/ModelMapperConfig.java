@@ -23,7 +23,7 @@ public class ModelMapperConfig {
         // Mapeia o nome do estado para o atributo estado no endereçoDTO
         enderecoToEnderecoDTOTypeMap.<String>addMapping(
             src -> src.getCidade().getEstado().getNome(),
-                (dest, value) -> dest.getCidade().setEstado(value)
+            (dest, value) -> dest.getCidade().setEstado(value)
         );
 
         return modelMapper;

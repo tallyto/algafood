@@ -20,8 +20,9 @@ public class UsuarioGrupoController {
 
     @Autowired
     GrupoAssembler assembler;
+
     @GetMapping
-    public Collection<GrupoDTO> listar(@PathVariable Long usuarioId){
+    public Collection<GrupoDTO> listar(@PathVariable Long usuarioId) {
         Collection<Grupo> grupos = usuarioService.buscar(usuarioId).getGrupos();
 
         return assembler.toCollectionDTO(grupos);
@@ -29,13 +30,13 @@ public class UsuarioGrupoController {
 
     @PutMapping("{grupoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void associar(@PathVariable Long usuarioId, @PathVariable Long grupoId){
+    public void associar(@PathVariable Long usuarioId, @PathVariable Long grupoId) {
         usuarioService.associarGrupo(usuarioId, grupoId);
     }
 
     @DeleteMapping("{grupoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void desassociar(@PathVariable Long usuarioId, @PathVariable Long grupoId){
+    public void desassociar(@PathVariable Long usuarioId, @PathVariable Long grupoId) {
         usuarioService.desassociarGrupo(usuarioId, grupoId);
     }
 

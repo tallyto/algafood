@@ -2,7 +2,7 @@ package com.algaworks.algafood.domain.exception;
 
 import java.io.Serial;
 
-public class ProdutoNaoEncontradoException extends EntidadeNaoEncontradaException{
+public class ProdutoNaoEncontradoException extends EntidadeNaoEncontradaException {
     @Serial
     private static final long serialVersionUID = 1L;
 

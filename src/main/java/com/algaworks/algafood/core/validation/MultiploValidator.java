@@ -4,7 +4,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.math.BigDecimal;
 
-public class MultiploValidator implements ConstraintValidator<Multiplo, Number>{
+public class MultiploValidator implements ConstraintValidator<Multiplo, Number> {
 
 
     private int numeroMultiplo;

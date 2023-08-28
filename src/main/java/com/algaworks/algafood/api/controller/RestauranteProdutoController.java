@@ -34,7 +34,7 @@ public class RestauranteProdutoController {
     @GetMapping
     public List<ProdutoDTO> listar(@RequestParam(required = false) boolean incluirInativos, @PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
-        if(incluirInativos){
+        if (incluirInativos) {
             return assembler.toCollectionDTO(produtoRepository.findAllByRestaurante(restaurante));
         }
         return assembler.toCollectionDTO(produtoRepository.findAtivosByRestaurante(restaurante));

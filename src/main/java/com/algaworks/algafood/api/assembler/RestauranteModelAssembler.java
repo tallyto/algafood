@@ -18,21 +18,22 @@ public class RestauranteModelAssembler {
 
     @Autowired
     ModelMapper modelMapper;
-    public  RestauranteDTO toDTO(Restaurante restaurante) {
-      return modelMapper.map(restaurante, RestauranteDTO.class);
+
+    public RestauranteDTO toDTO(Restaurante restaurante) {
+        return modelMapper.map(restaurante, RestauranteDTO.class);
     }
 
-    public  List<RestauranteDTO> toCollectionDTO(List<Restaurante> restaurantes) {
+    public List<RestauranteDTO> toCollectionDTO(List<Restaurante> restaurantes) {
         return restaurantes.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-    public  Restaurante toEntity(RestauranteInput restauranteInput) {
+    public Restaurante toEntity(RestauranteInput restauranteInput) {
         return modelMapper.map(restauranteInput, Restaurante.class);
     }
 
     public void copyToEntity(RestauranteInput restauranteInput, Restaurante restaurante) {
         restaurante.setCozinha(new Cozinha()); // para evitar tentar alterar o id da cozinha
-        if(restaurante.getEndereco() != null){
+        if (restaurante.getEndereco() != null) {
             restaurante.getEndereco().setCidade(new Cidade());
         }
         modelMapper.map(restauranteInput, restaurante);

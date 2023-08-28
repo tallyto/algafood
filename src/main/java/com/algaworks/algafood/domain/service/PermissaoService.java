@@ -13,11 +13,11 @@ public class PermissaoService {
     @Autowired
     private PermissaoRepository permissaoRepository;
 
-    public List<Permissao> listar(){
+    public List<Permissao> listar() {
         return permissaoRepository.findAll();
     }
 
-    public Permissao buscar(Long id){
-        return permissaoRepository.findById(id).orElseThrow(()-> new PermissaoNaoEncontradaException(id));
+    public Permissao buscar(Long id) {
+        return permissaoRepository.findById(id).orElseThrow(() -> new PermissaoNaoEncontradaException(id));
     }
 }

@@ -27,6 +27,13 @@ public class RestauranteProdutoFotoController {
 
     @Autowired
     private FotoProdutoAssembler assembler;
+
+    @GetMapping
+    public FotoProdutoDTO buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
+        FotoProduto fotoExistente = fotoProdutoService.buscarOuFalhar(restauranteId, produtoId);
+        return assembler.toDTO(fotoExistente);
+    }
+
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public FotoProdutoDTO atualizarFoto(@PathVariable Long restauranteId,
                                         @PathVariable Long produtoId, @Valid FotoProdutoInput input) throws IOException {

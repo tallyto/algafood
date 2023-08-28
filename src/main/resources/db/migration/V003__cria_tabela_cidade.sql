@@ -1,7 +1,7 @@
 CREATE TABLE cidade
 (
     id        BIGINT AUTO_INCREMENT NOT NULL,
-    nome      VARCHAR(20)          NOT NULL,
+    nome      VARCHAR(20)           NOT NULL,
     estado_id BIGINT                NOT NULL,
     CONSTRAINT pk_cidade PRIMARY KEY (id)
 );

@@ -20,20 +20,20 @@ public class RestauranteResponsavelController {
     UsuarioAssembler assembler;
 
     @GetMapping
-    public Collection<UsuarioDTO> listar(@PathVariable Long restauranteId){
+    public Collection<UsuarioDTO> listar(@PathVariable Long restauranteId) {
         Collection<Usuario> usuario = restauranteService.buscar(restauranteId).getUsuarios();
         return assembler.toCollectionDTO(usuario);
     }
 
     @PutMapping("{usuarioId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void associarUsuarioResponsavel(@PathVariable Long restauranteId, @PathVariable Long usuarioId){
+    public void associarUsuarioResponsavel(@PathVariable Long restauranteId, @PathVariable Long usuarioId) {
         restauranteService.associarUsuarioResponsavel(restauranteId, usuarioId);
     }
 
     @DeleteMapping("{usuarioId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void desassociarUsuarioResponsavel(@PathVariable Long restauranteId, @PathVariable Long usuarioId){
+    public void desassociarUsuarioResponsavel(@PathVariable Long restauranteId, @PathVariable Long usuarioId) {
         restauranteService.desassociarUsuarioResponsavel(restauranteId, usuarioId);
     }
 

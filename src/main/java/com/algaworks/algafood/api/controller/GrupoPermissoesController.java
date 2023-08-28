@@ -15,22 +15,21 @@ public class GrupoPermissoesController {
     private GrupoService grupoService;
 
     @GetMapping
-    public Collection<Permissao> listar(@PathVariable Long grupoId){
-       return grupoService.buscar(grupoId).getPermissoes();
+    public Collection<Permissao> listar(@PathVariable Long grupoId) {
+        return grupoService.buscar(grupoId).getPermissoes();
     }
 
     @DeleteMapping("{permissaoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void desassociarPermissao(@PathVariable Long grupoId, @PathVariable Long permissaoId){
+    public void desassociarPermissao(@PathVariable Long grupoId, @PathVariable Long permissaoId) {
         grupoService.desassociarPermissao(grupoId, permissaoId);
     }
 
     @PutMapping("{permissaoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void associarPermissao(@PathVariable Long grupoId, @PathVariable Long permissaoId){
+    public void associarPermissao(@PathVariable Long grupoId, @PathVariable Long permissaoId) {
         grupoService.associarPermissao(grupoId, permissaoId);
     }
-
 
 
 }
