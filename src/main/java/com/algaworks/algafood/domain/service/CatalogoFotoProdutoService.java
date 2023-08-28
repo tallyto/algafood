@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class CatalogoFotoProdutoService {
@@ -22,11 +23,15 @@ public class CatalogoFotoProdutoService {
         Long restauranteId = foto.getRestauranteId();
         Long produtoId = foto.getProduto().getId();
         String nomeNovoArquivo = fotoStorage.gerarNomeArquivo(foto.getNomeArquivo());
+        String nomeArquivoAntigo = null;
 
         Optional<FotoProduto> fotoExistente = produtoRepository.findFotoById(restauranteId,
             produtoId);
 
-        fotoExistente.ifPresent(produto -> produtoRepository.delete(produto));
+        if(fotoExistente.isPresent()){
+            nomeArquivoAntigo = fotoExistente.get().getNomeArquivo();
+            produtoRepository.delete(fotoExistente.get());
+        }
 
         foto.setNomeArquivo(nomeNovoArquivo);
         foto = produtoRepository.save(foto);
@@ -36,7 +41,7 @@ public class CatalogoFotoProdutoService {
             .inputStream(dadosArquivo)
             .build();
 
-        fotoStorage.armazenar(novaFoto);
+        fotoStorage.substituir(nomeArquivoAntigo, novaFoto);
 
         return foto;
     }
