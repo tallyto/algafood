@@ -69,7 +69,7 @@ public class RestauranteProdutoFotoController {
 
     private void verificarCompatibilidadeMediaType(MediaType mediaTypeFoto, List<MediaType> mediaTypesAceitas) throws HttpMediaTypeNotAcceptableException {
         boolean compativel = mediaTypesAceitas.stream().anyMatch(mediaType -> mediaType.isCompatibleWith(mediaTypeFoto));
-        if(!compativel){
+        if (!compativel) {
             throw new HttpMediaTypeNotAcceptableException(mediaTypesAceitas);
         }
     }
@@ -92,5 +92,10 @@ public class RestauranteProdutoFotoController {
         FotoProduto fotoSalva = fotoProdutoService.salvar(foto, arquivo.getInputStream());
 
         return assembler.toDTO(fotoSalva);
+    }
+
+    @DeleteMapping
+    public void remover(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
+        fotoProdutoService.remover(restauranteId, produtoId);
     }
 }

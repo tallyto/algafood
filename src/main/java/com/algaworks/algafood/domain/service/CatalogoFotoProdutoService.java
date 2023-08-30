@@ -24,6 +24,13 @@ public class CatalogoFotoProdutoService {
     }
 
     @Transactional
+    public void remover(Long restauranteId, Long produtoId){
+        FotoProduto fotoProduto = buscarOuFalhar(restauranteId, produtoId);
+        produtoRepository.delete(fotoProduto);
+        fotoStorage.remover(fotoProduto.getNomeArquivo());
+    }
+
+    @Transactional
     public FotoProduto salvar(FotoProduto foto, InputStream dadosArquivo) {
         Long restauranteId = foto.getRestauranteId();
         Long produtoId = foto.getProduto().getId();
