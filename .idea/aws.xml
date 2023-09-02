@@ -15,6 +15,6 @@
     </option>
   </component>
   <component name="connectionManager">
-    <option name="activeConnectionId" value="sso;us-east-1;https://view.awsapps.com/start" />
+    <option name="activeConnectionId" value="AwsConnectionManagerConnection" />
   </component>
 </project>
