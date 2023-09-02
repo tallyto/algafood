@@ -44,7 +44,6 @@ public class S3FotoStorageService implements FotoStorageService {
             amazonS3.putObject(putObjectRequest);
         } catch (Exception e) {
             throw new StorageException("Não foi possível enviar o arquivo para amazon S3", e);
-
         }
 
     }
@@ -55,6 +54,16 @@ public class S3FotoStorageService implements FotoStorageService {
 
     @Override
     public void remover(String nomeArquivo) {
+        try {
+            String caminhoArquivo = getCaminhoArquivo(nomeArquivo);
+
+            amazonS3.deleteObject(
+                storageProperties.getS3().getBucket(),
+                caminhoArquivo
+            );
+        } catch (Exception e) {
+            throw new StorageException("Não foi possível remover o arquivo do bucket amazon S3", e);
+        }
 
     }
 }
