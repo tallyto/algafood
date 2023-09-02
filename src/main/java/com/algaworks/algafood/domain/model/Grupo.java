@@ -2,7 +2,6 @@ package com.algaworks.algafood.domain.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.util.HashSet;

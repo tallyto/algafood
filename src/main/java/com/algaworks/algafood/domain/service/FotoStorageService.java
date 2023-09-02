@@ -2,7 +2,6 @@ package com.algaworks.algafood.domain.service;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.io.InputStream;
 import java.util.UUID;

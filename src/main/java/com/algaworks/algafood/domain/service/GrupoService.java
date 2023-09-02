@@ -1,6 +1,7 @@
 package com.algaworks.algafood.domain.service;
 
-import com.algaworks.algafood.domain.exception.*;
+import com.algaworks.algafood.domain.exception.GrupoEmUsoException;
+import com.algaworks.algafood.domain.exception.GrupoNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.model.Permissao;
 import com.algaworks.algafood.domain.repository.GrupoRepository;

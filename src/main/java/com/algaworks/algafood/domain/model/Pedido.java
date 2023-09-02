@@ -1,7 +1,10 @@
 package com.algaworks.algafood.domain.model;
 
 import com.algaworks.algafood.domain.exception.NegocioException;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 

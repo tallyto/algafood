@@ -1,6 +1,5 @@
 package com.algaworks.algafood.api.model.DTO;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import lombok.Getter;
 import lombok.Setter;
 
