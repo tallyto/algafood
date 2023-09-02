@@ -192,7 +192,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         String detail = String.format("O parâmetro de URL '%s' recebeu o valor '%s', "
                 + "que é de um tipo inválido. Corrija e informe um valor compatível com o tipo %s.",
-            ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName());
+            ex.getName(), ex.getValue(), Objects.requireNonNull(ex.getRequiredType()).getSimpleName());
 
         Problem problem = createProblemBuilder(status, problemType, detail)
             .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
