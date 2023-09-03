@@ -167,7 +167,7 @@ INSERT INTO produto (ativo, descricao, nome, preco, restaurante_id)
 VALUES (false, 'arroz doce com canela e leite condensado', 'Arroz Doce', 4.5, 1);
 
 insert into usuario (id, nome, email, senha, data_cadastro)
-values (1, 'fulano', 'teste@teste.com', '123456', utc_timestamp);
+values (1, 'fulano', 'rodrigues.tallyto@gmail.com', '123456', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
 values (2, 'beltrano', 'beltrano@teste.com', 'abcdef', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
@@ -247,7 +247,7 @@ values (3, 2);
 -- Inserção Básica
 INSERT INTO pedido (codigo, data_criacao, subtotal, taxa_frete, valor_total, usuario_cliente_id, forma_pagamento_id,
                     restaurante_id, status)
-VALUES (uuid(), '2023-08-22 10:00:00', 50.00, 5.00, 55.00, 1, 1, 1, 'CRIADO');
+VALUES ('77103e21-49ef-11ee-a210-0242ac120003', '2023-08-22 10:00:00', 50.00, 5.00, 55.00, 1, 1, 1, 'CRIADO');
 
 -- Inserção com Status e Data de Entrega
 INSERT INTO pedido (codigo, data_criacao, data_entrega, status, subtotal, taxa_frete, valor_total, usuario_cliente_id,
