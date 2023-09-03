@@ -1,7 +1,6 @@
 package com.algaworks.algafood.infrastructure.service.storage;
 
 import com.algaworks.algafood.core.storage.StorageProperties;
-import com.algaworks.algafood.domain.exception.StorageException;
 import com.algaworks.algafood.domain.service.FotoStorageService;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
