@@ -13,18 +13,18 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import javax.mail.internet.MimeMessage;
 
-@Profile("production")
 @Service
-public class SmtpEnvioEmailService implements EnvioEmailService {
-
+@Profile("developer")
+public class FakeEnvioEmailService implements EnvioEmailService {
     @Autowired
     private JavaMailSender mailSender;
 
     @Autowired
-    private EmailProperties emailProperties;
+    private Configuration freemarkerConfig;
 
     @Autowired
-    private Configuration freemarkerConfig;
+    private EmailProperties emailProperties;
+
     @Override
     public void enviar(Mensagem mensagem) {
         try {
@@ -37,13 +37,10 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
             helper.setSubject(mensagem.getAssunto());
             helper.setText(corpo,true);
 
-
-
             mailSender.send(mimeMessage);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new EmailException("Não foi possível enviar e-mail", e);
         }
-
     }
 
     private String processarTemplate(Mensagem mensagem){
