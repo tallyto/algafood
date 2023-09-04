@@ -98,7 +98,7 @@ insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_a
 values (4, 'Bobs', 0, 1, utc_timestamp, utc_timestamp);
 insert into restaurante (id, nome, taxa_frete, cozinha_id, endereco_cidade_id, endereco_cep, endereco_logradouro,
                          endereco_numero, endereco_complemento, endereco_bairro, data_cadastro, data_atualizacao)
-values (5, 'La Casa do Pastel', 0, 1, 1, '00000000', 'Rua do Pastel', 1, 'Casa', 'Centro', utc_timestamp,
+values (5, 'Restaurante Dona Chica', 0, 1, 1, '00000000', 'Rua do Pastel', 1, 'Casa', 'Centro', utc_timestamp,
         utc_timestamp);
 insert into forma_pagamento (id, descricao)
 values (1, 'cartao');
