@@ -9,6 +9,7 @@ function consultarRestaurante(){
 }
 
 function fecharRestaurante(){
+    console.log("Chamou")
     $.ajax({
         url: "http://localhost:3001/restaurantes/1/fechamento",
         type: "PUT",
@@ -19,3 +20,5 @@ function fecharRestaurante(){
 }
 
 $("#botao").click(consultarRestaurante)
+
+$("#fecharRestaurante").click(fecharRestaurante)
