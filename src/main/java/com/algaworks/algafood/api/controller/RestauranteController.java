@@ -49,14 +49,13 @@ public class RestauranteController {
     @Autowired
     private RestauranteModelAssembler assembler;
 
+    @CrossOrigin(origins = "*")
     @JsonView(RestauranteView.Resumo.class)
     @GetMapping
     public ResponseEntity<List<RestauranteDTO>> listar() {
         List<Restaurante> restaurantes = restauranteRepository.findAll();
         List<RestauranteDTO> restaurantesDTO = assembler.toCollectionDTO(restaurantes);
-        return ResponseEntity.ok()
-            .header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*")
-            .body(restaurantesDTO);
+        return ResponseEntity.ok(restaurantesDTO);
     }
 
 //    @GetMapping
