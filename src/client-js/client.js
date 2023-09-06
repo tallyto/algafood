@@ -8,4 +8,14 @@ function consultarRestaurante(){
     })
 }
 
+function fecharRestaurante(){
+    $.ajax({
+        url: "http://localhost:3001/restaurantes/1/fechamento",
+        type: "PUT",
+        success: function(response){
+            alert("Restaurante foi fechado!")
+        }
+    })
+}
+
 $("#botao").click(consultarRestaurante)
