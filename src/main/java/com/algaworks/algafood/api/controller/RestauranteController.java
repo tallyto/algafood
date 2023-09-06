@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("restaurantes")
 public class RestauranteController {
@@ -49,7 +50,6 @@ public class RestauranteController {
     @Autowired
     private RestauranteModelAssembler assembler;
 
-    @CrossOrigin(origins = "*")
     @JsonView(RestauranteView.Resumo.class)
     @GetMapping
     public ResponseEntity<List<RestauranteDTO>> listar() {
