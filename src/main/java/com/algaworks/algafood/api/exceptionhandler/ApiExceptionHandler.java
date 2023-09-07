@@ -243,7 +243,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .timestamp(OffsetDateTime.now())
                 .build();
         }
-        logger.error(ex.getMessage(), ex);
+        log.error(ex.getMessage(), ex);
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 
