@@ -1,68 +1,108 @@
+// Define a base URL para as requisições
+const baseUrl = "http://localhost:3001";
+
 function consultarRestaurante() {
     $.ajax({
-        url: "http://localhost:3001/restaurantes",
+        url: `${baseUrl}/restaurantes`,
         type: "GET",
         success: function (response) {
-            preencherTabelaRestaurantes(response)
-        }
-    })
-}
-
-function preencherTabelaRestaurantes(restaurantes) {
-    $("#tabela-restaurante tbody tr").remove();
-
-    $.each(restaurantes, function (i, restaurante) {
-        const linha = $("<tr>");
-
-        linha.append(
-            $("<td>").text(restaurante.id),
-            $("<td>").text(restaurante.nome),
-            $("<td>").text("R$" + restaurante.taxaFrete.toFixed(2)), // Exibe a taxa de frete formatada
-            $("<td>").text(restaurante.cozinha.nome)
-        );
-
-        linha.appendTo("#tabela-restaurante tbody");
+            preencherTabelaRestaurantes(response);
+        },
+        error: function (error) {
+            console.error("Erro ao consultar restaurantes:", error);
+        },
     });
 }
 
 function fecharRestaurante() {
     $.ajax({
-        url: "http://localhost:3001/restaurantes/1/fechamento",
+        url: `${baseUrl}/restaurantes/1/fechamento`,
         type: "PUT",
         success: function (response) {
-            alert("Restaurante foi fechado!")
-        }
-    })
+            alert("Restaurante foi fechado!");
+        },
+        error: function (error) {
+            console.error("Erro ao fechar restaurante:", error);
+        },
+    });
 }
 
-$("#botao").click(consultarRestaurante)
-
-$("#fecharRestaurante").click(fecharRestaurante)
-
-
-function consultar() {
+function consultarFormaPagamento() {
     $.ajax({
-        url: "http://localhost:3001/formas-pagamento",
+        url: `${baseUrl}/formas-pagamento`,
         type: "GET",
         success: function (response) {
-            preencherTabela(response)
-        }
-    })
+            preencherTabela(response);
+        },
+        error: function (error) {
+            console.error("Erro ao consultar formas de pagamento:", error);
+
+        },
+    });
+}
+
+function cadastrarFormaPagamento() {
+    const descricao = $("#campo-descricao").val();
+    const formaPagamento = {descricao};
+
+    $.ajax({
+        url: `${baseUrl}/formas-pagamento`,
+        type: "POST",
+        data: JSON.stringify(formaPagamento),
+        contentType: "application/json",
+        success: function (response) {
+            alert("Forma de pagamento cadastrada com sucesso")
+            $("#campo-descricao").val("");
+            consultarFormaPagamento();
+        },
+        error: function (error) {
+            console.error("Erro ao cadastrar forma de pagamento:", error);
+            if (error.status === 400) {
+                const problem = JSON.parse(error.responseText);
+                alert(problem.userMessage);
+            } else {
+                alert("Erro ao cadastrar forma de pagamento");
+            }
+        },
+    });
+}
+
+function preencherTabelaRestaurantes(restaurantes) {
+    const tbody = $("#tabela-restaurante tbody");
+    tbody.empty();
+
+    restaurantes.forEach((restaurante) => {
+        const linha = $("<tr>");
+
+        linha.append(
+            $("<td>").text(restaurante.id),
+            $("<td>").text(restaurante.nome),
+            $("<td>").text("R$" + restaurante.taxaFrete.toFixed(2)),
+            $("<td>").text(restaurante.cozinha.nome)
+        );
+
+        linha.appendTo(tbody);
+    });
 }
 
 function preencherTabela(formasPagamento) {
-    $("#tabela tbody tr").remove()
+    const tbody = $("#tabela tbody");
+    tbody.empty();
 
-    $.each(formasPagamento, function (i, formaPagamento) {
+    formasPagamento.forEach((formaPagamento) => {
         const linha = $("<tr>");
 
         linha.append(
             $("<td>").text(formaPagamento.id),
             $("<td>").text(formaPagamento.descricao)
-        )
+        );
 
-        linha.appendTo("#tabela")
-    })
+        linha.appendTo(tbody);
+    });
 }
 
-$("#btn-consultar").click(consultar)
+// Associa os eventos aos botões
+$("#botao").click(consultarRestaurante);
+$("#fecharRestaurante").click(fecharRestaurante);
+$("#btn-consultar").click(consultarFormaPagamento);
+$("#btn-cadastrar").click(cadastrarFormaPagamento);
