@@ -85,6 +85,28 @@ function preencherTabelaRestaurantes(restaurantes) {
     });
 }
 
+function excluirFormaPagamento(formaPagamentoId) {
+    $.ajax({
+        url: `${baseUrl}/formas-pagamento/${formaPagamentoId}`,
+        type: "DELETE",
+        success: function (response) {
+            alert("Forma de pagamento excluída com sucesso")
+            consultarFormaPagamento();
+        },
+        error: function (error) {
+            console.error("Erro ao excluir forma de pagamento:", error);
+            if (error.status === 409) {
+                const problem = JSON.parse(error.responseText);
+                alert(problem.userMessage);
+            } else {
+                alert("Erro ao excluir forma de pagamento");
+            }
+        },
+    });
+
+
+}
+
 function preencherTabela(formasPagamento) {
     const tbody = $("#tabela tbody");
     tbody.empty();
@@ -92,9 +114,16 @@ function preencherTabela(formasPagamento) {
     formasPagamento.forEach((formaPagamento) => {
         const linha = $("<tr>");
 
+        const linkAcao = $("<a href='#'>").text("Excluir")
+            .click(function (event) {
+                event.preventDefault();
+                excluirFormaPagamento(formaPagamento.id);
+            })
+
         linha.append(
             $("<td>").text(formaPagamento.id),
-            $("<td>").text(formaPagamento.descricao)
+            $("<td>").text(formaPagamento.descricao),
+            $("<td>").append(linkAcao)
         );
 
         linha.appendTo(tbody);
