@@ -5,11 +5,14 @@ import com.algaworks.algafood.api.model.DTO.FormaPagamentoDTO;
 import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
 import com.algaworks.algafood.domain.service.FormaPagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RequestMapping("/formas-pagamento")
 @RestController
@@ -22,8 +25,12 @@ public class FormaPagamentoController {
     FormaPagamentoAssembler assembler;
 
     @GetMapping
-    public List<FormaPagamentoDTO> listar() {
-        return assembler.toCollectionDTO(cadastroFormaPagamento.listar());
+    public ResponseEntity<List<FormaPagamentoDTO>> listar() {
+        var formasPagamentoModel = assembler.toCollectionDTO(cadastroFormaPagamento.listar());
+
+        return ResponseEntity.ok()
+            .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+            .body(formasPagamentoModel);
     }
 
     @GetMapping("/{formaPagamentoId}")
