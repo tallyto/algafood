@@ -100,12 +100,12 @@ insert into restaurante (id, nome, taxa_frete, cozinha_id, endereco_cidade_id, e
                          endereco_numero, endereco_complemento, endereco_bairro, data_cadastro, data_atualizacao)
 values (5, 'Restaurante Dona Chica', 0, 1, 1, '00000000', 'Rua do Pastel', 1, 'Casa', 'Centro', utc_timestamp,
         utc_timestamp);
-insert into forma_pagamento (id, descricao)
-values (1, 'cartao');
-insert into forma_pagamento (id, descricao)
-values (2, 'dinheiro');
-insert into forma_pagamento (id, descricao)
-values (3, 'pix');
+insert into forma_pagamento (id, descricao, data_atualizacao)
+values (1, 'cartao', utc_timestamp);
+insert into forma_pagamento (id, descricao, data_atualizacao)
+values (2, 'dinheiro', utc_timestamp);
+insert into forma_pagamento (id, descricao, data_atualizacao)
+values (3, 'pix', utc_timestamp);
 insert into permissao (id, descricao, nome)
 values (1, 'Pode editar uma cozinha', 'EDITAR_COZINHA');
 insert into permissao (id, descricao, nome)

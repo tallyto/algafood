@@ -2,9 +2,11 @@ package com.algaworks.algafood.domain.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Getter
@@ -17,6 +19,9 @@ public class FormaPagamento {
 
     @Column(nullable = false)
     private String descricao;
+
+    @UpdateTimestamp
+    private OffsetDateTime dataAtualizacao;
 
     @Override
     public final boolean equals(Object o) {
