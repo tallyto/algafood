@@ -38,11 +38,11 @@ public class FormaPagamentoController {
 
         OffsetDateTime dataUltimaAtualizacao = formaPagamentoRepository.getUltimaAtualizacao();
 
-        if(dataUltimaAtualizacao != null ){
+        if (dataUltimaAtualizacao != null) {
             eTag = String.valueOf(dataUltimaAtualizacao.toEpochSecond());
         }
 
-        if(request.checkNotModified(eTag)){
+        if (request.checkNotModified(eTag)) {
             return null;
         }
 
@@ -59,11 +59,26 @@ public class FormaPagamentoController {
     }
 
     @GetMapping("/{formaPagamentoId}")
-    public ResponseEntity<FormaPagamentoDTO> buscar(@PathVariable Long formaPagamentoId) {
-        var formaPagamento = assembler.toDTO(cadastroFormaPagamento.buscar(formaPagamentoId));
+    public ResponseEntity<FormaPagamentoDTO> buscar(@PathVariable Long formaPagamentoId, ServletWebRequest request) {
+
+        var formaPagamento = cadastroFormaPagamento.buscar(formaPagamentoId);
+        var formaPagamentoDTO = assembler.toDTO(formaPagamento);
+
+        String eTag = "0";
+
+        OffsetDateTime dataUltimaAtualizacao = formaPagamento.getDataAtualizacao();
+
+        if (dataUltimaAtualizacao != null) {
+            eTag = String.valueOf(dataUltimaAtualizacao.toEpochSecond());
+        }
+
+        if (request.checkNotModified(eTag)) {
+            return null;
+        }
         return ResponseEntity.ok()
             .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
-            .body(formaPagamento);
+            .eTag(eTag)
+            .body(formaPagamentoDTO);
     }
 
     @PostMapping
