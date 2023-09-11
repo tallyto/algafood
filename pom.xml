@@ -15,6 +15,7 @@
     <description>API de delivery de comida</description>
     <properties>
         <java.version>17</java.version>
+        <spring-fox-version>3.0.0</spring-fox-version>
     </properties>
     <dependencies>
 
@@ -89,10 +90,6 @@
             <artifactId>log4j-core</artifactId>
             <version>2.19.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>io.rest-assured</groupId>
@@ -135,10 +132,15 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${spring-fox-version}</version>
         </dependency>
     </dependencies>
 
