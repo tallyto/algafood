@@ -13,6 +13,7 @@ import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ResponseMessage;
 import springfox.documentation.service.Tag;
@@ -28,6 +29,7 @@ import java.util.List;
 @Import(BeanValidatorPluginsConfiguration.class)
 public class OpenApiConfig implements WebMvcConfigurer {
     TypeResolver typeResolver = new TypeResolver();
+
     @Bean
     public Docket apiDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -36,8 +38,8 @@ public class OpenApiConfig implements WebMvcConfigurer {
             .build()
             .useDefaultResponseMessages(false)
             .globalResponseMessage(RequestMethod.GET, globalGetResponseMessages())
-            .globalResponseMessage(RequestMethod.POST, globalPostResponseMessages())
-            .globalResponseMessage(RequestMethod.PUT, globalPutResponseMessages())
+            .globalResponseMessage(RequestMethod.POST, globalPostPutResponseMessages())
+            .globalResponseMessage(RequestMethod.PUT, globalPostPutResponseMessages())
             .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
             .additionalModels(typeResolver.resolve(Problem.class))
             .apiInfo(apiInfo())
@@ -49,6 +51,7 @@ public class OpenApiConfig implements WebMvcConfigurer {
             new ResponseMessageBuilder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message("Erro interno do servidor")
+                .responseModel(new ModelRef("Problem"))
                 .build(),
             new ResponseMessageBuilder()
                 .code(HttpStatus.NOT_ACCEPTABLE.value())
@@ -57,19 +60,22 @@ public class OpenApiConfig implements WebMvcConfigurer {
             new ResponseMessageBuilder()
                 .code(HttpStatus.NOT_FOUND.value())
                 .message("Recurso não encontrado")
+                .responseModel(new ModelRef("Problem"))
                 .build()
         );
     }
 
-    private List<ResponseMessage> globalPostResponseMessages() {
+    private List<ResponseMessage> globalPostPutResponseMessages() {
         return Arrays.asList(
             new ResponseMessageBuilder()
                 .code(HttpStatus.BAD_REQUEST.value())
-                .message("Requisição mal feita")
+                .message("Requisição inválida (erro do cliente)")
+                .responseModel(new ModelRef("Problem"))
                 .build(),
             new ResponseMessageBuilder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message("Erro interno do servidor")
+                .responseModel(new ModelRef("Problem"))
                 .build(),
             new ResponseMessageBuilder()
                 .code(HttpStatus.NOT_ACCEPTABLE.value())
@@ -82,31 +88,6 @@ public class OpenApiConfig implements WebMvcConfigurer {
 
         );
     }
-
-
-
-
-    private List<ResponseMessage> globalPutResponseMessages() {
-        return Arrays.asList(
-            new ResponseMessageBuilder()
-                .code(HttpStatus.BAD_REQUEST.value())
-                .message("Recurso não encontrado")
-                .build(),
-            new ResponseMessageBuilder()
-                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .message("Erro interno do servidor")
-                .build(),
-            new ResponseMessageBuilder()
-                .code(HttpStatus.NOT_ACCEPTABLE.value())
-                .message("Recurso não possui representação que poderia ser aceita pelo consumidor")
-                .build(),
-            new ResponseMessageBuilder()
-                .code(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())
-                .message("Tipo de conteúdo não suportado pelo consumidor")
-                .build()
-        );
-    }
-
 
     private List<ResponseMessage> globalDeleteResponseMessages() {
 
@@ -114,10 +95,12 @@ public class OpenApiConfig implements WebMvcConfigurer {
             new ResponseMessageBuilder()
                 .code(HttpStatus.BAD_REQUEST.value())
                 .message("Recurso não encontrado")
+                .responseModel(new ModelRef("Problem"))
                 .build(),
             new ResponseMessageBuilder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message("Erro interno do servidor")
+                .responseModel(new ModelRef("Problem"))
                 .build()
 
         );
