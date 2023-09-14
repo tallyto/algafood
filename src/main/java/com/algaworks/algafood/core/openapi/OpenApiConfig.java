@@ -34,41 +34,108 @@ public class OpenApiConfig implements WebMvcConfigurer {
             .build()
             .useDefaultResponseMessages(false)
             .globalResponseMessage(RequestMethod.GET, globalGetResponseMessages())
+            .globalResponseMessage(RequestMethod.POST, globalPostResponseMessages())
+            .globalResponseMessage(RequestMethod.PUT, globalPutResponseMessages())
+            .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
             .apiInfo(apiInfo())
             .tags(new Tag("Cidades", "Gerencia as cidades"));
     }
 
     private List<ResponseMessage> globalGetResponseMessages() {
         return Arrays.asList(
-                new ResponseMessageBuilder()
-                    .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                    .message("Erro interno do servidor")
-                        .build(),
-                new ResponseMessageBuilder()
-                        .code(HttpStatus.NOT_ACCEPTABLE.value())
-                        .message("Recurso não possui representação que poderia ser aceita pelo consumidor")
-                        .build(),
-                new ResponseMessageBuilder()
-                        .code(HttpStatus.NOT_FOUND.value())
-                        .message("Recurso não encontrado")
-                        .build()
+            new ResponseMessageBuilder()
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .message("Erro interno do servidor")
+                .build(),
+            new ResponseMessageBuilder()
+                .code(HttpStatus.NOT_ACCEPTABLE.value())
+                .message("Recurso não possui representação que poderia ser aceita pelo consumidor")
+                .build(),
+            new ResponseMessageBuilder()
+                .code(HttpStatus.NOT_FOUND.value())
+                .message("Recurso não encontrado")
+                .build()
         );
+    }
+
+    private List<ResponseMessage> globalPostResponseMessages() {
+        return Arrays.asList(
+            new ResponseMessageBuilder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .message("Requisição mal feita")
+                .build(),
+            new ResponseMessageBuilder()
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .message("Erro interno do servidor")
+                .build(),
+            new ResponseMessageBuilder()
+                .code(HttpStatus.NOT_ACCEPTABLE.value())
+                .message("Recurso não possui representação que poderia ser aceita pelo consumidor")
+                .build(),
+            new ResponseMessageBuilder()
+                .code(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())
+                .message("Tipo de conteúdo não suportado pelo consumidor")
+                .build()
+
+        );
+    }
+
+
+
+
+    private List<ResponseMessage> globalPutResponseMessages() {
+        return Arrays.asList(
+            new ResponseMessageBuilder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .message("Recurso não encontrado")
+                .build(),
+            new ResponseMessageBuilder()
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .message("Erro interno do servidor")
+                .build(),
+            new ResponseMessageBuilder()
+                .code(HttpStatus.NOT_ACCEPTABLE.value())
+                .message("Recurso não possui representação que poderia ser aceita pelo consumidor")
+                .build(),
+            new ResponseMessageBuilder()
+                .code(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())
+                .message("Tipo de conteúdo não suportado pelo consumidor")
+                .build()
+        );
+    }
+
+
+    private List<ResponseMessage> globalDeleteResponseMessages() {
+
+        return Arrays.asList(
+            new ResponseMessageBuilder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .message("Recurso não encontrado")
+                .build(),
+            new ResponseMessageBuilder()
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .message("Erro interno do servidor")
+                .build()
+
+        );
+
     }
 
 
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
             .title("AlgaFood API")
-                .description("API do projeto AlgaFood")
-                .version("1.0")
-                .build();
+            .description("API do projeto AlgaFood")
+            .version("1.0")
+            .build();
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
+            .addResourceLocations("classpath:/META-INF/resources/");
 
         registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+            .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }
