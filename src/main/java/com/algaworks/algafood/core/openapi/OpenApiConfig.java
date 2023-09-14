@@ -1,5 +1,7 @@
 package com.algaworks.algafood.core.openapi;
 
+import com.algaworks.algafood.api.exceptionhandler.Problem;
+import com.fasterxml.classmate.TypeResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -25,7 +27,7 @@ import java.util.List;
 @EnableSwagger2
 @Import(BeanValidatorPluginsConfiguration.class)
 public class OpenApiConfig implements WebMvcConfigurer {
-
+    TypeResolver typeResolver = new TypeResolver();
     @Bean
     public Docket apiDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -37,6 +39,7 @@ public class OpenApiConfig implements WebMvcConfigurer {
             .globalResponseMessage(RequestMethod.POST, globalPostResponseMessages())
             .globalResponseMessage(RequestMethod.PUT, globalPutResponseMessages())
             .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
+            .additionalModels(typeResolver.resolve(Problem.class))
             .apiInfo(apiInfo())
             .tags(new Tag("Cidades", "Gerencia as cidades"));
     }
