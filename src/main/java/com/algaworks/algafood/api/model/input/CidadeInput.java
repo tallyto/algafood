@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CidadeInput {
-    @ApiModelProperty(value = "Nome da cidade", example = "São Paulo")
+    @ApiModelProperty(value = "Nome da cidade", example = "São Paulo", required = true)
     private String nome;
     private EstadoIdInput estado;
 }
