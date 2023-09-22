@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.AlternateTypeRules;
@@ -48,6 +49,14 @@ public class OpenApiConfig implements WebMvcConfigurer {
             .globalResponseMessage(RequestMethod.POST, globalPostPutResponseMessages())
             .globalResponseMessage(RequestMethod.PUT, globalPostPutResponseMessages())
             .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
+            .globalOperationParameters(Arrays.asList(
+                new ParameterBuilder().name("campos")
+                        .description("Nomes das propriedades para filtrar na resposta, seperados por vírgula")
+                        .modelRef(new ModelRef("string"))
+                        .parameterType("query")
+                        .required(false)
+                        .build()
+            ))
             .additionalModels(typeResolver.resolve(Problem.class))
             .ignoredParameterTypes(ServletWebRequest.class)
             .directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
