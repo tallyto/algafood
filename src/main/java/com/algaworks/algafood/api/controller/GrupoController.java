@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.GrupoAssembler;
-import com.algaworks.algafood.api.controller.openapi.GrupoControllerOpenApi;
+import com.algaworks.algafood.api.openapi.controller.GrupoControllerOpenApi;
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.DTO.GrupoDTO;
 import com.algaworks.algafood.api.model.input.GrupoInput;
