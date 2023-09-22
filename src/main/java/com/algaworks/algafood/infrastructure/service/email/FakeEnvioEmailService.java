@@ -35,7 +35,7 @@ public class FakeEnvioEmailService implements EnvioEmailService {
             helper.setFrom(emailProperties.getRemetente());
             helper.setTo(mensagem.getDestinatarios().toArray(new String[0]));
             helper.setSubject(mensagem.getAssunto());
-            helper.setText(corpo,true);
+            helper.setText(corpo, true);
 
             mailSender.send(mimeMessage);
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class FakeEnvioEmailService implements EnvioEmailService {
         }
     }
 
-    private String processarTemplate(Mensagem mensagem){
+    private String processarTemplate(Mensagem mensagem) {
         try {
             Template template = freemarkerConfig.getTemplate(mensagem.getCorpo());
 

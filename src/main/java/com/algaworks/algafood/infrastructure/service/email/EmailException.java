@@ -1,6 +1,6 @@
 package com.algaworks.algafood.infrastructure.service.email;
 
-public class EmailException  extends RuntimeException {
+public class EmailException extends RuntimeException {
     public EmailException(String message) {
         super(message);
     }

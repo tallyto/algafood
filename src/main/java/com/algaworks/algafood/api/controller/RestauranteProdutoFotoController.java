@@ -49,8 +49,8 @@ public class RestauranteProdutoFotoController {
 
     @GetMapping
     ResponseEntity<?> buscarFoto(@PathVariable Long restauranteId,
-                                                   @PathVariable Long produtoId,
-                                                   @RequestHeader(name = "accept") String acceptHeader) throws HttpMediaTypeNotAcceptableException {
+                                 @PathVariable Long produtoId,
+                                 @RequestHeader(name = "accept") String acceptHeader) throws HttpMediaTypeNotAcceptableException {
         try {
             FotoProduto fotoProduto = fotoProdutoService.buscarOuFalhar(restauranteId, produtoId);
 
@@ -62,7 +62,7 @@ public class RestauranteProdutoFotoController {
 
             FotoStorageService.FotoRecuperada fotoRecuperada = fotoStorageService.recuperar(fotoProduto.getNomeArquivo());
 
-            if(fotoRecuperada.temUrl()){
+            if (fotoRecuperada.temUrl()) {
                 return ResponseEntity
                     .status(HttpStatus.FOUND)
                     .header(HttpHeaders.LOCATION, fotoRecuperada.getUrl())

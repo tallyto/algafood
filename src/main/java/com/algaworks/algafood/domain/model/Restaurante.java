@@ -21,22 +21,18 @@ import java.util.Set;
 @Entity
 @ToString
 public class Restaurante {
-    @Id
-    // passa a responsabilidade de gerar a chave para o banco de dados
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
-    private String nome;
-
-    @Column(name = "taxa_frete", nullable = false)
-    private BigDecimal taxaFrete;
-
     @ManyToOne
     @JoinColumn(name = "cozinha_id", nullable = false)
     @ToString.Exclude
     Cozinha cozinha;
-
+    @Id
+    // passa a responsabilidade de gerar a chave para o banco de dados
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false)
+    private String nome;
+    @Column(name = "taxa_frete", nullable = false)
+    private BigDecimal taxaFrete;
     @Embedded // endereço é um tipo embutido
     private Endereco endereco;
 

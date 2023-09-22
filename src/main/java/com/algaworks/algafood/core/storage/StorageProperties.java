@@ -17,7 +17,7 @@ public class StorageProperties {
     private TipoStorage tipo = TipoStorage.LOCAL;
 
     public enum TipoStorage {
-        LOCAL,S3
+        LOCAL, S3
     }
 
     @Getter

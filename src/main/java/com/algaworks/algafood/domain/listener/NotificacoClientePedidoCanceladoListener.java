@@ -15,6 +15,7 @@ public class NotificacoClientePedidoCanceladoListener {
 
     @Autowired
     private EnvioEmailService envioEmailService;
+
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void aoCancelarPedido(PedidoCanceladoEvent event) {
         Pedido pedido = event.getPedido();

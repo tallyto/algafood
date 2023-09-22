@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PagedModelOpenApi <T>{
+public class PagedModelOpenApi<T> {
     private List<T> content;
     @ApiModelProperty(example = "10", value = "Quantidade de registros por página")
     private Long size;

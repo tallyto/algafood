@@ -25,6 +25,7 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
 
     @Autowired
     private Configuration freemarkerConfig;
+
     @Override
     public void enviar(Mensagem mensagem) {
         try {
@@ -35,18 +36,17 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
             helper.setFrom(emailProperties.getRemetente());
             helper.setTo(mensagem.getDestinatarios().toArray(new String[0]));
             helper.setSubject(mensagem.getAssunto());
-            helper.setText(corpo,true);
-
+            helper.setText(corpo, true);
 
 
             mailSender.send(mimeMessage);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new EmailException("Não foi possível enviar e-mail", e);
         }
 
     }
 
-    private String processarTemplate(Mensagem mensagem){
+    private String processarTemplate(Mensagem mensagem) {
         try {
             Template template = freemarkerConfig.getTemplate(mensagem.getCorpo());
 
