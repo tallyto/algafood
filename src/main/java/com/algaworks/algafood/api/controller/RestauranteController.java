@@ -55,24 +55,6 @@ public class RestauranteController {
         return ResponseEntity.ok(restaurantesDTO);
     }
 
-//    @GetMapping
-//    public MappingJacksonValue viewDinamica(@RequestParam(required = false) String projecao) {
-//        List<Restaurante> restaurantes = restauranteRepository.findAll();
-//        List<RestauranteDTO> restauranteDTOS = assembler.toCollectionDTO(restaurantes);
-//        MappingJacksonValue restaurantesWrapper = new MappingJacksonValue(restauranteDTOS);
-//
-//        if (projecao != null) {
-//            if (projecao.equals("apenasNome")) {
-//                restaurantesWrapper.setSerializationView(RestauranteView.ApenasNome.class);
-//            } else if (projecao.equals("resumo")) {
-//                restaurantesWrapper.setSerializationView(RestauranteView.Resumo.class);
-//            }
-//        }
-//
-//        return restaurantesWrapper;
-//
-//    }
-
     @JsonView(RestauranteView.Resumo.class)
     @GetMapping("/resumido")
     public List<RestauranteDTO> listarResumido() {

@@ -8,10 +8,10 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; color: #6F6F6F">
     <#list pedido.itens as item>
-    <tr>
-        <td style="padding:  10px 0">${item.quantidade}x ${item.produto.nome}</td>
-        <td style="width: 30px">${item.precoTotal?string.currency}</td>
-    </tr>
+        <tr>
+            <td style="padding:  10px 0">${item.quantidade}x ${item.produto.nome}</td>
+            <td style="width: 30px">${item.precoTotal?string.currency}</td>
+        </tr>
     </#list>
 
     <tr>

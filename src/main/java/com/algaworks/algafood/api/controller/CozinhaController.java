@@ -3,9 +3,11 @@ package com.algaworks.algafood.api.controller;
 import com.algaworks.algafood.api.assembler.CozinhaModelAssembler;
 import com.algaworks.algafood.api.model.DTO.CozinhaDTO;
 import com.algaworks.algafood.api.model.input.CozinhaInput;
+import com.algaworks.algafood.api.openapi.controller.CozinhaControllerOpenApi;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,9 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Api(tags = "Cozinhas")
 @RestController
 @RequestMapping(value = "/cozinhas")
-public class CozinhaController {
+public class CozinhaController implements CozinhaControllerOpenApi {
     @Autowired
     private CozinhaRepository cozinhaRepository;
 
@@ -49,14 +52,14 @@ public class CozinhaController {
     }
 
     @PutMapping("/{cozinhaId}")
-    public CozinhaDTO atualizar(@PathVariable long cozinhaId, @RequestBody @Valid CozinhaInput cozinhaInput) {
+    public CozinhaDTO atualizar(@PathVariable Long cozinhaId, @RequestBody @Valid CozinhaInput cozinhaInput) {
         var cozinha = cozinhaModelAssembler.toEntity(cozinhaInput);
         return cozinhaModelAssembler.toDTO(cadastroCozinhaService.atualizar(cozinhaId, cozinha));
     }
 
     @DeleteMapping("/{cozinhaId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void remover(@PathVariable long cozinhaId) {
+    public void remover(@PathVariable Long cozinhaId) {
         cadastroCozinhaService.excluir(cozinhaId);
     }
 

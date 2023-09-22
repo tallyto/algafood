@@ -5,6 +5,6 @@ import io.swagger.annotations.ApiModel;
 
 
 @ApiModel("CozinhasModel")
-public class CozinhasModelOpenApi extends PagedModelOpenApi<CozinhaDTO>  {
+public class CozinhasModelOpenApi extends PagedModelOpenApi<CozinhaDTO> {
 
 }

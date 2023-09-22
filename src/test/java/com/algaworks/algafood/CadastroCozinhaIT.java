@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.validation.ConstraintViolationException;
-
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;

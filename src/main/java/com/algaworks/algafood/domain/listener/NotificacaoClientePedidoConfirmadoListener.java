@@ -15,6 +15,7 @@ public class NotificacaoClientePedidoConfirmadoListener {
 
     @Autowired
     private EnvioEmailService envioEmailService;
+
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void aoConfirmarPedido(PedidoConfirmadoEvent event) {
         Pedido pedido = event.getPedido();

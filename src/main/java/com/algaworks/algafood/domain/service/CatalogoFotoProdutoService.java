@@ -24,7 +24,7 @@ public class CatalogoFotoProdutoService {
     }
 
     @Transactional
-    public void remover(Long restauranteId, Long produtoId){
+    public void remover(Long restauranteId, Long produtoId) {
         FotoProduto fotoProduto = buscarOuFalhar(restauranteId, produtoId);
         produtoRepository.delete(fotoProduto);
         fotoStorage.remover(fotoProduto.getNomeArquivo());

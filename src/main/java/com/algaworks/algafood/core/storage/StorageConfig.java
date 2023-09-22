@@ -18,7 +18,7 @@ public class StorageConfig {
     private StorageProperties storageProperties;
 
     @Bean
-    public AmazonS3 amazonS3(){
+    public AmazonS3 amazonS3() {
         var credentials = new BasicAWSCredentials(
             storageProperties.getS3().getIdChaveAcesso(),
             storageProperties.getS3().getChaveAcessoSecreta()
@@ -31,8 +31,8 @@ public class StorageConfig {
     }
 
     @Bean
-    public FotoStorageService fotoStorageService(){
-        if(StorageProperties.TipoStorage.S3.equals(storageProperties.getTipo())){
+    public FotoStorageService fotoStorageService() {
+        if (StorageProperties.TipoStorage.S3.equals(storageProperties.getTipo())) {
             return new S3FotoStorageService();
         } else {
             return new LocalFotoStorageService();
