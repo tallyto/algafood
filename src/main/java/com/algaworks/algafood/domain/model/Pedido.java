@@ -17,6 +17,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -92,9 +93,12 @@ public class Pedido extends AbstractAggregateRoot<Pedido> {
 
     private void setStatus(StatusPedido novoStatus) {
         if (getStatus().naoPodeAlterarPara(novoStatus)) {
-            throw new NegocioException(String.format("Status do pedido %d não pode alterado de %s para %s", getId(),
-                getStatus().getDescricao(), novoStatus.getDescricao()));
+            throw new NegocioException(
+                String.format("Status do pedido %s não pode ser alterado de %s para %s",
+                    getCodigo(), getStatus().getDescricao(),
+                    novoStatus.getDescricao()));
         }
+
         this.status = novoStatus;
     }
 
@@ -114,4 +118,10 @@ public class Pedido extends AbstractAggregateRoot<Pedido> {
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
+
+    @PrePersist
+    private void gerarCodigo() {
+        setCodigo(UUID.randomUUID().toString());
+    }
+
 }
