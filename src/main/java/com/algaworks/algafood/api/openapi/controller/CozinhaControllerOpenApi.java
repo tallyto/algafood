@@ -20,7 +20,7 @@ public interface CozinhaControllerOpenApi {
         @ApiResponse(code = 200, message = "Cozinha encontrada"),
         @ApiResponse(code = 404, message = "Cozinha não encontrada", response = Problem.class)
     })
-    public CozinhaDTO buscar(@ApiParam(value = "ID da cozinha", example = "1")
+    public CozinhaDTO buscar(@ApiParam(value = "ID da cozinha", example = "1", required = true)
                              @PathVariable Long cozinhaId);
 
     @ApiOperation(value = "Cadastra uma nova cozinha")
@@ -36,7 +36,7 @@ public interface CozinhaControllerOpenApi {
         @ApiResponse(code = 200, message = "Cozinha encontrada"),
         @ApiResponse(code = 404, message = "Cozinha não encontrada", response = Problem.class)
     })
-    CozinhaDTO atualizar(@ApiParam(value = "ID da cozinha", example = "1") Long cozinhaId,
+    CozinhaDTO atualizar(@ApiParam(value = "ID da cozinha", example = "1", required = true) Long cozinhaId,
                          @ApiParam(name = "corpo", value = "Representação de uma cozinha com os novos dados",
                              required = true) CozinhaInput cozinhaInput);
 
@@ -45,6 +45,6 @@ public interface CozinhaControllerOpenApi {
         @ApiResponse(code = 204, message = "Cozinha excluída com sucesso"),
         @ApiResponse(code = 404, message = "Cozinha não encontrada", response = Problem.class)
     })
-    void remover(@ApiParam(value = "ID da cozinha", example = "1")
+    void remover(@ApiParam(value = "ID da cozinha", example = "1", required = true)
                  Long cozinhaId);
 }
