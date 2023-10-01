@@ -4,6 +4,7 @@ import com.algaworks.algafood.api.assembler.RestauranteModelAssembler;
 import com.algaworks.algafood.api.model.DTO.RestauranteDTO;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
 import com.algaworks.algafood.api.model.view.RestauranteView;
+import com.algaworks.algafood.api.openapi.controller.RestauranteControllerOpenApi;
 import com.algaworks.algafood.api.openapi.model.RestauranteBasicoModelOpenApi;
 import com.algaworks.algafood.core.validation.ValidacaoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
@@ -36,7 +37,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("restaurantes")
-public class RestauranteController {
+public class RestauranteController implements RestauranteControllerOpenApi {
 
     @Autowired
     private RestauranteRepository restauranteRepository;
@@ -50,21 +51,15 @@ public class RestauranteController {
     @Autowired
     private RestauranteModelAssembler assembler;
 
-    @ApiOperation(value = "Lista restaurantes", response = RestauranteBasicoModelOpenApi.class)
-    @ApiImplicitParams({
-        @ApiImplicitParam(value = "nome da projeção de pedidos",
-            name = "projecao", paramType = "query", type = "string", allowableValues = "apenas-nome")
-    })
     @JsonView(RestauranteView.Resumo.class)
     @GetMapping
     public List<RestauranteDTO> listar() {
         return assembler.toCollectionDTO(restauranteRepository.findAll());
     }
 
-    @ApiOperation(value = "Lista restaurantes", hidden = true)
     @JsonView(RestauranteView.ApenasNome.class)
     @GetMapping(params = "projecao=apenas-nome")
-    public List<RestauranteDTO> listarApenasNome() {
+    public List<RestauranteDTO> listarApenasNomes() {
         return listar();
     }
 
@@ -116,14 +111,14 @@ public class RestauranteController {
 
     @PutMapping("/{restauranteId}/abertura")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void abertura(@PathVariable Long restauranteId) {
+    public void abrir(@PathVariable Long restauranteId) {
         restauranteService.abertura(restauranteId);
     }
 
 
     @PutMapping("/{restauranteId}/fechamento")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void fechamento(@PathVariable Long restauranteId) {
+    public void fechar(@PathVariable Long restauranteId) {
         restauranteService.fechamento(restauranteId);
     }
 
@@ -146,7 +141,6 @@ public class RestauranteController {
             throw new NegocioException(e.getMessage(), e);
         }
     }
-
 
     private void validate(Restaurante restaurante, String objectName) {
         BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(restaurante, objectName);
