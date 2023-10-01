@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.controller;
 import com.algaworks.algafood.api.assembler.EstadoModelAssembler;
 import com.algaworks.algafood.api.model.DTO.EstadoDTO;
 import com.algaworks.algafood.api.model.input.EstadoInput;
+import com.algaworks.algafood.api.openapi.controller.EstadoControllerOpenApi;
 import com.algaworks.algafood.domain.model.Estado;
 import com.algaworks.algafood.domain.service.EstadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/estados")
-public class EstadoController {
+public class EstadoController implements EstadoControllerOpenApi {
     @Autowired
     EstadoService cadastroEstado;
 
@@ -22,18 +23,18 @@ public class EstadoController {
     EstadoModelAssembler assembler;
 
     @GetMapping
-    List<EstadoDTO> listar() {
+    public List<EstadoDTO> listar() {
         return assembler.toCollectionDTO(cadastroEstado.listar());
     }
 
     @PostMapping
-    EstadoDTO adicionar(@RequestBody @Valid EstadoInput estadoInput) {
+   public EstadoDTO adicionar(@RequestBody @Valid EstadoInput estadoInput) {
         Estado estado = cadastroEstado.salvar(assembler.toEntity(estadoInput));
         return assembler.toDTO(estado);
     }
 
     @GetMapping("/{estadoId}")
-    EstadoDTO buscar(@PathVariable Long estadoId) {
+    public EstadoDTO buscar(@PathVariable Long estadoId) {
         return assembler.toDTO(cadastroEstado.buscar(estadoId));
     }
 
