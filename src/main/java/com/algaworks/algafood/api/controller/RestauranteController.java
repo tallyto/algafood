@@ -4,6 +4,7 @@ import com.algaworks.algafood.api.assembler.RestauranteModelAssembler;
 import com.algaworks.algafood.api.model.DTO.RestauranteDTO;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
 import com.algaworks.algafood.api.model.view.RestauranteView;
+import com.algaworks.algafood.api.openapi.model.RestauranteBasicoModelOpenApi;
 import com.algaworks.algafood.core.validation.ValidacaoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException;
@@ -13,10 +14,12 @@ import com.algaworks.algafood.domain.service.RestauranteService;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
@@ -47,24 +50,22 @@ public class RestauranteController {
     @Autowired
     private RestauranteModelAssembler assembler;
 
+    @ApiOperation(value = "Lista restaurantes", response = RestauranteBasicoModelOpenApi.class)
+    @ApiImplicitParams({
+        @ApiImplicitParam(value = "nome da projeção de pedidos",
+            name = "projecao", paramType = "query", type = "string", allowableValues = "apenas-nome")
+    })
     @JsonView(RestauranteView.Resumo.class)
     @GetMapping
-    public ResponseEntity<List<RestauranteDTO>> listar() {
-        List<Restaurante> restaurantes = restauranteRepository.findAll();
-        List<RestauranteDTO> restaurantesDTO = assembler.toCollectionDTO(restaurantes);
-        return ResponseEntity.ok(restaurantesDTO);
-    }
-
-    @JsonView(RestauranteView.Resumo.class)
-    @GetMapping("/resumido")
-    public List<RestauranteDTO> listarResumido() {
+    public List<RestauranteDTO> listar() {
         return assembler.toCollectionDTO(restauranteRepository.findAll());
     }
 
+    @ApiOperation(value = "Lista restaurantes", hidden = true)
     @JsonView(RestauranteView.ApenasNome.class)
-    @GetMapping("/apenas-nome")
+    @GetMapping(params = "projecao=apenas-nome")
     public List<RestauranteDTO> listarApenasNome() {
-        return assembler.toCollectionDTO(restauranteRepository.findAll());
+        return listar();
     }
 
     @GetMapping("/{restauranteId}")
