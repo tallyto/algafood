@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.controller;
 import com.algaworks.algafood.api.assembler.ProdutoAssembler;
 import com.algaworks.algafood.api.model.DTO.ProdutoDTO;
 import com.algaworks.algafood.api.model.input.ProdutoInput;
+import com.algaworks.algafood.api.openapi.controller.RestauranteProdutoControllerOpenApi;
 import com.algaworks.algafood.domain.exception.ProdutoNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Produto;
 import com.algaworks.algafood.domain.model.Restaurante;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/restaurantes/{restauranteId}/produtos")
-public class RestauranteProdutoController {
+public class RestauranteProdutoController implements RestauranteProdutoControllerOpenApi {
     @Autowired
     RestauranteService restauranteService;
 
@@ -32,13 +33,14 @@ public class RestauranteProdutoController {
     private ProdutoRepository produtoRepository;
 
     @GetMapping
-    public List<ProdutoDTO> listar(@RequestParam(required = false) boolean incluirInativos, @PathVariable Long restauranteId) {
+    public List<ProdutoDTO> listar( @PathVariable Long restauranteId, @RequestParam(required = false) boolean incluirInativos) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
         if (incluirInativos) {
             return assembler.toCollectionDTO(produtoRepository.findAllByRestaurante(restaurante));
         }
         return assembler.toCollectionDTO(produtoRepository.findAtivosByRestaurante(restaurante));
     }
+
 
     @GetMapping("{produtoId}")
     public ProdutoDTO buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
