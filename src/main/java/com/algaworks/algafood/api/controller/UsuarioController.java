@@ -5,11 +5,11 @@ import com.algaworks.algafood.api.model.DTO.UsuarioDTO;
 import com.algaworks.algafood.api.model.input.SenhaInput;
 import com.algaworks.algafood.api.model.input.UsuarioInput;
 import com.algaworks.algafood.api.model.input.UsuarioWithoutPasswordInput;
+import com.algaworks.algafood.api.openapi.controller.UsuarioControllerOpenApi;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,7 +17,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/usuarios")
-public class UsuarioController {
+public class UsuarioController implements UsuarioControllerOpenApi {
 
     @Autowired
     private UsuarioService usuarioService;
@@ -36,7 +36,7 @@ public class UsuarioController {
     }
 
     @PostMapping()
-    public UsuarioDTO criar(@RequestBody @Valid UsuarioInput usuarioInput) {
+    public UsuarioDTO adicionar(@RequestBody @Valid UsuarioInput usuarioInput) {
         Usuario usuario = assembler.toEntity(usuarioInput);
         return assembler.toDTO(usuarioService.criar(usuario));
     }
@@ -48,9 +48,9 @@ public class UsuarioController {
     }
 
     @PutMapping("{usuarioId}/senha")
-    public ResponseEntity<?> alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senhaInput) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senhaInput) {
         usuarioService.alterarSenha(usuarioId, senhaInput.getSenhaAtual(), senhaInput.getNovaSenha());
-        return ResponseEntity.noContent().build();
     }
 
 
