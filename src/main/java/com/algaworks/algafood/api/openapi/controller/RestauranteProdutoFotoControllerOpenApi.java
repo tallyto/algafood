@@ -3,13 +3,10 @@ package com.algaworks.algafood.api.openapi.controller;
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.DTO.FotoProdutoDTO;
 import com.algaworks.algafood.api.model.input.FotoProdutoInput;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -27,8 +24,9 @@ public interface RestauranteProdutoFotoControllerOpenApi {
 
         @ApiParam(value = "ID do produto", example = "1", required = true)
         Long produtoId,
-
-        FotoProdutoInput fotoProdutoInput) throws IOException;
+        FotoProdutoInput fotoProdutoInput,
+        @ApiParam(value = "Arquivo da foto do produto (máximo 500KB, formato JPEG ou PNG)", required = true)
+        MultipartFile arquivo) throws IOException;
 
     @ApiOperation("Exclui a foto do produto de um restaurante")
     @ApiResponses({
@@ -44,7 +42,7 @@ public interface RestauranteProdutoFotoControllerOpenApi {
         Long produtoId);
 
     @ApiOperation(value = "Busca a foto do produto de um restaurante",
-        produces = "application/json, image/jpeg, image/png")
+        produces = "application/json, image/jpeg, image/png, image/jpg")
     @ApiResponses({
         @ApiResponse(code = 400, message = "ID do restaurante ou produto inválido", response = Problem.class),
         @ApiResponse(code = 404, message = "Foto de produto não encontrada", response = Problem.class)
