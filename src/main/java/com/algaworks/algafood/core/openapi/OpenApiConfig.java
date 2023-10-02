@@ -8,6 +8,7 @@ import com.fasterxml.classmate.TypeResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.AlternateTypeRules;
@@ -29,6 +29,11 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.io.File;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLStreamHandler;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,16 +54,9 @@ public class OpenApiConfig implements WebMvcConfigurer {
             .globalResponseMessage(RequestMethod.POST, globalPostPutResponseMessages())
             .globalResponseMessage(RequestMethod.PUT, globalPostPutResponseMessages())
             .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
-//            .globalOperationParameters(Arrays.asList(
-//                new ParameterBuilder().name("campos")
-//                        .description("Nomes das propriedades para filtrar na resposta, seperados por vírgula")
-//                        .modelRef(new ModelRef("string"))
-//                        .parameterType("query")
-//                        .required(false)
-//                        .build()
-//            ))
             .additionalModels(typeResolver.resolve(Problem.class))
-            .ignoredParameterTypes(ServletWebRequest.class)
+            .ignoredParameterTypes(ServletWebRequest.class, URL.class, URI.class, URLStreamHandler.class,
+                Resource.class, File.class, InputStream.class)
             .directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
             .alternateTypeRules(AlternateTypeRules.newRule(
                 typeResolver.resolve(Page.class, CozinhaDTO.class), CozinhasModelOpenApi.class
