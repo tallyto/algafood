@@ -9,8 +9,7 @@ import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.IanaLinkRelations;
-import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +38,15 @@ public class CidadeController implements CidadeControllerOpenApi {
 
         CidadeDTO cidadeDTO = cidadeModelAssembler.toDTO(cidade);
 
-        cidadeDTO.add(Link.of("http://localhost:3001/cidades/2", IanaLinkRelations.SELF));
-        cidadeDTO.add(Link.of("http://localhost:3001/cidades", IanaLinkRelations.COLLECTION));
-        cidadeDTO.getEstado().add(Link.of("http://localhost:3001/estados/1"));
+        cidadeDTO.add(WebMvcLinkBuilder.linkTo(CidadeController.class)
+            .slash(cidadeDTO.getId()).withSelfRel());
+
+        cidadeDTO.add(WebMvcLinkBuilder.linkTo(CidadeController.class)
+            .withRel("cidades"));
+
+        cidadeDTO.getEstado().add(WebMvcLinkBuilder.linkTo(EstadoController.class)
+            .slash(cidadeDTO.getEstado().getId()).withSelfRel());
+
         return cidadeDTO;
     }
 
