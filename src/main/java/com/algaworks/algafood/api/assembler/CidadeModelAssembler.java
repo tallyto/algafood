@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
-import com.algaworks.algafood.api.model.DTO.CidadeDTO;
+import com.algaworks.algafood.api.model.DTO.CidadeModel;
 import com.algaworks.algafood.api.model.input.CidadeInput;
 import com.algaworks.algafood.domain.model.Cidade;
 import org.modelmapper.ModelMapper;
@@ -16,12 +16,12 @@ public class CidadeModelAssembler {
     ModelMapper modelMapper;
 
 
-    public CidadeDTO toDTO(Cidade cidade) {
-        return modelMapper.map(cidade, CidadeDTO.class);
+    public CidadeModel toDTO(Cidade cidade) {
+        return modelMapper.map(cidade, CidadeModel.class);
     }
 
 
-    public List<CidadeDTO> toCollectionDTO(List<Cidade> cidades) {
+    public List<CidadeModel> toCollectionDTO(List<Cidade> cidades) {
         return cidades.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
