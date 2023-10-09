@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @UtilityClass
 public class ResourceUriHelper {
-    public static void addUriInResponseHeader(Object resourceId){
+    public static void addUriInResponseHeader(Object resourceId) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
             .path("/{id}")
             .buildAndExpand(resourceId).toUri();

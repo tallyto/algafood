@@ -28,7 +28,7 @@ public class EstadoController implements EstadoControllerOpenApi {
     }
 
     @PostMapping
-   public EstadoDTO adicionar(@RequestBody @Valid EstadoInput estadoInput) {
+    public EstadoDTO adicionar(@RequestBody @Valid EstadoInput estadoInput) {
         Estado estado = cadastroEstado.salvar(assembler.toEntity(estadoInput));
         return assembler.toDTO(estado);
     }

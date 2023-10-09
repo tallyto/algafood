@@ -5,22 +5,18 @@ import com.algaworks.algafood.api.model.DTO.CidadeDTO;
 import com.algaworks.algafood.api.model.input.CidadeInput;
 import com.algaworks.algafood.api.openapi.controller.CidadeControllerOpenApi;
 import com.algaworks.algafood.api.utils.ResourceUriHelper;
+import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
-import java.util.Objects;
 
 @Api(tags = "Cidades")
 @RestController
@@ -39,7 +35,14 @@ public class CidadeController implements CidadeControllerOpenApi {
 
     @GetMapping("/{cidadeId}")
     public CidadeDTO buscar(@PathVariable Long cidadeId) {
-        return cidadeModelAssembler.toDTO(cadastroCidade.buscarOuFalhar(cidadeId));
+        Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
+
+        CidadeDTO cidadeDTO = cidadeModelAssembler.toDTO(cidade);
+
+        cidadeDTO.add(Link.of("http://localhost:3001/cidades/2", IanaLinkRelations.SELF));
+        cidadeDTO.add(Link.of("http://localhost:3001/cidades", IanaLinkRelations.COLLECTION));
+        cidadeDTO.getEstado().add(Link.of("http://localhost:3001/estados/1"));
+        return cidadeDTO;
     }
 
     @PostMapping

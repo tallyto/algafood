@@ -1,12 +1,9 @@
 package com.algaworks.algafood.api.openapi.controller;
+
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.DTO.ProdutoDTO;
 import com.algaworks.algafood.api.model.input.ProdutoInput;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 
 import java.util.List;
 

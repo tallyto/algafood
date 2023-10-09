@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+
 @ApiModel("RestauranteBasicoModel")
 @Getter
 @Setter
