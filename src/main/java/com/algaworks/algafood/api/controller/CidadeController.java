@@ -4,15 +4,23 @@ import com.algaworks.algafood.api.assembler.CidadeModelAssembler;
 import com.algaworks.algafood.api.model.DTO.CidadeDTO;
 import com.algaworks.algafood.api.model.input.CidadeInput;
 import com.algaworks.algafood.api.openapi.controller.CidadeControllerOpenApi;
+import com.algaworks.algafood.api.utils.ResourceUriHelper;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 
 @Api(tags = "Cidades")
 @RestController
@@ -37,7 +45,14 @@ public class CidadeController implements CidadeControllerOpenApi {
     @PostMapping
     public CidadeDTO adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
         var cidade = cidadeModelAssembler.toEntity(cidadeInput);
-        return cidadeModelAssembler.toDTO(cadastroCidade.salvar(cidade));
+
+        cidade = cadastroCidade.salvar(cidade);
+
+        CidadeDTO cidadeDTO = cidadeModelAssembler.toDTO(cidade);
+
+        ResourceUriHelper.addUriInResponseHeader(cidadeDTO.getId());
+
+        return cidadeDTO;
     }
 
     @PutMapping("/{cidadeId}")
