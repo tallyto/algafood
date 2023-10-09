@@ -9,6 +9,7 @@ import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,14 +39,16 @@ public class CidadeController implements CidadeControllerOpenApi {
 
         CidadeDTO cidadeDTO = cidadeModelAssembler.toDTO(cidade);
 
-        cidadeDTO.add(WebMvcLinkBuilder.linkTo(CidadeController.class)
-            .slash(cidadeDTO.getId()).withSelfRel());
+        Link link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CidadeController.class)
+            .buscar(cidadeDTO.getId())).withSelfRel();
 
-        cidadeDTO.add(WebMvcLinkBuilder.linkTo(CidadeController.class)
-            .withRel("cidades"));
+        cidadeDTO.add(link);
 
-        cidadeDTO.getEstado().add(WebMvcLinkBuilder.linkTo(EstadoController.class)
-            .slash(cidadeDTO.getEstado().getId()).withSelfRel());
+        cidadeDTO.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CidadeController.class)
+            .listar()).withRel("cidades"));
+
+        cidadeDTO.getEstado().add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EstadoController.class)
+            .buscar(cidadeDTO.getEstado().getId())).withSelfRel());
 
         return cidadeDTO;
     }
