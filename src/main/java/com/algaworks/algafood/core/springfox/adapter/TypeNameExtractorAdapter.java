@@ -45,12 +45,12 @@ public class TypeNameExtractorAdapter extends TypeNameExtractor {
         Class<?> erasedType = resolvedType.getErasedType();
         GenericTypeNamingStrategy namingStrategy = context.getGenericNamingStrategy();
         ModelNameContext nameContext = new ModelNameContext(resolvedType.getErasedType(), context.getDocumentationType());
-        String simpleName = (String)Optional.fromNullable(Types.typeNameFor(erasedType)).or(this.typeName(nameContext));
+        String simpleName = (String) Optional.fromNullable(Types.typeNameFor(erasedType)).or(this.typeName(nameContext));
         StringBuilder sb = new StringBuilder(String.format("%s%s", simpleName, namingStrategy.getOpenGeneric()));
         boolean first = true;
 
-        for(int index = 0; index < erasedType.getTypeParameters().length; ++index) {
-            ResolvedType typeParam = (ResolvedType)resolvedType.getTypeParameters().get(index);
+        for (int index = 0; index < erasedType.getTypeParameters().length; ++index) {
+            ResolvedType typeParam = (ResolvedType) resolvedType.getTypeParameters().get(index);
             if (first) {
                 sb.append(this.innerTypeName(typeParam, context));
                 first = false;
@@ -89,7 +89,7 @@ public class TypeNameExtractorAdapter extends TypeNameExtractor {
     }
 
     private String typeName(ModelNameContext context) {
-        TypeNameProviderPlugin selected = (TypeNameProviderPlugin)this.typeNameProviders.getPluginOrDefaultFor(context.getDocumentationType(), new DefaultTypeNameProvider());
+        TypeNameProviderPlugin selected = (TypeNameProviderPlugin) this.typeNameProviders.getPluginOrDefaultFor(context.getDocumentationType(), new DefaultTypeNameProvider());
         return selected.nameFor(context.getType());
     }
 }

@@ -33,7 +33,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
     private ProdutoRepository produtoRepository;
 
     @GetMapping
-    public List<ProdutoDTO> listar( @PathVariable Long restauranteId, @RequestParam(required = false) boolean incluirInativos) {
+    public List<ProdutoDTO> listar(@PathVariable Long restauranteId, @RequestParam(required = false) boolean incluirInativos) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
         if (incluirInativos) {
             return assembler.toCollectionDTO(produtoRepository.findAllByRestaurante(restaurante));
