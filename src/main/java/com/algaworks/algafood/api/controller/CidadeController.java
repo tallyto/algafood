@@ -10,8 +10,6 @@ import com.algaworks.algafood.domain.service.CadastroCidadeService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -31,46 +29,15 @@ public class CidadeController implements CidadeControllerOpenApi {
 
     @GetMapping
     public CollectionModel<CidadeModel> listar() {
-       List<CidadeModel> cidadesModel = cidadeModelAssembler.toCollectionDTO(cadastroCidade.listar());
-
-       cidadesModel.forEach(cidadeModel -> {
-           Link link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CidadeController.class)
-               .buscar(cidadeModel.getId())).withSelfRel();
-
-           cidadeModel.add(link);
-
-           cidadeModel.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CidadeController.class)
-               .listar()).withRel("cidades"));
-
-           cidadeModel.getEstado().add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EstadoController.class)
-               .buscar(cidadeModel.getEstado().getId())).withSelfRel());
-       });
-
-       CollectionModel<CidadeModel> cidadesCollectionModel = CollectionModel.of(cidadesModel);
-
-
-       cidadesCollectionModel.add(WebMvcLinkBuilder.linkTo(CidadeController.class).withSelfRel());
-       return cidadesCollectionModel;
+        List<Cidade> cidades = cadastroCidade.listar();
+        return cidadeModelAssembler.toCollectionModel(cidades);
     }
 
     @GetMapping("/{cidadeId}")
     public CidadeModel buscar(@PathVariable Long cidadeId) {
         Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
 
-        CidadeModel cidadeDTO = cidadeModelAssembler.toDTO(cidade);
-
-        Link link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CidadeController.class)
-            .buscar(cidadeDTO.getId())).withSelfRel();
-
-        cidadeDTO.add(link);
-
-        cidadeDTO.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CidadeController.class)
-            .listar()).withRel("cidades"));
-
-        cidadeDTO.getEstado().add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EstadoController.class)
-            .buscar(cidadeDTO.getEstado().getId())).withSelfRel());
-
-        return cidadeDTO;
+        return cidadeModelAssembler.toModel(cidade);
     }
 
     @PostMapping
@@ -79,7 +46,7 @@ public class CidadeController implements CidadeControllerOpenApi {
 
         cidade = cadastroCidade.salvar(cidade);
 
-        CidadeModel cidadeDTO = cidadeModelAssembler.toDTO(cidade);
+        CidadeModel cidadeDTO = cidadeModelAssembler.toModel(cidade);
 
         ResourceUriHelper.addUriInResponseHeader(cidadeDTO.getId());
 
@@ -89,7 +56,7 @@ public class CidadeController implements CidadeControllerOpenApi {
     @PutMapping("/{cidadeId}")
     public CidadeModel atualizar(@PathVariable Long cidadeId, @RequestBody @Valid CidadeInput cidadeInput) {
         var cidade = cidadeModelAssembler.toEntity(cidadeInput);
-        return cidadeModelAssembler.toDTO(cadastroCidade.atualizar(cidadeId, cidade));
+        return cidadeModelAssembler.toModel(cadastroCidade.atualizar(cidadeId, cidade));
     }
 
     @DeleteMapping("/{cidadeId}")
