@@ -2,8 +2,8 @@ package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.PedidoAssembler;
 import com.algaworks.algafood.api.assembler.PedidoResumoAssembler;
-import com.algaworks.algafood.api.model.DTO.PedidoDTO;
-import com.algaworks.algafood.api.model.DTO.PedidoResumoDTO;
+import com.algaworks.algafood.api.model.DTO.PedidoModel;
+import com.algaworks.algafood.api.model.DTO.PedidoResumoModel;
 import com.algaworks.algafood.api.model.input.PedidoInput;
 import com.algaworks.algafood.api.openapi.controller.PedidoControllerOpenApi;
 import com.algaworks.algafood.core.data.PageableTranslator;
@@ -52,14 +52,14 @@ public class PedidoController implements PedidoControllerOpenApi {
 
     })
     @GetMapping
-    public Page<PedidoResumoDTO> pesquisar(PedidoFilter filtro,
-                                           @PageableDefault(size = 10) Pageable pageable) {
+    public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro,
+                                             @PageableDefault(size = 10) Pageable pageable) {
         pageable = traduzirPageable(pageable);
 
         Page<Pedido> pedidosPage = pedidoRepository.findAll(
             PedidoSpecs.usandoFiltro(filtro), pageable);
 
-        List<PedidoResumoDTO> pedidosResumoModel = resumoAssembler
+        List<PedidoResumoModel> pedidosResumoModel = resumoAssembler
             .toCollectionDTO(pedidosPage.getContent());
 
         return new PageImpl<>(
@@ -68,7 +68,7 @@ public class PedidoController implements PedidoControllerOpenApi {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PedidoDTO adicionar(@Valid @RequestBody PedidoInput pedidoInput) {
+    public PedidoModel adicionar(@Valid @RequestBody PedidoInput pedidoInput) {
         try {
             Pedido novoPedido = assembler.toEntity(pedidoInput);
 
@@ -89,7 +89,7 @@ public class PedidoController implements PedidoControllerOpenApi {
             name = "campos", paramType = "query", type = "string")
     })
     @GetMapping("/{codidoPedido}")
-    public PedidoDTO buscar(@PathVariable String codidoPedido) {
+    public PedidoModel buscar(@PathVariable String codidoPedido) {
         Pedido pedido = emissaoPedido.buscarOuFalhar(codidoPedido);
 
         return assembler.toDTO(pedido);

@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.FormaPagamentoAssembler;
-import com.algaworks.algafood.api.model.DTO.FormaPagamentoDTO;
+import com.algaworks.algafood.api.model.DTO.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
 import com.algaworks.algafood.api.openapi.controller.FormaPagamentoControllerOpenApi;
 import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
@@ -33,7 +33,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
     FormaPagamentoRepository formaPagamentoRepository;
 
     @GetMapping
-    public ResponseEntity<List<FormaPagamentoDTO>> listar(ServletWebRequest request) {
+    public ResponseEntity<List<FormaPagamentoModel>> listar(ServletWebRequest request) {
         ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
         String eTag = "0";
 
@@ -60,7 +60,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
     }
 
     @GetMapping("/{formaPagamentoId}")
-    public ResponseEntity<FormaPagamentoDTO> buscar(@PathVariable Long formaPagamentoId, ServletWebRequest request) {
+    public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId, ServletWebRequest request) {
 
         var formaPagamento = cadastroFormaPagamento.buscar(formaPagamentoId);
         var formaPagamentoDTO = assembler.toDTO(formaPagamento);
@@ -83,12 +83,12 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
     }
 
     @PostMapping
-    public FormaPagamentoDTO adicionar(@RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
+    public FormaPagamentoModel adicionar(@RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
         return assembler.toDTO(cadastroFormaPagamento.salvar(assembler.toEntity(formaPagamentoInput)));
     }
 
     @PutMapping("/{formaPagamentoId}")
-    public FormaPagamentoDTO atualizar(@PathVariable Long formaPagamentoId, @RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
+    public FormaPagamentoModel atualizar(@PathVariable Long formaPagamentoId, @RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
         return assembler.toDTO(cadastroFormaPagamento.atualizar(formaPagamentoId, assembler.toEntity(formaPagamentoInput)));
     }
 

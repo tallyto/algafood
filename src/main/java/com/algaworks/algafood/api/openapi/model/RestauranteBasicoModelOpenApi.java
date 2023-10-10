@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.openapi.model;
 
-import com.algaworks.algafood.api.model.DTO.CozinhaDTO;
+import com.algaworks.algafood.api.model.DTO.CozinhaModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -18,5 +18,5 @@ public class RestauranteBasicoModelOpenApi {
     private String nome;
     @ApiModelProperty(example = "12.00")
     private BigDecimal taxaFrete;
-    private CozinhaDTO cozinha;
+    private CozinhaModel cozinha;
 }

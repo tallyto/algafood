@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CozinhaDTO {
+public class CozinhaModel {
     @JsonView(RestauranteView.Resumo.class)
     private Long id;
 

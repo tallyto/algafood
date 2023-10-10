@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.RestauranteModelAssembler;
-import com.algaworks.algafood.api.model.DTO.RestauranteDTO;
+import com.algaworks.algafood.api.model.DTO.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
 import com.algaworks.algafood.api.model.view.RestauranteView;
 import com.algaworks.algafood.api.openapi.controller.RestauranteControllerOpenApi;
@@ -49,30 +49,30 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 
     @JsonView(RestauranteView.Resumo.class)
     @GetMapping
-    public List<RestauranteDTO> listar() {
+    public List<RestauranteModel> listar() {
         return assembler.toCollectionDTO(restauranteRepository.findAll());
     }
 
     @JsonView(RestauranteView.ApenasNome.class)
     @GetMapping(params = "projecao=apenas-nome")
-    public List<RestauranteDTO> listarApenasNomes() {
+    public List<RestauranteModel> listarApenasNomes() {
         return listar();
     }
 
     @GetMapping("/{restauranteId}")
-    public RestauranteDTO buscar(@PathVariable Long restauranteId) {
+    public RestauranteModel buscar(@PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
         return assembler.toDTO(restaurante);
     }
 
     @PostMapping
-    public RestauranteDTO adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
+    public RestauranteModel adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
         Restaurante restaurante = assembler.toEntity(restauranteInput);
         return assembler.toDTO(restauranteService.salvar(restaurante));
     }
 
     @PutMapping("/{restauranteId}")
-    public RestauranteDTO atualizar(@PathVariable Long restauranteId, @RequestBody @Valid RestauranteInput restaurante) {
+    public RestauranteModel atualizar(@PathVariable Long restauranteId, @RequestBody @Valid RestauranteInput restaurante) {
 
         Restaurante restauranteAtual = restauranteService.buscar(restauranteId);
 
@@ -82,8 +82,8 @@ public class RestauranteController implements RestauranteControllerOpenApi {
     }
 
     @PatchMapping("/{restauranteId}")
-    public RestauranteDTO atualizarParcial(@PathVariable Long restauranteId,
-                                           @RequestBody Map<String, Object> campos, HttpServletRequest request) {
+    public RestauranteModel atualizarParcial(@PathVariable Long restauranteId,
+                                             @RequestBody Map<String, Object> campos, HttpServletRequest request) {
         Restaurante restauranteAtual = restauranteService.buscar(restauranteId);
 
         merge(campos, restauranteAtual, request);

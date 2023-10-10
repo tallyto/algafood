@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.FotoProdutoDTO;
+import com.algaworks.algafood.api.model.DTO.FotoProdutoModel;
 import com.algaworks.algafood.api.model.input.FotoProdutoInput;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public interface RestauranteProdutoFotoControllerOpenApi {
         @ApiResponse(code = 200, message = "Foto do produto atualizada"),
         @ApiResponse(code = 404, message = "Produto de restaurante não encontrado", response = Problem.class)
     })
-    FotoProdutoDTO atualizarFoto(
+    FotoProdutoModel atualizarFoto(
         @ApiParam(value = "ID do restaurante", example = "1", required = true)
         Long restauranteId,
 
@@ -47,7 +47,7 @@ public interface RestauranteProdutoFotoControllerOpenApi {
         @ApiResponse(code = 400, message = "ID do restaurante ou produto inválido", response = Problem.class),
         @ApiResponse(code = 404, message = "Foto de produto não encontrada", response = Problem.class)
     })
-    FotoProdutoDTO buscar(
+    FotoProdutoModel buscar(
         @ApiParam(value = "ID do restaurante", example = "1", required = true)
         Long restauranteId,
 

@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class RestauranteDTO {
+public class RestauranteModel {
 
     @JsonView(RestauranteView.Resumo.class) // responsavel por dizer qual proprieade sera mostrada para o suario
     private Long id;
@@ -21,10 +21,10 @@ public class RestauranteDTO {
     private BigDecimal taxaFrete;
 
     @JsonView(RestauranteView.Resumo.class)
-    private CozinhaDTO cozinha;
+    private CozinhaModel cozinha;
 
     private Boolean ativo;
     private Boolean aberto;
-    private EnderecoDTO endereco;
+    private EnderecoModel endereco;
 
 }

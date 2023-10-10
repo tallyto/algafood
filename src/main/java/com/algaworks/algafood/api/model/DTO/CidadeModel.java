@@ -17,5 +17,5 @@ public class CidadeModel extends RepresentationModel<CidadeModel> {
     @ApiModelProperty(value = "Nome da cidade", example = "São Paulo")
     private String nome;
     @ApiModelProperty(value = "Estado da cidade")
-    private EstadoDTO estado;
+    private EstadoModel estado;
 }

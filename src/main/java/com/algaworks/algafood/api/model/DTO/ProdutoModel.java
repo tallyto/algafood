@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class ProdutoDTO {
+public class ProdutoModel {
     private Long id;
     private String nome;
     private String descricao;

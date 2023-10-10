@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.FormaPagamentoAssembler;
-import com.algaworks.algafood.api.model.DTO.FormaPagamentoDTO;
+import com.algaworks.algafood.api.model.DTO.FormaPagamentoModel;
 import com.algaworks.algafood.api.openapi.controller.RestauranteFormaPagamentoControllerOpenApi;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.RestauranteService;
@@ -21,7 +21,7 @@ public class RestauranteFormaPagamentoController implements RestauranteFormaPaga
     private FormaPagamentoAssembler assembler;
 
     @GetMapping
-    public List<FormaPagamentoDTO> listar(@PathVariable Long restauranteId) {
+    public List<FormaPagamentoModel> listar(@PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
 
         return assembler.toCollectionDTO(restaurante.getFormasPagamento());

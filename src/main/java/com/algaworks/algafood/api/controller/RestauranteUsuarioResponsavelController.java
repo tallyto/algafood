@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.UsuarioAssembler;
-import com.algaworks.algafood.api.model.DTO.UsuarioDTO;
+import com.algaworks.algafood.api.model.DTO.UsuarioModel;
 import com.algaworks.algafood.api.openapi.controller.RestauranteUsuarioResponsavelControllerOpenApi;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.service.RestauranteService;
@@ -21,7 +21,7 @@ public class RestauranteUsuarioResponsavelController implements RestauranteUsuar
     UsuarioAssembler assembler;
 
     @GetMapping
-    public Collection<UsuarioDTO> listar(@PathVariable Long restauranteId) {
+    public Collection<UsuarioModel> listar(@PathVariable Long restauranteId) {
         Collection<Usuario> usuario = restauranteService.buscar(restauranteId).getUsuarios();
         return assembler.toCollectionDTO(usuario);
     }

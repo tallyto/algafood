@@ -1,8 +1,8 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.PedidoDTO;
-import com.algaworks.algafood.api.model.DTO.PedidoResumoDTO;
+import com.algaworks.algafood.api.model.DTO.PedidoModel;
+import com.algaworks.algafood.api.model.DTO.PedidoResumoModel;
 import com.algaworks.algafood.api.model.input.PedidoInput;
 import com.algaworks.algafood.domain.model.filter.PedidoFilter;
 import io.swagger.annotations.*;
@@ -17,13 +17,13 @@ public interface PedidoControllerOpenApi {
             name = "campos", paramType = "query", type = "string")
     })
     @ApiOperation("Pesquisa os pedidos")
-    Page<PedidoResumoDTO> pesquisar(PedidoFilter filtro, Pageable pageable);
+    Page<PedidoResumoModel> pesquisar(PedidoFilter filtro, Pageable pageable);
 
     @ApiOperation("Registra um pedido")
     @ApiResponses({
         @ApiResponse(code = 201, message = "Pedido registrado"),
     })
-    PedidoDTO adicionar(
+    PedidoModel adicionar(
         @ApiParam(name = "corpo", value = "Representação de um novo pedido", required = true)
         PedidoInput pedidoInput);
 
@@ -35,7 +35,7 @@ public interface PedidoControllerOpenApi {
     @ApiResponses({
         @ApiResponse(code = 404, message = "Pedido não encontrado", response = Problem.class)
     })
-    PedidoDTO buscar(
+    PedidoModel buscar(
         @ApiParam(value = "Código de um pedido", example = "f9981ca4-5a5e-4da3-af04-933861df3e55", required = true)
         String codigoPedido);
 

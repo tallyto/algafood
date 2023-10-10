@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.GrupoAssembler;
-import com.algaworks.algafood.api.model.DTO.GrupoDTO;
+import com.algaworks.algafood.api.model.DTO.GrupoModel;
 import com.algaworks.algafood.api.model.input.GrupoInput;
 import com.algaworks.algafood.api.openapi.controller.GrupoControllerOpenApi;
 import com.algaworks.algafood.domain.model.Grupo;
@@ -25,23 +25,23 @@ public class GrupoController implements GrupoControllerOpenApi {
     private GrupoAssembler assembler;
 
     @GetMapping()
-    public List<GrupoDTO> listar() {
+    public List<GrupoModel> listar() {
         return assembler.toCollectionDTO(grupoService.listar());
     }
 
     @GetMapping("{grupoId}")
-    public GrupoDTO buscar(@PathVariable Long grupoId) {
+    public GrupoModel buscar(@PathVariable Long grupoId) {
         return assembler.toDTO(grupoService.buscar(grupoId));
     }
 
     @PostMapping()
-    public GrupoDTO criar(@RequestBody @Valid GrupoInput grupoInput) {
+    public GrupoModel criar(@RequestBody @Valid GrupoInput grupoInput) {
         Grupo grupo = grupoService.criar(assembler.toEntity(grupoInput));
         return assembler.toDTO(grupo);
     }
 
     @PutMapping("{grupoId}")
-    public GrupoDTO atualizar(@PathVariable Long grupoId, @RequestBody @Valid GrupoInput grupoInput) {
+    public GrupoModel atualizar(@PathVariable Long grupoId, @RequestBody @Valid GrupoInput grupoInput) {
         Grupo grupoAtualizado = grupoService.atualizar(grupoId, assembler.toEntity(grupoInput));
         return assembler.toDTO(grupoAtualizado);
     }

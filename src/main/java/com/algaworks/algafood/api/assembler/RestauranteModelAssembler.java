@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
-import com.algaworks.algafood.api.model.DTO.RestauranteDTO;
+import com.algaworks.algafood.api.model.DTO.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Cozinha;
@@ -19,11 +19,11 @@ public class RestauranteModelAssembler {
     @Autowired
     ModelMapper modelMapper;
 
-    public RestauranteDTO toDTO(Restaurante restaurante) {
-        return modelMapper.map(restaurante, RestauranteDTO.class);
+    public RestauranteModel toDTO(Restaurante restaurante) {
+        return modelMapper.map(restaurante, RestauranteModel.class);
     }
 
-    public List<RestauranteDTO> toCollectionDTO(List<Restaurante> restaurantes) {
+    public List<RestauranteModel> toCollectionDTO(List<Restaurante> restaurantes) {
         return restaurantes.stream().map(this::toDTO).collect(Collectors.toList());
     }
 

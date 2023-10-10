@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.ProdutoAssembler;
-import com.algaworks.algafood.api.model.DTO.ProdutoDTO;
+import com.algaworks.algafood.api.model.DTO.ProdutoModel;
 import com.algaworks.algafood.api.model.input.ProdutoInput;
 import com.algaworks.algafood.api.openapi.controller.RestauranteProdutoControllerOpenApi;
 import com.algaworks.algafood.domain.exception.ProdutoNaoEncontradoException;
@@ -33,7 +33,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
     private ProdutoRepository produtoRepository;
 
     @GetMapping
-    public List<ProdutoDTO> listar(@PathVariable Long restauranteId, @RequestParam(required = false) boolean incluirInativos) {
+    public List<ProdutoModel> listar(@PathVariable Long restauranteId, @RequestParam(required = false) boolean incluirInativos) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
         if (incluirInativos) {
             return assembler.toCollectionDTO(produtoRepository.findAllByRestaurante(restaurante));
@@ -43,7 +43,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
 
 
     @GetMapping("{produtoId}")
-    public ProdutoDTO buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
+    public ProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
         List<Produto> produtos = restauranteService.buscar(restauranteId).getProdutos();
 
         Produto item = produtos.stream()
@@ -58,7 +58,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProdutoDTO adicionar(@PathVariable Long restauranteId, @RequestBody @Valid ProdutoInput produtoInput) {
+    public ProdutoModel adicionar(@PathVariable Long restauranteId, @RequestBody @Valid ProdutoInput produtoInput) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
         Produto produto = assembler.toEntity(produtoInput);
         produto.setRestaurante(restaurante);
@@ -66,7 +66,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
     }
 
     @PutMapping("{produtoId}")
-    public ProdutoDTO atualizar(@PathVariable Long restauranteId, @PathVariable Long produtoId, @RequestBody @Valid ProdutoInput produtoInput) {
+    public ProdutoModel atualizar(@PathVariable Long restauranteId, @PathVariable Long produtoId, @RequestBody @Valid ProdutoInput produtoInput) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
         Produto produto = assembler.toEntity(produtoInput);
         produto.setRestaurante(restaurante);

@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.FormaPagamentoDTO;
+import com.algaworks.algafood.api.model.DTO.FormaPagamentoModel;
 import io.swagger.annotations.*;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public interface RestauranteFormaPagamentoControllerOpenApi {
     @ApiResponses({
         @ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problem.class)
     })
-    List<FormaPagamentoDTO> listar(
+    List<FormaPagamentoModel> listar(
         @ApiParam(value = "ID do restaurante", example = "1", required = true)
         Long restauranteId);
 

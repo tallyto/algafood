@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.FotoProdutoAssembler;
-import com.algaworks.algafood.api.model.DTO.FotoProdutoDTO;
+import com.algaworks.algafood.api.model.DTO.FotoProdutoModel;
 import com.algaworks.algafood.api.model.input.FotoProdutoInput;
 import com.algaworks.algafood.api.openapi.controller.RestauranteProdutoFotoControllerOpenApi;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
@@ -42,7 +42,7 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 
 
     @GetMapping
-    public FotoProdutoDTO buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
+    public FotoProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
         FotoProduto fotoExistente = fotoProdutoService.buscarOuFalhar(restauranteId, produtoId);
         return assembler.toDTO(fotoExistente);
     }
@@ -88,9 +88,9 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
     }
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public FotoProdutoDTO atualizarFoto(@PathVariable Long restauranteId,
-                                        @PathVariable Long produtoId, @Valid FotoProdutoInput input,
-                                        @RequestPart() MultipartFile arquivo) throws IOException {
+    public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId,
+                                          @PathVariable Long produtoId, @Valid FotoProdutoInput input,
+                                          @RequestPart() MultipartFile arquivo) throws IOException {
 
         Produto produto = produtoService.buscarOuFalhar(restauranteId, produtoId);
 
