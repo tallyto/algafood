@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.RestauranteDTO;
+import com.algaworks.algafood.api.model.DTO.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
 import com.algaworks.algafood.api.model.view.RestauranteView;
 import com.algaworks.algafood.api.openapi.model.RestauranteBasicoModelOpenApi;
@@ -19,17 +19,17 @@ public interface RestauranteControllerOpenApi {
             name = "projecao", paramType = "query", type = "string")
     })
     @JsonView(RestauranteView.Resumo.class)
-    List<RestauranteDTO> listar();
+    List<RestauranteModel> listar();
 
     @ApiOperation(value = "Lista restaurantes", hidden = true)
-    List<RestauranteDTO> listarApenasNomes();
+    List<RestauranteModel> listarApenasNomes();
 
     @ApiOperation("Busca um restaurante por ID")
     @ApiResponses({
         @ApiResponse(code = 400, message = "ID do restaurante inválido", response = Problem.class),
         @ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problem.class)
     })
-    RestauranteDTO buscar(
+    RestauranteModel buscar(
         @ApiParam(value = "ID de um restaurante", example = "1", required = true)
         Long restauranteId);
 
@@ -37,7 +37,7 @@ public interface RestauranteControllerOpenApi {
     @ApiResponses({
         @ApiResponse(code = 201, message = "Restaurante cadastrado"),
     })
-    RestauranteDTO adicionar(
+    RestauranteModel adicionar(
         @ApiParam(name = "corpo", value = "Representação de um novo restaurante", required = true)
         RestauranteInput restauranteInput);
 
@@ -46,7 +46,7 @@ public interface RestauranteControllerOpenApi {
         @ApiResponse(code = 200, message = "Restaurante atualizado"),
         @ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problem.class)
     })
-    RestauranteDTO atualizar(
+    RestauranteModel atualizar(
         @ApiParam(value = "ID de um restaurante", example = "1", required = true)
         Long restauranteId,
 

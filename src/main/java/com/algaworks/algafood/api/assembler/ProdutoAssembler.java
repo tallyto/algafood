@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
-import com.algaworks.algafood.api.model.DTO.ProdutoDTO;
+import com.algaworks.algafood.api.model.DTO.ProdutoModel;
 import com.algaworks.algafood.api.model.input.ProdutoInput;
 import com.algaworks.algafood.domain.model.Produto;
 import org.modelmapper.ModelMapper;
@@ -15,11 +15,11 @@ public class ProdutoAssembler {
     @Autowired
     ModelMapper modelMapper;
 
-    public ProdutoDTO toDTO(Produto produto) {
-        return modelMapper.map(produto, ProdutoDTO.class);
+    public ProdutoModel toDTO(Produto produto) {
+        return modelMapper.map(produto, ProdutoModel.class);
     }
 
-    public List<ProdutoDTO> toCollectionDTO(List<Produto> produtos) {
+    public List<ProdutoModel> toCollectionDTO(List<Produto> produtos) {
         return produtos.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
@@ -27,7 +27,7 @@ public class ProdutoAssembler {
         return modelMapper.map(produtoInput, Produto.class);
     }
 
-    public List<Produto> toCollectionEntity(List<ProdutoDTO> produtoDTOS) {
+    public List<Produto> toCollectionEntity(List<ProdutoModel> produtoDTOS) {
         return produtoDTOS.stream().map((element) -> modelMapper.map(element, Produto.class)).collect(Collectors.toList());
     }
 }

@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.UsuarioAssembler;
-import com.algaworks.algafood.api.model.DTO.UsuarioDTO;
+import com.algaworks.algafood.api.model.DTO.UsuarioModel;
 import com.algaworks.algafood.api.model.input.SenhaInput;
 import com.algaworks.algafood.api.model.input.UsuarioInput;
 import com.algaworks.algafood.api.model.input.UsuarioWithoutPasswordInput;
@@ -26,25 +26,25 @@ public class UsuarioController implements UsuarioControllerOpenApi {
     private UsuarioAssembler assembler;
 
     @GetMapping
-    public Collection<UsuarioDTO> listar() {
+    public Collection<UsuarioModel> listar() {
         return assembler.toCollectionDTO(usuarioService.listar());
     }
 
     @GetMapping("{usuarioId}")
-    public UsuarioDTO buscar(@PathVariable Long usuarioId) {
-        return assembler.toDTO(usuarioService.buscar(usuarioId));
+    public UsuarioModel buscar(@PathVariable Long usuarioId) {
+        return assembler.toModel(usuarioService.buscar(usuarioId));
     }
 
     @PostMapping()
-    public UsuarioDTO adicionar(@RequestBody @Valid UsuarioInput usuarioInput) {
+    public UsuarioModel adicionar(@RequestBody @Valid UsuarioInput usuarioInput) {
         Usuario usuario = assembler.toEntity(usuarioInput);
-        return assembler.toDTO(usuarioService.criar(usuario));
+        return assembler.toModel(usuarioService.criar(usuario));
     }
 
     @PutMapping("{usuarioId}")
-    public UsuarioDTO atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioWithoutPasswordInput usuarioInput) {
+    public UsuarioModel atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioWithoutPasswordInput usuarioInput) {
         Usuario usuario = assembler.toEntityUpdate(usuarioInput);
-        return assembler.toDTO(usuarioService.atualizar(usuarioId, usuario));
+        return assembler.toModel(usuarioService.atualizar(usuarioId, usuario));
     }
 
     @PutMapping("{usuarioId}/senha")

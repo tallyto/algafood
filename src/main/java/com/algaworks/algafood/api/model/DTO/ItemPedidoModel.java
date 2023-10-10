@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class ItemPedidoDTO {
+public class ItemPedidoModel {
     @ApiModelProperty(example = "1")
     private Long produtoId;
 

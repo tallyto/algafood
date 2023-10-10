@@ -1,7 +1,7 @@
 package com.algaworks.algafood.core.springfox;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.CozinhaDTO;
+import com.algaworks.algafood.api.model.DTO.CozinhaModel;
 import com.algaworks.algafood.api.openapi.model.CozinhasModelOpenApi;
 import com.algaworks.algafood.api.openapi.model.PageableModelOpenApi;
 import com.fasterxml.classmate.TypeResolver;
@@ -59,7 +59,7 @@ public class OpenApiConfig implements WebMvcConfigurer {
                 Resource.class, File.class, InputStream.class)
             .directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
             .alternateTypeRules(AlternateTypeRules.newRule(
-                typeResolver.resolve(Page.class, CozinhaDTO.class), CozinhasModelOpenApi.class
+                typeResolver.resolve(Page.class, CozinhaModel.class), CozinhasModelOpenApi.class
             ))
             .apiInfo(apiInfo())
             .tags(new Tag("Cidades", "Gerencia as cidades"));

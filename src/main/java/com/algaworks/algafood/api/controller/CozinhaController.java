@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.CozinhaModelAssembler;
-import com.algaworks.algafood.api.model.DTO.CozinhaDTO;
+import com.algaworks.algafood.api.model.DTO.CozinhaModel;
 import com.algaworks.algafood.api.model.input.CozinhaInput;
 import com.algaworks.algafood.api.openapi.controller.CozinhaControllerOpenApi;
 import com.algaworks.algafood.domain.model.Cozinha;
@@ -33,26 +33,26 @@ public class CozinhaController implements CozinhaControllerOpenApi {
     private CozinhaModelAssembler cozinhaModelAssembler;
 
     @GetMapping
-    public Page<CozinhaDTO> listar(@PageableDefault() Pageable pageable) {
+    public Page<CozinhaModel> listar(@PageableDefault() Pageable pageable) {
         Page<Cozinha> cozinhaPage = cozinhaRepository.findAll(pageable);
-        List<CozinhaDTO> cozinhaDTOs = cozinhaModelAssembler.toCollectionDTO(cozinhaPage.getContent());
+        List<CozinhaModel> cozinhaDTOs = cozinhaModelAssembler.toCollectionDTO(cozinhaPage.getContent());
         return new PageImpl<>(cozinhaDTOs, pageable, cozinhaPage.getTotalElements());
     }
 
     @GetMapping("/{cozinhaId}")
-    public CozinhaDTO buscar(@PathVariable Long cozinhaId) {
+    public CozinhaModel buscar(@PathVariable Long cozinhaId) {
         return cozinhaModelAssembler.toDTO(cadastroCozinhaService.buscarOuFalhar(cozinhaId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CozinhaDTO adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
+    public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
         var cozinha = cozinhaModelAssembler.toEntity(cozinhaInput);
         return cozinhaModelAssembler.toDTO(cadastroCozinhaService.salvar(cozinha));
     }
 
     @PutMapping("/{cozinhaId}")
-    public CozinhaDTO atualizar(@PathVariable Long cozinhaId, @RequestBody @Valid CozinhaInput cozinhaInput) {
+    public CozinhaModel atualizar(@PathVariable Long cozinhaId, @RequestBody @Valid CozinhaInput cozinhaInput) {
         var cozinha = cozinhaModelAssembler.toEntity(cozinhaInput);
         return cozinhaModelAssembler.toDTO(cadastroCozinhaService.atualizar(cozinhaId, cozinha));
     }

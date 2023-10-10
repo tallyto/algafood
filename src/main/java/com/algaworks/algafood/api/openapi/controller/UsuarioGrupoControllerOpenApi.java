@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.GrupoDTO;
+import com.algaworks.algafood.api.model.DTO.GrupoModel;
 import io.swagger.annotations.*;
 
 import java.util.Collection;
@@ -13,7 +13,7 @@ public interface UsuarioGrupoControllerOpenApi {
     @ApiResponses({
         @ApiResponse(code = 404, message = "Usuário não encontrado", response = Problem.class)
     })
-    Collection<GrupoDTO> listar(
+    Collection<GrupoModel> listar(
         @ApiParam(value = "ID do usuário", example = "1", required = true)
         Long usuarioId);
 

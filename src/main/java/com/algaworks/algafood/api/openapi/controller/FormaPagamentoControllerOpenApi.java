@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.FormaPagamentoDTO;
+import com.algaworks.algafood.api.model.DTO.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +13,14 @@ import java.util.List;
 public interface FormaPagamentoControllerOpenApi {
 
     @ApiOperation("Lista as formas de pagamento")
-    ResponseEntity<List<FormaPagamentoDTO>> listar(ServletWebRequest request);
+    ResponseEntity<List<FormaPagamentoModel>> listar(ServletWebRequest request);
 
     @ApiOperation("Busca uma forma de pagamento por ID")
     @ApiResponses({
         @ApiResponse(code = 400, message = "ID da forma de pagamento inválido", response = Problem.class),
         @ApiResponse(code = 404, message = "Forma de pagamento não encontrada", response = Problem.class)
     })
-    ResponseEntity<FormaPagamentoDTO> buscar(
+    ResponseEntity<FormaPagamentoModel> buscar(
         @ApiParam(value = "ID de uma forma de pagamento", example = "1", required = true)
         Long formaPagamentoId, ServletWebRequest request);
 
@@ -28,7 +28,7 @@ public interface FormaPagamentoControllerOpenApi {
     @ApiResponses({
         @ApiResponse(code = 201, message = "Forma de pagamento cadastrada"),
     })
-    FormaPagamentoDTO adicionar(
+    FormaPagamentoModel adicionar(
         @ApiParam(name = "corpo", value = "Representação de uma nova forma de pagamento", required = true)
         FormaPagamentoInput formaPagamentoInput);
 
@@ -37,7 +37,7 @@ public interface FormaPagamentoControllerOpenApi {
         @ApiResponse(code = 200, message = "Forma de pagamento atualizada"),
         @ApiResponse(code = 404, message = "Forma de pagamento não encontrada", response = Problem.class)
     })
-    FormaPagamentoDTO atualizar(
+    FormaPagamentoModel atualizar(
         @ApiParam(value = "ID de uma forma de pagamento", example = "1", required = true)
         Long formaPagamentoId,
         @ApiParam(name = "corpo", value = "Representação de uma forma de pagamento com os novos dados", required = true)

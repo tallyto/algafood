@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
-import com.algaworks.algafood.api.model.DTO.PedidoResumoDTO;
+import com.algaworks.algafood.api.model.DTO.PedidoResumoModel;
 import com.algaworks.algafood.api.model.input.PedidoInput;
 import com.algaworks.algafood.domain.model.Pedido;
 import org.modelmapper.ModelMapper;
@@ -16,11 +16,11 @@ public class PedidoResumoAssembler {
     @Autowired
     ModelMapper modelMapper;
 
-    public PedidoResumoDTO toDTO(Pedido pedido) {
-        return modelMapper.map(pedido, PedidoResumoDTO.class);
+    public PedidoResumoModel toDTO(Pedido pedido) {
+        return modelMapper.map(pedido, PedidoResumoModel.class);
     }
 
-    public List<PedidoResumoDTO> toCollectionDTO(Collection<Pedido> pedidos) {
+    public List<PedidoResumoModel> toCollectionDTO(Collection<Pedido> pedidos) {
         return pedidos.stream().map(this::toDTO).collect(Collectors.toList());
     }
 

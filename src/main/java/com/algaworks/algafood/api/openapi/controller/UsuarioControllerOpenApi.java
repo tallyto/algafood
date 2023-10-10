@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.UsuarioDTO;
+import com.algaworks.algafood.api.model.DTO.UsuarioModel;
 import com.algaworks.algafood.api.model.input.SenhaInput;
 import com.algaworks.algafood.api.model.input.UsuarioInput;
 import com.algaworks.algafood.api.model.input.UsuarioWithoutPasswordInput;
@@ -13,14 +13,14 @@ import java.util.Collection;
 public interface UsuarioControllerOpenApi {
 
     @ApiOperation("Lista os usuários")
-    Collection<UsuarioDTO> listar();
+    Collection<UsuarioModel> listar();
 
     @ApiOperation("Busca um usuário por ID")
     @ApiResponses({
         @ApiResponse(code = 400, message = "ID do usuário inválido", response = Problem.class),
         @ApiResponse(code = 404, message = "Usuário não encontrado", response = Problem.class)
     })
-    UsuarioDTO buscar(
+    UsuarioModel buscar(
         @ApiParam(value = "ID do usuário", example = "1", required = true)
         Long usuarioId);
 
@@ -28,7 +28,7 @@ public interface UsuarioControllerOpenApi {
     @ApiResponses({
         @ApiResponse(code = 201, message = "Usuário cadastrado"),
     })
-    UsuarioDTO adicionar(
+    UsuarioModel adicionar(
         @ApiParam(name = "corpo", value = "Representação de um novo usuário", required = true)
         UsuarioInput usuarioInput);
 
@@ -37,7 +37,7 @@ public interface UsuarioControllerOpenApi {
         @ApiResponse(code = 200, message = "Usuário atualizado"),
         @ApiResponse(code = 404, message = "Usuário não encontrado", response = Problem.class)
     })
-    UsuarioDTO atualizar(
+    UsuarioModel atualizar(
         @ApiParam(value = "ID do usuário", example = "1", required = true)
         Long usuarioId,
 

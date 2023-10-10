@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
-import com.algaworks.algafood.api.model.DTO.EstadoDTO;
+import com.algaworks.algafood.api.model.DTO.EstadoModel;
 import com.algaworks.algafood.api.model.input.EstadoInput;
 import com.algaworks.algafood.domain.model.Estado;
 import org.modelmapper.ModelMapper;
@@ -15,11 +15,11 @@ public class EstadoModelAssembler {
     @Autowired
     ModelMapper modelMapper;
 
-    public EstadoDTO toDTO(Estado estado) {
-        return modelMapper.map(estado, EstadoDTO.class);
+    public EstadoModel toDTO(Estado estado) {
+        return modelMapper.map(estado, EstadoModel.class);
     }
 
-    public List<EstadoDTO> toCollectionDTO(List<Estado> estados) {
+    public List<EstadoModel> toCollectionDTO(List<Estado> estados) {
         return estados.stream().map(this::toDTO).collect(Collectors.toList());
     }
 

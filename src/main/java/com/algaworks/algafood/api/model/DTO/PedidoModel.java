@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PedidoDTO {
+public class PedidoModel {
     @ApiModelProperty(example = "f9981ca4-5a5e-4da3-af04-933861df3e55")
     private String codigo;
 
@@ -38,13 +38,13 @@ public class PedidoDTO {
     @ApiModelProperty(example = "2019-12-01T20:35:00Z")
     private OffsetDateTime dataCancelamento;
 
-    private RestauranteResumoDTO restaurante;
+    private RestauranteResumoModel restaurante;
 
-    private UsuarioDTO cliente;
+    private UsuarioModel cliente;
 
-    private FormaPagamentoDTO formaPagamento;
+    private FormaPagamentoModel formaPagamento;
 
-    private EnderecoDTO enderecoEntrega;
+    private EnderecoModel enderecoEntrega;
 
-    private List<ItemPedidoDTO> itens;
+    private List<ItemPedidoModel> itens;
 }

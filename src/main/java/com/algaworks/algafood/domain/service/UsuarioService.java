@@ -1,12 +1,14 @@
 package com.algaworks.algafood.domain.service;
 
 import com.algaworks.algafood.domain.exception.NegocioException;
+import com.algaworks.algafood.domain.exception.UsuarioEmUsoException;
 import com.algaworks.algafood.domain.exception.UsuarioNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,8 +63,9 @@ public class UsuarioService {
             usuarioRepository.delete(usuarioExistente);
             usuarioRepository.flush();
         } catch (EmptyResultDataAccessException e) {
-            log.error("usuario não encontrado", e);
             throw new UsuarioNaoEncontradoException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new UsuarioEmUsoException(id);
         }
     }
 

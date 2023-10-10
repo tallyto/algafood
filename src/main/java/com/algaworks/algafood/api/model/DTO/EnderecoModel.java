@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EnderecoDTO {
+public class EnderecoModel {
     @ApiModelProperty(example = "38400-000")
     private String cep;
 
@@ -23,5 +23,5 @@ public class EnderecoDTO {
     @ApiModelProperty(example = "Centro")
     private String bairro;
 
-    private CidadeResumoDTO cidade;
+    private CidadeResumoModel cidade;
 }

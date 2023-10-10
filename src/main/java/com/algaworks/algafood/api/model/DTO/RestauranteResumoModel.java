@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RestauranteResumoDTO {
+public class RestauranteResumoModel {
     @ApiModelProperty(example = "1")
     private Long id;
 
