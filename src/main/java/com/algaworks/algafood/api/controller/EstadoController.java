@@ -30,18 +30,18 @@ public class EstadoController implements EstadoControllerOpenApi {
     @PostMapping
     public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
         Estado estado = cadastroEstado.salvar(assembler.toEntity(estadoInput));
-        return assembler.toDTO(estado);
+        return assembler.toModel(estado);
     }
 
     @GetMapping("/{estadoId}")
     public EstadoModel buscar(@PathVariable Long estadoId) {
-        return assembler.toDTO(cadastroEstado.buscar(estadoId));
+        return assembler.toModel(cadastroEstado.buscar(estadoId));
     }
 
     @PutMapping("/{estadoId}")
     public EstadoModel atualizar(@PathVariable Long estadoId, @RequestBody @Valid EstadoInput estado) {
         Estado estadoAtulizado = cadastroEstado.atualizar(estadoId, assembler.toEntity(estado));
-        return assembler.toDTO(estadoAtulizado);
+        return assembler.toModel(estadoAtulizado);
     }
 
     @DeleteMapping("/{estadoId}")
