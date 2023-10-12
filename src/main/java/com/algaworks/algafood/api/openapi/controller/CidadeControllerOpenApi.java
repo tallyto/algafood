@@ -6,7 +6,6 @@ import com.algaworks.algafood.api.model.input.CidadeInput;
 import io.swagger.annotations.*;
 import org.springframework.hateoas.CollectionModel;
 
-import java.util.List;
 
 @Api(tags = "Cidades")
 public interface CidadeControllerOpenApi {
