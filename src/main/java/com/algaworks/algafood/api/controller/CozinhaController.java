@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,26 +37,26 @@ public class CozinhaController implements CozinhaControllerOpenApi {
     @GetMapping
     public Page<CozinhaModel> listar(@PageableDefault() Pageable pageable) {
         Page<Cozinha> cozinhaPage = cozinhaRepository.findAll(pageable);
-        List<CozinhaModel> cozinhaDTOs = cozinhaModelAssembler.toCollectionDTO(cozinhaPage.getContent());
-        return new PageImpl<>(cozinhaDTOs, pageable, cozinhaPage.getTotalElements());
+        var cozinhaModels = cozinhaModelAssembler.toCollectionDTO(cozinhaPage.getContent());
+        return new PageImpl<>(cozinhaModels, pageable, cozinhaPage.getTotalElements());
     }
 
     @GetMapping("/{cozinhaId}")
     public CozinhaModel buscar(@PathVariable Long cozinhaId) {
-        return cozinhaModelAssembler.toDTO(cadastroCozinhaService.buscarOuFalhar(cozinhaId));
+        return cozinhaModelAssembler.toModel(cadastroCozinhaService.buscarOuFalhar(cozinhaId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
         var cozinha = cozinhaModelAssembler.toEntity(cozinhaInput);
-        return cozinhaModelAssembler.toDTO(cadastroCozinhaService.salvar(cozinha));
+        return cozinhaModelAssembler.toModel(cadastroCozinhaService.salvar(cozinha));
     }
 
     @PutMapping("/{cozinhaId}")
     public CozinhaModel atualizar(@PathVariable Long cozinhaId, @RequestBody @Valid CozinhaInput cozinhaInput) {
         var cozinha = cozinhaModelAssembler.toEntity(cozinhaInput);
-        return cozinhaModelAssembler.toDTO(cadastroCozinhaService.atualizar(cozinhaId, cozinha));
+        return cozinhaModelAssembler.toModel(cadastroCozinhaService.atualizar(cozinhaId, cozinha));
     }
 
     @DeleteMapping("/{cozinhaId}")
