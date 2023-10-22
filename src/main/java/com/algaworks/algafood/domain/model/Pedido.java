@@ -74,6 +74,18 @@ public class Pedido extends AbstractAggregateRoot<Pedido> {
         this.valorTotal = this.subtotal.add(this.taxaFrete);
     }
 
+    public boolean podeSerConfirmado() {
+        return getStatus().podePodeAlterarPara(StatusPedido.CONFIRMADO);
+    }
+
+    public boolean podeSerEntregue() {
+        return getStatus().podePodeAlterarPara(StatusPedido.ENTREGUE);
+    }
+
+    public boolean podeSerCancelado() {
+        return getStatus().podePodeAlterarPara(StatusPedido.CANCELADO);
+    }
+
     public void confirmar() {
         setStatus(StatusPedido.CONFIRMADO);
         setDataConfirmacao(OffsetDateTime.now());
