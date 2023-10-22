@@ -28,7 +28,7 @@ public class EstadoModelAssembler extends RepresentationModelAssemblerSupport<Es
         modelMapper.map(estado, estadoModel);
 
         estadoModel.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EstadoController.class)
-                .listar()).withRel("estados"));
+            .listar()).withRel("estados"));
 
         return estadoModel;
     }

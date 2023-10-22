@@ -26,7 +26,7 @@ public interface GrupoControllerOpenApi {
         @ApiResponse(code = 400, message = "Dados do grupo inválidos", response = Problem.class)
     })
     GrupoModel criar(@ApiParam(name = "corpo", value = "Representação de um novo grupo", required = true)
-                   GrupoInput grupoInput);
+                     GrupoInput grupoInput);
 
     @ApiOperation("Atualiza um grupo por ID")
     @ApiResponses({
@@ -36,7 +36,7 @@ public interface GrupoControllerOpenApi {
     })
     GrupoModel atualizar(@ApiParam(value = "ID do grupo", example = "1", required = true) Long grupoId,
                          @ApiParam(name = "corpo", value = "Representação de um grupo com os novos dados", required = true)
-                       GrupoInput grupoInput);
+                         GrupoInput grupoInput);
 
     @ApiOperation("Exclui um grupo por ID")
     @ApiResponses({

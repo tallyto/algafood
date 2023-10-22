@@ -21,7 +21,7 @@ public interface CozinhaControllerOpenApi {
         @ApiResponse(code = 404, message = "Cozinha não encontrada", response = Problem.class)
     })
     public CozinhaModel buscar(@ApiParam(value = "ID da cozinha", example = "1", required = true)
-                             @PathVariable Long cozinhaId);
+                               @PathVariable Long cozinhaId);
 
     @ApiOperation(value = "Cadastra uma nova cozinha")
     @ApiResponses({
@@ -29,7 +29,7 @@ public interface CozinhaControllerOpenApi {
         @ApiResponse(code = 400, message = "Dados inválidos", response = Problem.class)
     })
     CozinhaModel adicionar(@ApiParam(name = "corpo", value = "Representação de uma nova cozinha", required = true)
-                         CozinhaInput cozinhaInput);
+                           CozinhaInput cozinhaInput);
 
     @ApiOperation(value = "Busca uma cozinha por ID")
     @ApiResponses({
@@ -38,7 +38,7 @@ public interface CozinhaControllerOpenApi {
     })
     CozinhaModel atualizar(@ApiParam(value = "ID da cozinha", example = "1", required = true) Long cozinhaId,
                            @ApiParam(name = "corpo", value = "Representação de uma cozinha com os novos dados",
-                             required = true) CozinhaInput cozinhaInput);
+                               required = true) CozinhaInput cozinhaInput);
 
     @ApiOperation(value = "Exclui uma cozinha por ID")
     @ApiResponses({

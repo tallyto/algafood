@@ -6,7 +6,6 @@ import com.algaworks.algafood.api.model.PedidoResumoModel;
 import com.algaworks.algafood.api.model.input.PedidoInput;
 import com.algaworks.algafood.domain.model.filter.PedidoFilter;
 import io.swagger.annotations.*;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.PagedModel;
 

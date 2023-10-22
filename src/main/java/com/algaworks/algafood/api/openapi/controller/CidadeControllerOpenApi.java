@@ -21,7 +21,7 @@ public interface CidadeControllerOpenApi {
 
     @ApiOperation(value = "Cadastra uma nova cidade")
     CidadeModel adicionar(@ApiParam(name = "corpo", value = "Representação de uma nova cidade", required = true)
-                        CidadeInput cidadeInput);
+                          CidadeInput cidadeInput);
 
     @ApiOperation(value = "Atualiza uma cidade por ID")
     @ApiResponses({
@@ -30,7 +30,7 @@ public interface CidadeControllerOpenApi {
     })
     CidadeModel atualizar(@ApiParam(value = "ID da cidade", example = "1", required = true) Long cidadeId,
                           @ApiParam(name = "corpo", value = "Representação de uma cidade com os novos dados",
-                            required = true) CidadeInput cidadeInput);
+                              required = true) CidadeInput cidadeInput);
 
     @ApiOperation(value = "Exclui uma cidade por ID")
     @ApiResponses({

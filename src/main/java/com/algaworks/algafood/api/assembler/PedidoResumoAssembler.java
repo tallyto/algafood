@@ -12,10 +12,6 @@ import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSuppor
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -28,6 +24,7 @@ public class PedidoResumoAssembler extends RepresentationModelAssemblerSupport<P
         super(PedidoController.class, PedidoResumoModel.class);
     }
 
+    @Override
     public PedidoResumoModel toModel(Pedido pedido) {
         PedidoResumoModel pedidoResumoModel = createModelWithId(pedido.getCodigo(), pedido);
         modelMapper.map(pedido, pedidoResumoModel);
@@ -41,10 +38,6 @@ public class PedidoResumoAssembler extends RepresentationModelAssemblerSupport<P
             .buscar(pedidoResumoModel.getRestaurante().getId())).withSelfRel()));
 
         return pedidoResumoModel;
-    }
-
-    public List<PedidoResumoModel> toCollectionModel(Collection<Pedido> pedidos) {
-        return pedidos.stream().map(this::toModel).collect(Collectors.toList());
     }
 
     public Pedido toEntity(PedidoInput pedidoInput) {

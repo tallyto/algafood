@@ -17,11 +17,8 @@ import com.algaworks.algafood.domain.repository.PedidoRepository;
 import com.algaworks.algafood.domain.service.EmissaoPedidoService;
 import com.algaworks.algafood.infrastructure.spec.PedidoSpecs;
 import com.google.common.collect.ImmutableMap;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -31,7 +28,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/pedidos", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,7 +51,7 @@ public class PedidoController implements PedidoControllerOpenApi {
     @GetMapping
     public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro,
                                                    @PageableDefault(size = 10) Pageable pageable) {
-       Pageable pageableTraduzido = traduzirPageable(pageable);
+        Pageable pageableTraduzido = traduzirPageable(pageable);
 
         Page<Pedido> pedidosPage = pedidoRepository.findAll(
             PedidoSpecs.usandoFiltro(filtro), pageableTraduzido);
