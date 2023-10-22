@@ -6,8 +6,8 @@ import com.algaworks.algafood.api.model.input.PedidoInput;
 import com.algaworks.algafood.domain.model.Pedido;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.*;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -31,7 +31,17 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
         PedidoModel pedidoModel = createModelWithId(pedido.getId(), pedido);
         modelMapper.map(pedido, pedidoModel);
 
-        pedidoModel.add(WebMvcLinkBuilder.linkTo(PedidoController.class).withRel("pedidos"));
+        TemplateVariables pageVariables = new TemplateVariables(
+            new TemplateVariable("page", TemplateVariable.VariableType.REQUEST_PARAM),
+            new TemplateVariable("size", TemplateVariable.VariableType.REQUEST_PARAM),
+            new TemplateVariable("sort", TemplateVariable.VariableType.REQUEST_PARAM)
+        );
+
+        String pedidosUrl = linkTo(PedidoController.class).toUri().toString();
+
+        pedidoModel.add(Link.of(UriTemplate.of(pedidosUrl, pageVariables), LinkRelation.of("pedidos")));
+
+//        pedidoModel.add(WebMvcLinkBuilder.linkTo(PedidoController.class).withRel("pedidos"));
 
         pedidoModel.getCliente().add(linkTo(methodOn(UsuarioController.class)
             .buscar(pedidoModel.getCliente().getId())).withSelfRel());
