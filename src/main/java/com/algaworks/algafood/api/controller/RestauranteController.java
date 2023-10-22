@@ -1,9 +1,12 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.api.assembler.RestauranteApenasNomeModelAssembler;
+import com.algaworks.algafood.api.assembler.RestauranteBasicoModelAssembler;
 import com.algaworks.algafood.api.assembler.RestauranteModelAssembler;
+import com.algaworks.algafood.api.model.RestauranteApenasNomeModel;
+import com.algaworks.algafood.api.model.RestauranteBasicoModel;
 import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
-import com.algaworks.algafood.api.model.view.RestauranteView;
 import com.algaworks.algafood.api.openapi.controller.RestauranteControllerOpenApi;
 import com.algaworks.algafood.core.validation.ValidacaoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
@@ -11,12 +14,13 @@ import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.RestauranteService;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
@@ -47,28 +51,35 @@ public class RestauranteController implements RestauranteControllerOpenApi {
     @Autowired
     private RestauranteModelAssembler assembler;
 
-    @JsonView(RestauranteView.Resumo.class)
-    @GetMapping
-    public List<RestauranteModel> listar() {
-        return assembler.toCollectionDTO(restauranteRepository.findAll());
+    @Autowired
+    RestauranteBasicoModelAssembler restauranteBasicoModelAssembler;
+
+    @Autowired
+    RestauranteApenasNomeModelAssembler restauranteApenasNomeModelAssembler;
+
+    @Override
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public CollectionModel<RestauranteBasicoModel> listar() {
+        return restauranteBasicoModelAssembler
+            .toCollectionModel(restauranteRepository.findAll());
     }
 
-    @JsonView(RestauranteView.ApenasNome.class)
-    @GetMapping(params = "projecao=apenas-nome")
-    public List<RestauranteModel> listarApenasNomes() {
-        return listar();
+    @Override
+    @GetMapping(params = "projecao=apenas-nome", produces = MediaType.APPLICATION_JSON_VALUE)
+    public CollectionModel<RestauranteApenasNomeModel> listarApenasNomes() {
+        return restauranteApenasNomeModelAssembler
+            .toCollectionModel(restauranteRepository.findAll());
     }
-
     @GetMapping("/{restauranteId}")
     public RestauranteModel buscar(@PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
-        return assembler.toDTO(restaurante);
+        return assembler.toModel(restaurante);
     }
 
     @PostMapping
     public RestauranteModel adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
         Restaurante restaurante = assembler.toEntity(restauranteInput);
-        return assembler.toDTO(restauranteService.salvar(restaurante));
+        return assembler.toModel(restauranteService.salvar(restaurante));
     }
 
     @PutMapping("/{restauranteId}")
@@ -78,7 +89,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
 
         assembler.copyToEntity(restaurante, restauranteAtual);
 
-        return assembler.toDTO(restauranteService.salvar(restauranteAtual));
+        return assembler.toModel(restauranteService.salvar(restauranteAtual));
     }
 
     @PatchMapping("/{restauranteId}")
@@ -89,7 +100,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
         merge(campos, restauranteAtual, request);
         validate(restauranteAtual, "restaurante");
 
-        return assembler.toDTO(restauranteService.salvar(restauranteAtual));
+        return assembler.toModel(restauranteService.salvar(restauranteAtual));
     }
 
     @PutMapping("/{restauranteId}/ativo")
