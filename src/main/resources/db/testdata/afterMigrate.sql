@@ -88,18 +88,22 @@ insert into cozinha (id, nome)
 values (3, 'Brasileira');
 insert into cozinha (id, nome)
 values (4, 'Macuxi');
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)
-values (1, 'Restaurante Dona Maria', 9.0, 1, utc_timestamp, utc_timestamp);
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)
-values (2, 'Lá Casa de Pastel', 10.0, 2, utc_timestamp, utc_timestamp);
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)
-values (3, 'Chico do Carneiro', 0, 2, utc_timestamp, utc_timestamp);
-insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)
-values (4, 'Bobs', 0, 1, utc_timestamp, utc_timestamp);
-insert into restaurante (id, nome, taxa_frete, cozinha_id, endereco_cidade_id, endereco_cep, endereco_logradouro,
-                         endereco_numero, endereco_complemento, endereco_bairro, data_cadastro, data_atualizacao)
-values (5, 'Restaurante Dona Chica', 0, 1, 1, '00000000', 'Rua do Pastel', 1, 'Casa', 'Centro', utc_timestamp,
-        utc_timestamp);
+-- Inserir o endereço para todos os restaurantes
+insert into restaurante (id, nome, taxa_frete, cozinha_id, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, data_cadastro, data_atualizacao)
+values (1, 'Restaurante Dona Maria', 9.0, 1, 1, '00000000', 'Rua Principal', 123, 'Sala 101', 'Centro', utc_timestamp, utc_timestamp);
+
+insert into restaurante (id, nome, taxa_frete, cozinha_id, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, data_cadastro, data_atualizacao)
+values (2, 'Lá Casa de Pastel', 10.0, 2, 2, '11111111', 'Avenida da Praça', 456, NULL, 'Bairro Alegre', utc_timestamp, utc_timestamp);
+
+insert into restaurante (id, nome, taxa_frete, cozinha_id, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, data_cadastro, data_atualizacao)
+values (3, 'Chico do Carneiro', 0, 2, 2, '22222222', 'Rua da Serra', 789, 'Casa 3', 'Montanha', utc_timestamp, utc_timestamp);
+
+insert into restaurante (id, nome, taxa_frete, cozinha_id, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, data_cadastro, data_atualizacao)
+values (4, 'Bobs', 0, 1, 1, '33333333', 'Avenida da Liberdade', 321, NULL, 'Centro', utc_timestamp, utc_timestamp);
+
+insert into restaurante (id, nome, taxa_frete, cozinha_id, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, data_cadastro, data_atualizacao)
+values (5, 'Restaurante Dona Chica', 0, 1, 1, '44444444', 'Rua do Pastel', 1, 'Casa', 'Centro', utc_timestamp, utc_timestamp);
+
 insert into forma_pagamento (id, descricao, data_atualizacao)
 values (1, 'cartao', utc_timestamp);
 insert into forma_pagamento (id, descricao, data_atualizacao)
