@@ -6,6 +6,7 @@ import com.algaworks.algafood.api.model.PedidoModel;
 import com.algaworks.algafood.api.model.PedidoResumoModel;
 import com.algaworks.algafood.api.model.input.PedidoInput;
 import com.algaworks.algafood.api.openapi.controller.PedidoControllerOpenApi;
+import com.algaworks.algafood.core.data.PageWrapper;
 import com.algaworks.algafood.core.data.PageableTranslator;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
@@ -23,6 +24,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -46,24 +49,21 @@ public class PedidoController implements PedidoControllerOpenApi {
     @Autowired
     private PedidoResumoAssembler resumoAssembler;
 
-    @ApiImplicitParams({
-        @ApiImplicitParam(value = "Nomes das propriedades para filtrar na resposta,  separadas por vírgula",
-            name = "campos", paramType = "query", type = "string")
+    @Autowired
+    private PagedResourcesAssembler<Pedido> pagedResourcesAssembler;
 
-    })
     @GetMapping
-    public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro,
-                                             @PageableDefault(size = 10) Pageable pageable) {
-        pageable = traduzirPageable(pageable);
+    public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro,
+                                                   @PageableDefault(size = 10) Pageable pageable) {
+       Pageable pageableTraduzido = traduzirPageable(pageable);
 
         Page<Pedido> pedidosPage = pedidoRepository.findAll(
-            PedidoSpecs.usandoFiltro(filtro), pageable);
+            PedidoSpecs.usandoFiltro(filtro), pageableTraduzido);
 
-        List<PedidoResumoModel> pedidosResumoModel = resumoAssembler
-            .toCollectionModel(pedidosPage.getContent());
+        pedidosPage = new PageWrapper<>(pedidosPage, pageable);
 
-        return new PageImpl<>(
-            pedidosResumoModel, pageable, pedidosPage.getTotalElements());
+
+        return pagedResourcesAssembler.toModel(pedidosPage, resumoAssembler);
     }
 
     @PostMapping
@@ -84,10 +84,6 @@ public class PedidoController implements PedidoControllerOpenApi {
         }
     }
 
-    @ApiImplicitParams({
-        @ApiImplicitParam(value = "Nomes das propriedades para filtrar na resposta,  separadas por vírgula",
-            name = "campos", paramType = "query", type = "string")
-    })
     @GetMapping("/{codidoPedido}")
     public PedidoModel buscar(@PathVariable String codidoPedido) {
         Pedido pedido = emissaoPedido.buscarOuFalhar(codidoPedido);
