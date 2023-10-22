@@ -34,10 +34,8 @@ public class PedidoResumoAssembler extends RepresentationModelAssemblerSupport<P
 
         pedidoResumoModel.add(WebMvcLinkBuilder.linkTo(PedidoController.class).withRel("pedidos"));
 
-        if (pedidoResumoModel.getCliente() != null) {
-            pedidoResumoModel.getCliente().add(linkTo(methodOn(UsuarioController.class)
-                .buscar(pedidoResumoModel.getCliente().getId())).withSelfRel());
-        }
+        pedidoResumoModel.getCliente().add(linkTo(methodOn(UsuarioController.class)
+            .buscar(pedidoResumoModel.getCliente().getId())).withSelfRel());
 
         pedidoResumoModel.getRestaurante().add((linkTo(methodOn(RestauranteController.class)
             .buscar(pedidoResumoModel.getRestaurante().getId())).withSelfRel()));
