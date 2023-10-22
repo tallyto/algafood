@@ -7,6 +7,7 @@ import com.algaworks.algafood.api.openapi.controller.EstadoControllerOpenApi;
 import com.algaworks.algafood.domain.model.Estado;
 import com.algaworks.algafood.domain.service.EstadoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +24,8 @@ public class EstadoController implements EstadoControllerOpenApi {
     EstadoModelAssembler assembler;
 
     @GetMapping
-    public List<EstadoModel> listar() {
-        return assembler.toCollectionDTO(cadastroEstado.listar());
+    public CollectionModel<EstadoModel> listar() {
+        return assembler.toCollectionModel(cadastroEstado.listar());
     }
 
     @PostMapping

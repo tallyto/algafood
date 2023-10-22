@@ -25,7 +25,7 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
     public Collection<GrupoModel> listar(@PathVariable Long usuarioId) {
         Collection<Grupo> grupos = usuarioService.buscar(usuarioId).getGrupos();
 
-        return assembler.toCollectionDTO(grupos);
+        return assembler.toCollectionModel(grupos);
     }
 
     @PutMapping("{grupoId}")

@@ -6,6 +6,7 @@ import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface FormaPagamentoControllerOpenApi {
     })
     ResponseEntity<FormaPagamentoModel> buscar(
         @ApiParam(value = "ID de uma forma de pagamento", example = "1", required = true)
-        Long formaPagamentoId);
+        Long formaPagamentoId, ServletWebRequest request);
 
     @ApiOperation("Cadastra uma forma de pagamento")
     @ApiResponses({

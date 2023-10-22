@@ -24,7 +24,7 @@ public class RestauranteFormaPagamentoController implements RestauranteFormaPaga
     public List<FormaPagamentoModel> listar(@PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
 
-        return assembler.toCollectionDTO(restaurante.getFormasPagamento());
+        return assembler.toCollectionModel(restaurante.getFormasPagamento());
     }
 
     @DeleteMapping("{formaPagamentoId}")

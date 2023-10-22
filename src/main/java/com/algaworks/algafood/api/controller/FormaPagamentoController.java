@@ -4,6 +4,7 @@ import com.algaworks.algafood.api.assembler.FormaPagamentoAssembler;
 import com.algaworks.algafood.api.model.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
 import com.algaworks.algafood.api.openapi.controller.FormaPagamentoControllerOpenApi;
+import com.algaworks.algafood.domain.model.FormaPagamento;
 import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import com.algaworks.algafood.domain.service.FormaPagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
             return null;
         }
 
-        var formasPagamentoModel = assembler.toCollectionDTO(cadastroFormaPagamento.listar());
+        var formasPagamentoModel = assembler.toCollectionModel(cadastroFormaPagamento.listar());
 
         return ResponseEntity.ok()
             .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
@@ -56,23 +57,44 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
             .body(formasPagamentoModel);
     }
 
-    @GetMapping("/{formaPagamentoId}")
-    public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId) {
+    @Override
+    @GetMapping(value = "/{formaPagamentoId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId,
+                                                      ServletWebRequest request) {
 
-        var formaPagamento = cadastroFormaPagamento.buscar(formaPagamentoId);
-        var formaPagamentoDTO = assembler.toDTO(formaPagamento);
+        ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
 
-        return ResponseEntity.ok(formaPagamentoDTO);
+        String eTag = "0";
+
+        OffsetDateTime dataAtualizacao = formaPagamentoRepository
+            .getDataAtualizacaoById(formaPagamentoId);
+
+        if (dataAtualizacao != null) {
+            eTag = String.valueOf(dataAtualizacao.toEpochSecond());
+        }
+
+        if (request.checkNotModified(eTag)) {
+            return null;
+        }
+
+        FormaPagamento formaPagamento = cadastroFormaPagamento.buscar(formaPagamentoId);
+
+        FormaPagamentoModel formaPagamentoModel = assembler.toModel(formaPagamento);
+
+        return ResponseEntity.ok()
+            .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+            .eTag(eTag)
+            .body(formaPagamentoModel);
     }
 
     @PostMapping
     public FormaPagamentoModel adicionar(@RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
-        return assembler.toDTO(cadastroFormaPagamento.salvar(assembler.toEntity(formaPagamentoInput)));
+        return assembler.toModel(cadastroFormaPagamento.salvar(assembler.toEntity(formaPagamentoInput)));
     }
 
     @PutMapping("/{formaPagamentoId}")
     public FormaPagamentoModel atualizar(@PathVariable Long formaPagamentoId, @RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
-        return assembler.toDTO(cadastroFormaPagamento.atualizar(formaPagamentoId, assembler.toEntity(formaPagamentoInput)));
+        return assembler.toModel(cadastroFormaPagamento.atualizar(formaPagamentoId, assembler.toEntity(formaPagamentoInput)));
     }
 
     @DeleteMapping("/{formaPagamentoId}")

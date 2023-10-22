@@ -9,11 +9,11 @@ import com.algaworks.algafood.api.openapi.controller.UsuarioControllerOpenApi;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collection;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -26,8 +26,8 @@ public class UsuarioController implements UsuarioControllerOpenApi {
     private UsuarioAssembler assembler;
 
     @GetMapping
-    public Collection<UsuarioModel> listar() {
-        return assembler.toCollectionDTO(usuarioService.listar());
+    public CollectionModel<UsuarioModel> listar() {
+        return assembler.toCollectionModel(usuarioService.listar());
     }
 
     @GetMapping("{usuarioId}")
