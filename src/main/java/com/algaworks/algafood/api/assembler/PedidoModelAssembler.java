@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
+import com.algaworks.algafood.api.LinkBuilder;
 import com.algaworks.algafood.api.controller.*;
 import com.algaworks.algafood.api.model.PedidoModel;
 import com.algaworks.algafood.api.model.input.PedidoInput;
@@ -22,6 +23,9 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    LinkBuilder linkBuilder;
+
     public PedidoModelAssembler() {
         super(PedidoController.class, PedidoModel.class);
     }
@@ -31,24 +35,7 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
         PedidoModel pedidoModel = createModelWithId(pedido.getId(), pedido);
         modelMapper.map(pedido, pedidoModel);
 
-        TemplateVariables pageVariables = new TemplateVariables(
-            new TemplateVariable("page", TemplateVariable.VariableType.REQUEST_PARAM),
-            new TemplateVariable("size", TemplateVariable.VariableType.REQUEST_PARAM),
-            new TemplateVariable("sort", TemplateVariable.VariableType.REQUEST_PARAM)
-        );
-
-        TemplateVariables filtroVariables = new TemplateVariables(
-            new TemplateVariable("clienteId", TemplateVariable.VariableType.REQUEST_PARAM),
-            new TemplateVariable("restauranteId", TemplateVariable.VariableType.REQUEST_PARAM),
-            new TemplateVariable("dataCriacaoInicio", TemplateVariable.VariableType.REQUEST_PARAM),
-            new TemplateVariable("dataCriacaoFim", TemplateVariable.VariableType.REQUEST_PARAM)
-        );
-
-        String pedidosUrl = linkTo(PedidoController.class).toUri().toString();
-
-        pedidoModel.add(Link.of(UriTemplate.of(pedidosUrl, pageVariables.concat(filtroVariables)), LinkRelation.of("pedidos")));
-
-//        pedidoModel.add(WebMvcLinkBuilder.linkTo(PedidoController.class).withRel("pedidos"));
+        pedidoModel.add(linkBuilder.linkToPedidos());
 
         pedidoModel.getCliente().add(linkTo(methodOn(UsuarioController.class)
             .buscar(pedidoModel.getCliente().getId())).withSelfRel());
