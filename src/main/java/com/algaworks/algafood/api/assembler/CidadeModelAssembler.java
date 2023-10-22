@@ -2,7 +2,7 @@ package com.algaworks.algafood.api.assembler;
 
 import com.algaworks.algafood.api.controller.CidadeController;
 import com.algaworks.algafood.api.controller.EstadoController;
-import com.algaworks.algafood.api.model.DTO.CidadeModel;
+import com.algaworks.algafood.api.model.CidadeModel;
 import com.algaworks.algafood.api.model.input.CidadeInput;
 import com.algaworks.algafood.domain.model.Cidade;
 import org.modelmapper.ModelMapper;

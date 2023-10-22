@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
-import com.algaworks.algafood.api.model.DTO.GrupoModel;
+import com.algaworks.algafood.api.model.GrupoModel;
 import com.algaworks.algafood.api.model.input.GrupoInput;
 import com.algaworks.algafood.domain.model.Grupo;
 import org.modelmapper.ModelMapper;

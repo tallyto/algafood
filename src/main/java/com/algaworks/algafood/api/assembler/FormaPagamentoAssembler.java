@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
-import com.algaworks.algafood.api.model.DTO.FormaPagamentoModel;
+import com.algaworks.algafood.api.model.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
 import com.algaworks.algafood.domain.model.FormaPagamento;
 import org.modelmapper.ModelMapper;

@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.UsuarioAssembler;
-import com.algaworks.algafood.api.model.DTO.UsuarioModel;
+import com.algaworks.algafood.api.model.UsuarioModel;
 import com.algaworks.algafood.api.model.input.SenhaInput;
 import com.algaworks.algafood.api.model.input.UsuarioInput;
 import com.algaworks.algafood.api.model.input.UsuarioWithoutPasswordInput;

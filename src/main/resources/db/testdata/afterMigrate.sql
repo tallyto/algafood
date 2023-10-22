@@ -241,34 +241,32 @@ values (2, 2);
 insert into restaurante_usuario_responsavel(restaurante_id, usuario_id)
 values (3, 2);
 
-
-
 # Inserir pedidos
 -- Inserção Básica
 INSERT INTO pedido (codigo, data_criacao, subtotal, taxa_frete, valor_total, usuario_cliente_id, forma_pagamento_id,
-                    restaurante_id, status)
-VALUES ('77103e21-49ef-11ee-a210-0242ac120003', '2023-08-22 10:00:00', 50.00, 5.00, 55.00, 1, 1, 1, 'CRIADO');
+                    restaurante_id, status, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero)
+VALUES ('77103e21-49ef-11ee-a210-0242ac120003', '2023-08-22 10:00:00', 50.00, 5.00, 55.00, 1, 1, 1, 'CRIADO', 1, 'Bairro 1', '12345-678', 'Complemento 1', 'Rua 1', '123');
 
 -- Inserção com Status e Data de Entrega
 INSERT INTO pedido (codigo, data_criacao, data_entrega, status, subtotal, taxa_frete, valor_total, usuario_cliente_id,
-                    forma_pagamento_id, restaurante_id)
-VALUES (uuid(), '2023-08-03 11:30:00', '2023-08-23 18:00:00', 'CRIADO', 75.00, 8.00, 83.00, 2, 2, 2);
+                    forma_pagamento_id, restaurante_id, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero)
+VALUES ('1e0bcff5-7081-11ee-82b5-0242ac120002', '2023-08-03 11:30:00', '2023-08-23 18:00:00', 'CRIADO', 75.00, 8.00, 83.00, 2, 2, 2, 2, 'Bairro 2', '54321-876', 'Complemento 2', 'Rua 2', '456');
 
 -- Inserção com Cancelamento
 INSERT INTO pedido (codigo, data_criacao, data_cancelamento, status, subtotal, taxa_frete, valor_total,
-                    usuario_cliente_id, forma_pagamento_id, restaurante_id)
-VALUES (uuid(), '2023-08-12 15:45:00', '2023-08-22 16:30:00', 'CRIADO', 30.00, 3.50, 33.50, 3, 1, 3);
+                    usuario_cliente_id, forma_pagamento_id, restaurante_id, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero)
+VALUES ('1e0bfb78-7081-11ee-82b5-0242ac120002', '2023-08-12 15:45:00', '2023-08-22 16:30:00', 'CRIADO', 30.00, 3.50, 33.50, 3, 1, 3, 3, 'Bairro 3', '98765-432', 'Complemento 3', 'Rua 3', '789');
 
 -- Inserção com Confirmação
 INSERT INTO pedido (codigo, data_criacao, data_confirmacao, status, subtotal, taxa_frete, valor_total,
-                    usuario_cliente_id, forma_pagamento_id, restaurante_id)
-VALUES (uuid(), '2023-08-26 09:15:00', '2023-08-22 10:00:00', 'CRIADO', 60.00, 6.00, 66.00, 4, 3, 4);
+                    usuario_cliente_id, forma_pagamento_id, restaurante_id, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero)
+VALUES ('1e0c2538-7081-11ee-82b5-0242ac120002', '2023-08-26 09:15:00', '2023-08-22 10:00:00', 'CRIADO', 60.00, 6.00, 66.00, 4, 3, 4, 2, 'Bairro 4', '54321-987', 'Complemento 4', 'Rua 4', '987');
 
 -- Inserção Completa
 INSERT INTO pedido (codigo, data_criacao, data_confirmacao, data_entrega, data_cancelamento, status, subtotal,
-                    taxa_frete, valor_total, usuario_cliente_id, forma_pagamento_id, restaurante_id)
-VALUES (uuid(), '2023-08-18 14:20:00', '2023-08-22 15:00:00', '2023-08-23 12:30:00', NULL, 'CRIADO', 90.00, 10.00,
-        100.00, 5, 3, 4);
+                    taxa_frete, valor_total, usuario_cliente_id, forma_pagamento_id, restaurante_id, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero)
+VALUES ('1e0c5337-7081-11ee-82b5-0242ac120002', '2023-08-18 14:20:00', '2023-08-22 15:00:00', '2023-08-23 12:30:00', NULL, 'CRIADO', 90.00, 10.00,
+        100.00, 5, 3, 4, 3, 'Bairro 5', '12345-789', 'Complemento 5', 'Rua 5', '555');
 
 # Inserir items de pedido
 -- Pedido 1

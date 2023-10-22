@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.model.DTO;
+package com.algaworks.algafood.api.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

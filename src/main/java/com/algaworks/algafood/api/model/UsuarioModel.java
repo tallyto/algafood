@@ -1,4 +1,5 @@
-package com.algaworks.algafood.api.model.DTO;
+package com.algaworks.algafood.api.model;
+
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -7,9 +8,13 @@ import org.springframework.hateoas.RepresentationModel;
 
 @Getter
 @Setter
-public class EstadoModel extends RepresentationModel<EstadoModel> {
+public class UsuarioModel extends RepresentationModel<UsuarioModel> {
     @ApiModelProperty(example = "1")
     private Long id;
-    @ApiModelProperty(example = "Minas Gerais")
+
+    @ApiModelProperty(example = "João da Silva")
     private String nome;
+
+    @ApiModelProperty(example = "joao.ger@algafood.com.br")
+    private String email;
 }

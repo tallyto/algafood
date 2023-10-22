@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.UsuarioModel;
+import com.algaworks.algafood.api.model.UsuarioModel;
 import io.swagger.annotations.*;
 
 import java.util.Collection;
