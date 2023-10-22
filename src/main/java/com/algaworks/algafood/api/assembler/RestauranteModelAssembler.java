@@ -34,25 +34,37 @@ public class RestauranteModelAssembler extends RepresentationModelAssemblerSuppo
 
         restauranteModel.add(linkBuilder.linkToRestaurantes("restaurantes"));
 
-        restauranteModel.getCozinha().add(
-            linkBuilder.linkToCozinha(restaurante.getCozinha().getId()));
+        if (restaurante.ativacaoPermitida()) {
+            restauranteModel.add(linkBuilder.linkToRestauranteAtivacao(restaurante.getId(), "ativar"));
+        }
 
-        restauranteModel.getEndereco().getCidade().add(
-            linkBuilder.linkToCidade(restaurante.getEndereco().getCidade().getId()));
+        if (restaurante.inativacaoPermitida()) {
+            restauranteModel.add(linkBuilder.linkToRestauranteInativacao(restaurante.getId(), "inativar"));
+        }
 
-        restauranteModel.add(linkBuilder.linkToRestauranteFormasPagamento(restaurante.getId(),
-            "formas-pagamento"));
+        if (restaurante.aberturaPermitida()) {
+            restauranteModel.add(linkBuilder.linkToRestauranteAbertura(restaurante.getId(), "abrir"));
+        }
 
-        restauranteModel.add(linkBuilder.linkToRestauranteResponsaveis(restaurante.getId(),
-            "responsaveis"));
+        if (restaurante.fechamentoPermitido()) {
+            restauranteModel.add(linkBuilder.linkToRestauranteFechamento(restaurante.getId(), "fechar"));
+        }
+
+        restauranteModel.getCozinha().add(linkBuilder.linkToCozinha(restaurante.getCozinha().getId()));
+
+        restauranteModel.getEndereco().getCidade()
+            .add(linkBuilder.linkToCidade(restaurante.getEndereco().getCidade().getId()));
+
+        restauranteModel.add(linkBuilder.linkToRestauranteFormasPagamento(restaurante.getId(), "formas-pagamento"));
+
+        restauranteModel.add(linkBuilder.linkToRestauranteResponsaveis(restaurante.getId(), "responsaveis"));
 
         return restauranteModel;
     }
 
     @Override
     public CollectionModel<RestauranteModel> toCollectionModel(Iterable<? extends Restaurante> entities) {
-        return super.toCollectionModel(entities)
-            .add(linkBuilder.linkToRestaurantes());
+        return super.toCollectionModel(entities).add(linkBuilder.linkToRestaurantes());
     }
 
 
