@@ -1,8 +1,8 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.PedidoModel;
-import com.algaworks.algafood.api.model.DTO.PedidoResumoModel;
+import com.algaworks.algafood.api.model.PedidoModel;
+import com.algaworks.algafood.api.model.PedidoResumoModel;
 import com.algaworks.algafood.api.model.input.PedidoInput;
 import com.algaworks.algafood.domain.model.filter.PedidoFilter;
 import io.swagger.annotations.*;
