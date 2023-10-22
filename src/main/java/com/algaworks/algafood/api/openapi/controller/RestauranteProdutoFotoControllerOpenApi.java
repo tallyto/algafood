@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.FotoProdutoModel;
+import com.algaworks.algafood.api.model.FotoProdutoModel;
 import com.algaworks.algafood.api.model.input.FotoProdutoInput;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;

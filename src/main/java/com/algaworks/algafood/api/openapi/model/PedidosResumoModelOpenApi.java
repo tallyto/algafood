@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.openapi.model;
 
-import com.algaworks.algafood.api.model.DTO.PedidoResumoModel;
+import com.algaworks.algafood.api.model.PedidoResumoModel;
 import io.swagger.annotations.ApiModel;
 
 @ApiModel("PedidosResumoModel")

@@ -1,9 +1,9 @@
 package com.algaworks.algafood.api.controller;
 
-import com.algaworks.algafood.api.assembler.PedidoAssembler;
+import com.algaworks.algafood.api.assembler.PedidoModelAssembler;
 import com.algaworks.algafood.api.assembler.PedidoResumoAssembler;
-import com.algaworks.algafood.api.model.DTO.PedidoModel;
-import com.algaworks.algafood.api.model.DTO.PedidoResumoModel;
+import com.algaworks.algafood.api.model.PedidoModel;
+import com.algaworks.algafood.api.model.PedidoResumoModel;
 import com.algaworks.algafood.api.model.input.PedidoInput;
 import com.algaworks.algafood.api.openapi.controller.PedidoControllerOpenApi;
 import com.algaworks.algafood.core.data.PageableTranslator;
@@ -41,7 +41,7 @@ public class PedidoController implements PedidoControllerOpenApi {
     private PedidoRepository pedidoRepository;
 
     @Autowired
-    private PedidoAssembler assembler;
+    private PedidoModelAssembler assembler;
 
     @Autowired
     private PedidoResumoAssembler resumoAssembler;
@@ -60,7 +60,7 @@ public class PedidoController implements PedidoControllerOpenApi {
             PedidoSpecs.usandoFiltro(filtro), pageable);
 
         List<PedidoResumoModel> pedidosResumoModel = resumoAssembler
-            .toCollectionDTO(pedidosPage.getContent());
+            .toCollectionModel(pedidosPage.getContent());
 
         return new PageImpl<>(
             pedidosResumoModel, pageable, pedidosPage.getTotalElements());
@@ -78,7 +78,7 @@ public class PedidoController implements PedidoControllerOpenApi {
 
             novoPedido = emissaoPedido.emitir(novoPedido);
 
-            return assembler.toDTO(novoPedido);
+            return assembler.toModel(novoPedido);
         } catch (EntidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage(), e);
         }
@@ -92,7 +92,7 @@ public class PedidoController implements PedidoControllerOpenApi {
     public PedidoModel buscar(@PathVariable String codidoPedido) {
         Pedido pedido = emissaoPedido.buscarOuFalhar(codidoPedido);
 
-        return assembler.toDTO(pedido);
+        return assembler.toModel(pedido);
     }
 
     private Pageable traduzirPageable(Pageable apiPageable) {

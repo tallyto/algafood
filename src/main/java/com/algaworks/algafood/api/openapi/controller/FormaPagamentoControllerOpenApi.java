@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.DTO.FormaPagamentoModel;
+import com.algaworks.algafood.api.model.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public interface FormaPagamentoControllerOpenApi {
     })
     ResponseEntity<FormaPagamentoModel> buscar(
         @ApiParam(value = "ID de uma forma de pagamento", example = "1", required = true)
-        Long formaPagamentoId, ServletWebRequest request);
+        Long formaPagamentoId);
 
     @ApiOperation("Cadastra uma forma de pagamento")
     @ApiResponses({
