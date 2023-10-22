@@ -26,24 +26,24 @@ public class GrupoController implements GrupoControllerOpenApi {
 
     @GetMapping()
     public List<GrupoModel> listar() {
-        return assembler.toCollectionDTO(grupoService.listar());
+        return assembler.toCollectionModel(grupoService.listar());
     }
 
     @GetMapping("{grupoId}")
     public GrupoModel buscar(@PathVariable Long grupoId) {
-        return assembler.toDTO(grupoService.buscar(grupoId));
+        return assembler.toModel(grupoService.buscar(grupoId));
     }
 
     @PostMapping()
     public GrupoModel criar(@RequestBody @Valid GrupoInput grupoInput) {
         Grupo grupo = grupoService.criar(assembler.toEntity(grupoInput));
-        return assembler.toDTO(grupo);
+        return assembler.toModel(grupo);
     }
 
     @PutMapping("{grupoId}")
     public GrupoModel atualizar(@PathVariable Long grupoId, @RequestBody @Valid GrupoInput grupoInput) {
         Grupo grupoAtualizado = grupoService.atualizar(grupoId, assembler.toEntity(grupoInput));
-        return assembler.toDTO(grupoAtualizado);
+        return assembler.toModel(grupoAtualizado);
     }
 
     @DeleteMapping("{grupoId}")

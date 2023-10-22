@@ -13,7 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,11 +34,16 @@ public class CozinhaController implements CozinhaControllerOpenApi {
     @Autowired
     private CozinhaModelAssembler cozinhaModelAssembler;
 
-    @GetMapping
-    public Page<CozinhaModel> listar(@PageableDefault() Pageable pageable) {
-        Page<Cozinha> cozinhaPage = cozinhaRepository.findAll(pageable);
-        var cozinhaModels = cozinhaModelAssembler.toCollectionDTO(cozinhaPage.getContent());
-        return new PageImpl<>(cozinhaModels, pageable, cozinhaPage.getTotalElements());
+    @Autowired
+    private PagedResourcesAssembler<Cozinha> pagedResourcesAssembler;
+
+    @Override
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public PagedModel<CozinhaModel> listar(@PageableDefault(size = 10) Pageable pageable) {
+        Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
+
+        return pagedResourcesAssembler
+            .toModel(cozinhasPage, cozinhaModelAssembler);
     }
 
     @GetMapping("/{cozinhaId}")
