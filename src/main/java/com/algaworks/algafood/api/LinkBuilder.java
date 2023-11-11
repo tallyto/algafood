@@ -61,10 +61,24 @@ public class LinkBuilder {
         return linkToRestaurantes(IanaLinkRelations.SELF.value());
     }
 
+
+
     public Link linkToRestauranteFormasPagamento(Long restauranteId, String rel) {
         return linkTo(methodOn(RestauranteFormaPagamentoController.class)
             .listar(restauranteId)).withRel(rel);
     }
+
+     public Link linkToRestauranteFormasPagamento(Long restauranteId) {
+        return linkToRestauranteFormasPagamento(restauranteId, IanaLinkRelations.SELF.value());
+    }
+
+    public Link linkToRestauranteFormaPagamentoDesassociacao(
+        Long restauranteId, Long formaPagamentoId, String rel) {
+
+        return linkTo(methodOn(RestauranteFormaPagamentoController.class)
+            .desassociar(restauranteId, formaPagamentoId)).withRel(rel);
+    }
+
 
     public Link linkToRestauranteAbertura(Long restauranteId, String rel) {
         return linkTo(methodOn(RestauranteController.class)
