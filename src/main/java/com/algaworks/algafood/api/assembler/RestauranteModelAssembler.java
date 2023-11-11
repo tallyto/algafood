@@ -50,10 +50,15 @@ public class RestauranteModelAssembler extends RepresentationModelAssemblerSuppo
             restauranteModel.add(linkBuilder.linkToRestauranteFechamento(restaurante.getId(), "fechar"));
         }
 
+        restauranteModel.add(linkBuilder.linkToProdutos(restaurante.getId(), "produtos"));
+
         restauranteModel.getCozinha().add(linkBuilder.linkToCozinha(restaurante.getCozinha().getId()));
 
-        restauranteModel.getEndereco().getCidade()
-            .add(linkBuilder.linkToCidade(restaurante.getEndereco().getCidade().getId()));
+        if (restauranteModel.getEndereco() != null
+            && restauranteModel.getEndereco().getCidade() != null) {
+            restauranteModel.getEndereco().getCidade().add(
+                linkBuilder.linkToCidade(restaurante.getEndereco().getCidade().getId()));
+        }
 
         restauranteModel.add(linkBuilder.linkToRestauranteFormasPagamento(restaurante.getId(), "formas-pagamento"));
 
