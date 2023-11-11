@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
-import com.algaworks.algafood.api.assembler.ProdutoAssembler;
+import com.algaworks.algafood.api.assembler.ProdutoModelAssembler;
 import com.algaworks.algafood.api.model.ProdutoModel;
 import com.algaworks.algafood.api.model.input.ProdutoInput;
 import com.algaworks.algafood.api.openapi.controller.RestauranteProdutoControllerOpenApi;
@@ -11,6 +11,7 @@ import com.algaworks.algafood.domain.repository.ProdutoRepository;
 import com.algaworks.algafood.domain.service.ProdutoService;
 import com.algaworks.algafood.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
     RestauranteService restauranteService;
 
     @Autowired
-    private ProdutoAssembler assembler;
+    private ProdutoModelAssembler assembler;
 
     @Autowired
     private ProdutoService produtoService;
@@ -33,12 +34,16 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
     private ProdutoRepository produtoRepository;
 
     @GetMapping
-    public List<ProdutoModel> listar(@PathVariable Long restauranteId, @RequestParam(required = false) boolean incluirInativos) {
+    public CollectionModel<ProdutoModel> listar(@PathVariable Long restauranteId, @RequestParam(required = false, defaultValue = "false") Boolean incluirInativos) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);
+
+        List<Produto> produtos = null;
         if (incluirInativos) {
-            return assembler.toCollectionDTO(produtoRepository.findAllByRestaurante(restaurante));
+            produtos = produtoRepository.findAllByRestaurante(restaurante);
+        } else {
+            produtos = produtoRepository.findAtivosByRestaurante(restaurante);
         }
-        return assembler.toCollectionDTO(produtoRepository.findAtivosByRestaurante(restaurante));
+        return assembler.toCollectionModel(produtos);
     }
 
 
@@ -53,7 +58,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
                 String.format("Não existe um cadastro de produtos com código %d para o restaurante de código %d", produtoId, restauranteId)
             ));
 
-        return assembler.toDTO(item);
+        return assembler.toModel(item);
     }
 
     @PostMapping
@@ -62,7 +67,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
         Restaurante restaurante = restauranteService.buscar(restauranteId);
         Produto produto = assembler.toEntity(produtoInput);
         produto.setRestaurante(restaurante);
-        return assembler.toDTO(produtoService.adicionar(produto));
+        return assembler.toModel(produtoService.adicionar(produto));
     }
 
     @PutMapping("{produtoId}")
@@ -70,7 +75,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
         Restaurante restaurante = restauranteService.buscar(restauranteId);
         Produto produto = assembler.toEntity(produtoInput);
         produto.setRestaurante(restaurante);
-        return assembler.toDTO(produtoService.atualizar(produtoId, produto));
+        return assembler.toModel(produtoService.atualizar(produtoId, produto));
     }
 }
 
