@@ -135,6 +135,14 @@ public class LinkBuilder {
         return linkToFormaPagamento(formaPagamentoId, IanaLinkRelations.SELF.value());
     }
 
+    public Link linkToFormaPagamento() {
+        return linkToFormasPagamento(IanaLinkRelations.SELF.value());
+    }
+
+    public Link linkToFormasPagamento(String rel) {
+        return linkTo(FormaPagamentoController.class).withRel(rel);
+    }
+
     public Link linkToCidade(Long cidadeId, String rel) {
         return linkTo(methodOn(CidadeController.class)
             .buscar(cidadeId)).withRel(rel);

@@ -7,12 +7,10 @@ import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
 import com.algaworks.algafood.domain.model.FormaPagamento;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class FormaPagamentoAssembler extends RepresentationModelAssemblerSupport<FormaPagamento, FormaPagamentoModel> {
@@ -27,13 +25,19 @@ public class FormaPagamentoAssembler extends RepresentationModelAssemblerSupport
     }
 
     public FormaPagamentoModel toModel(FormaPagamento formaPagamento) {
-        return modelMapper.map(formaPagamento, FormaPagamentoModel.class);
+        FormaPagamentoModel formaPagamentoModel =
+            createModelWithId(formaPagamento.getId(), formaPagamento);
+
+        modelMapper.map(formaPagamento, formaPagamentoModel);
+
+        formaPagamentoModel.add(linkBuilder.linkToFormasPagamento("formasPagamento"));
+
+        return formaPagamentoModel;
     }
 
-    public List<FormaPagamentoModel> toCollectionModel(Collection<FormaPagamento> formasPagamentos) {
-        return formasPagamentos.stream()
-            .map(this::toModel)
-            .collect(Collectors.toList());
+    @Override
+    public CollectionModel<FormaPagamentoModel> toCollectionModel(Iterable<? extends FormaPagamento> entities) {
+        return super.toCollectionModel(entities).add(linkBuilder.linkToFormaPagamento());
     }
 
     public FormaPagamento toEntity(FormaPagamentoInput formaPagamentoInput) {
