@@ -11,12 +11,8 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Component
-public class GrupoAssembler extends RepresentationModelAssemblerSupport<Grupo, GrupoModel> {
+public class GrupoModelAssembler extends RepresentationModelAssemblerSupport<Grupo, GrupoModel> {
 
     @Autowired
     ModelMapper modelMapper;
@@ -24,7 +20,7 @@ public class GrupoAssembler extends RepresentationModelAssemblerSupport<Grupo, G
     @Autowired
     LinkBuilder linkBuilder;
 
-    public GrupoAssembler(){
+    public GrupoModelAssembler(){
         super(GrupoController.class, GrupoModel.class);
     }
 

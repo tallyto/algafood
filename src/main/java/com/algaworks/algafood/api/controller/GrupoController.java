@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
-import com.algaworks.algafood.api.assembler.GrupoAssembler;
+import com.algaworks.algafood.api.assembler.GrupoModelAssembler;
 import com.algaworks.algafood.api.model.GrupoModel;
 import com.algaworks.algafood.api.model.input.GrupoInput;
 import com.algaworks.algafood.api.openapi.controller.GrupoControllerOpenApi;
@@ -22,7 +22,7 @@ public class GrupoController implements GrupoControllerOpenApi {
     private GrupoService grupoService;
 
     @Autowired
-    private GrupoAssembler assembler;
+    private GrupoModelAssembler assembler;
 
     @GetMapping()
     public CollectionModel<GrupoModel> listar() {
