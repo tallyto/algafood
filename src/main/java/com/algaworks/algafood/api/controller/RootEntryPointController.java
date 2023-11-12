@@ -27,6 +27,7 @@ public class RootEntryPointController {
         model.add(linkBuilder.linkToCidades("cidades"));
         model.add(linkBuilder.linkToEstados("estados"));
         model.add(linkBuilder.linkToFormasPagamento("formas-pagamento"));
+        model.add(linkBuilder.linkToEstatisticas("estatisticas"));
 
         return  model;
     }
