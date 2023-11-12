@@ -36,6 +36,9 @@ public class ProdutoModelAssembler
 
         produtoModel.add(linkBuilder.linkToProdutos(produto.getRestaurante().getId(), "produtos"));
 
+        produtoModel.add(linkBuilder.linkToFotoProduto(
+            produto.getRestaurante().getId(), produto.getId(), "foto"));
+
         return produtoModel;
     }
 
