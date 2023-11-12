@@ -7,6 +7,7 @@ import com.algaworks.algafood.api.model.input.GrupoInput;
 import com.algaworks.algafood.domain.model.Grupo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
@@ -27,15 +28,22 @@ public class GrupoAssembler extends RepresentationModelAssemblerSupport<Grupo, G
         super(GrupoController.class, GrupoModel.class);
     }
 
+    @Override
     public GrupoModel toModel(Grupo grupo) {
         GrupoModel grupoModel = createModelWithId(grupo.getId(), grupo);
         modelMapper.map(grupo, grupoModel);
 
+        grupoModel.add(linkBuilder.linkToGrupos("grupos"));
+
+        grupoModel.add(linkBuilder.linkToGrupoPermissoes(grupo.getId(), "permissoes"));
+
         return grupoModel;
     }
 
-    public List<GrupoModel> toCollectionModel(Collection<Grupo> grupos) {
-        return grupos.stream().map(this::toModel).collect(Collectors.toList());
+    @Override
+    public CollectionModel<GrupoModel> toCollectionModel(Iterable<? extends Grupo> entities) {
+        return super.toCollectionModel(entities)
+            .add(linkBuilder.linkToGrupos());
     }
 
     public Grupo toEntity(GrupoInput grupoInput) {
