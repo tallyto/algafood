@@ -6,6 +6,7 @@ import com.algaworks.algafood.api.openapi.controller.UsuarioGrupoControllerOpenA
 import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
     GrupoAssembler assembler;
 
     @GetMapping
-    public Collection<GrupoModel> listar(@PathVariable Long usuarioId) {
+    public CollectionModel<GrupoModel> listar(@PathVariable Long usuarioId) {
         Collection<Grupo> grupos = usuarioService.buscar(usuarioId).getGrupos();
 
         return assembler.toCollectionModel(grupos);
