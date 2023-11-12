@@ -20,7 +20,7 @@ public class GrupoModelAssembler extends RepresentationModelAssemblerSupport<Gru
     @Autowired
     LinkBuilder linkBuilder;
 
-    public GrupoModelAssembler(){
+    public GrupoModelAssembler() {
         super(GrupoController.class, GrupoModel.class);
     }
 

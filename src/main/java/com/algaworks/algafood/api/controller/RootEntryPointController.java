@@ -29,12 +29,11 @@ public class RootEntryPointController {
         model.add(linkBuilder.linkToFormasPagamento("formas-pagamento"));
         model.add(linkBuilder.linkToEstatisticas("estatisticas"));
 
-        return  model;
+        return model;
     }
+
     private static class RootEntryPointModel extends RepresentationModel<RootEntryPointModel> {
     }
-
-
 
 
 }

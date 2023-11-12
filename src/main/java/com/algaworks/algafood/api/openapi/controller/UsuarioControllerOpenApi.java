@@ -8,8 +8,6 @@ import com.algaworks.algafood.api.model.input.UsuarioWithoutPasswordInput;
 import io.swagger.annotations.*;
 import org.springframework.hateoas.CollectionModel;
 
-import java.util.Collection;
-
 @Api(tags = "Usuários")
 public interface UsuarioControllerOpenApi {
 

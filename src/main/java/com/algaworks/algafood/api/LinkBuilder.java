@@ -18,6 +18,7 @@ public class LinkBuilder {
 
     public static final TemplateVariables PROJECAO_VARIABLES = new TemplateVariables(
         new TemplateVariable("projecao", TemplateVariable.VariableType.REQUEST_PARAM));
+
     public Link linkToPedidos(String relation) {
 
         TemplateVariables filtroVariables = new TemplateVariables(
@@ -32,17 +33,18 @@ public class LinkBuilder {
         return Link.of(UriTemplate.of(pedidosUrl, PAGINACAO_VARIABLES.concat(filtroVariables)), relation);
     }
 
-    public Link linkToConfirmacaoPedido(String codigoPedido, String rel){
+    public Link linkToConfirmacaoPedido(String codigoPedido, String rel) {
         return linkTo(methodOn(FluxoPedidoController.class).confirmar(codigoPedido)).withRel(rel);
     }
 
-    public Link linkToEntregaPedido(String codigoPedido, String rel){
+    public Link linkToEntregaPedido(String codigoPedido, String rel) {
         return linkTo(methodOn(FluxoPedidoController.class).entregar(codigoPedido)).withRel(rel);
     }
 
-    public Link linkToCancelamentoPedido(String codigoPedido, String rel){
+    public Link linkToCancelamentoPedido(String codigoPedido, String rel) {
         return linkTo(methodOn(FluxoPedidoController.class).cancelar(codigoPedido)).withRel(rel);
     }
+
     public Link linkToRestaurante(Long restauranteId, String rel) {
         return linkTo(methodOn(RestauranteController.class)
             .buscar(restauranteId)).withRel(rel);
@@ -62,13 +64,12 @@ public class LinkBuilder {
     }
 
 
-
     public Link linkToRestauranteFormasPagamento(Long restauranteId, String rel) {
         return linkTo(methodOn(RestauranteFormaPagamentoController.class)
             .listar(restauranteId)).withRel(rel);
     }
 
-     public Link linkToRestauranteFormasPagamento(Long restauranteId) {
+    public Link linkToRestauranteFormasPagamento(Long restauranteId) {
         return linkToRestauranteFormasPagamento(restauranteId, IanaLinkRelations.SELF.value());
     }
 

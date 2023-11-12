@@ -19,7 +19,6 @@ import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 import javax.validation.Valid;
 import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @RequestMapping(value = "/formas-pagamento", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -41,22 +41,17 @@ import java.util.Map;
 public class RestauranteController implements RestauranteControllerOpenApi {
 
     @Autowired
-    private RestauranteRepository restauranteRepository;
-
-    @Autowired
-    private RestauranteService restauranteService;
-
-    @Autowired
-    private SmartValidator validator;
-
-    @Autowired
-    private RestauranteModelAssembler assembler;
-
-    @Autowired
     RestauranteBasicoModelAssembler restauranteBasicoModelAssembler;
-
     @Autowired
     RestauranteApenasNomeModelAssembler restauranteApenasNomeModelAssembler;
+    @Autowired
+    private RestauranteRepository restauranteRepository;
+    @Autowired
+    private RestauranteService restauranteService;
+    @Autowired
+    private SmartValidator validator;
+    @Autowired
+    private RestauranteModelAssembler assembler;
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,6 +66,7 @@ public class RestauranteController implements RestauranteControllerOpenApi {
         return restauranteApenasNomeModelAssembler
             .toCollectionModel(restauranteRepository.findAll());
     }
+
     @GetMapping("/{restauranteId}")
     public RestauranteModel buscar(@PathVariable Long restauranteId) {
         Restaurante restaurante = restauranteService.buscar(restauranteId);

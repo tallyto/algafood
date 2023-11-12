@@ -6,8 +6,6 @@ import com.algaworks.algafood.api.model.input.EstadoInput;
 import io.swagger.annotations.*;
 import org.springframework.hateoas.CollectionModel;
 
-import java.util.List;
-
 @Api(tags = "Estados")
 public interface EstadoControllerOpenApi {
 

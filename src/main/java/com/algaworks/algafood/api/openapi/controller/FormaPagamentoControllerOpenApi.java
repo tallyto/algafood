@@ -7,9 +7,6 @@ import io.swagger.annotations.*;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.ServletWebRequest;
-import org.springframework.web.context.request.WebRequest;
-
-import java.util.List;
 
 @Api(tags = "Formas de pagamento")
 public interface FormaPagamentoControllerOpenApi {

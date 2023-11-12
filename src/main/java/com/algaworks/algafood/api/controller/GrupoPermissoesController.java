@@ -23,7 +23,7 @@ public class GrupoPermissoesController implements GrupoPermissaoControllerOpenAp
     private PermissaoModelAssembler permissaoModelAssembler;
 
     @Autowired
-    private LinkBuilder  linkBuilder;
+    private LinkBuilder linkBuilder;
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,7 +43,6 @@ public class GrupoPermissoesController implements GrupoPermissaoControllerOpenAp
 
         return permissoesModel;
     }
-
 
 
     @Override

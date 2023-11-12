@@ -6,8 +6,6 @@ import com.algaworks.algafood.api.model.input.ProdutoInput;
 import io.swagger.annotations.*;
 import org.springframework.hateoas.CollectionModel;
 
-import java.util.List;
-
 @Api(tags = "Produtos")
 public interface RestauranteProdutoControllerOpenApi {
 

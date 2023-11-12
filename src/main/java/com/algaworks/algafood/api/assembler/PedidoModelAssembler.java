@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.assembler;
 
 import com.algaworks.algafood.api.LinkBuilder;
-import com.algaworks.algafood.api.controller.*;
+import com.algaworks.algafood.api.controller.PedidoController;
 import com.algaworks.algafood.api.model.PedidoModel;
 import com.algaworks.algafood.api.model.input.PedidoInput;
 import com.algaworks.algafood.domain.model.Pedido;
@@ -34,15 +34,15 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 
         pedidoModel.add(linkBuilder.linkToPedidos("pedidos"));
 
-        if(pedido.podeSerConfirmado()){
+        if (pedido.podeSerConfirmado()) {
             pedidoModel.add(linkBuilder.linkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));
         }
 
-        if(pedido.podeSerEntregue()){
+        if (pedido.podeSerEntregue()) {
             pedidoModel.add(linkBuilder.linkToEntregaPedido(pedido.getCodigo(), "entregar"));
         }
 
-        if(pedido.podeSerCancelado()){
+        if (pedido.podeSerCancelado()) {
             pedidoModel.add(linkBuilder.linkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));
         }
 
