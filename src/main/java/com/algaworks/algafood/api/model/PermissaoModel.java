@@ -9,8 +9,7 @@ import org.springframework.hateoas.server.core.Relation;
 @Relation(collectionRelation = "permissoes")
 @Setter
 @Getter
-public class PermissaoModel
-    extends RepresentationModel<PermissaoModel> {
+public class PermissaoModel extends RepresentationModel<PermissaoModel> {
 
     @ApiModelProperty(example = "1")
     private Long id;
