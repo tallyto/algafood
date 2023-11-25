@@ -83,6 +83,12 @@ public class OpenApiConfig implements WebMvcConfigurer {
             .alternateTypeRules(AlternateTypeRules.newRule(
                 typeResolver.resolve(CollectionModel.class, FormaPagamentoModel.class),
                 FormasPagamentoModelOpenApi.class))
+            .alternateTypeRules(AlternateTypeRules.newRule(
+                typeResolver.resolve(CollectionModel.class, GrupoModel.class),
+                GruposModelOpenApi.class))
+            .alternateTypeRules(AlternateTypeRules.newRule(
+                typeResolver.resolve(CollectionModel.class, PermissaoModel.class),
+                PermissoesModelOpenApi.class))
             .apiInfo(apiInfo())
             .tags(new Tag("Cidades", "Gerencia as cidades"),
                 new Tag("Grupos", "Gerencia os grupos de usuários"),
