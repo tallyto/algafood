@@ -22,13 +22,13 @@ public class StorageProperties {
 
     @Getter
     @Setter
-    public class Local {
+    public static class Local {
         private Path diretorioFotos;
     }
 
     @Getter
     @Setter
-    public class S3 {
+    public static class S3 {
         private String idChaveAcesso;
         private String chaveAcessoSecreta;
         private String bucket;
