@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.time.OffsetDateTime;
 import java.util.concurrent.TimeUnit;
 
-@RequestMapping(value = "/formas-pagamento", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/v1/formas-pagamento", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class FormaPagamentoController implements FormaPagamentoControllerOpenApi {
 

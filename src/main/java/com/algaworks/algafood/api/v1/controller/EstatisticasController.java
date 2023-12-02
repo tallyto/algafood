@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/estatisticas")
+@RequestMapping("/v1/estatisticas")
 public class EstatisticasController implements EstatisticasControllerOpenApi {
     @Autowired
     private VendaQueryService vendaQueryService;
