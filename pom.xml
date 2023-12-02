@@ -8,7 +8,7 @@
         <version>2.7.16</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.algaworks</groupId>
+    <groupId>com.tallyto</groupId>
     <artifactId>algafood</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>algafood</name>
