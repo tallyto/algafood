@@ -22,7 +22,7 @@ import javax.validation.Valid;
 
 @Api(tags = "Cozinhas")
 @RestController
-@RequestMapping(value = "/cozinhas")
+@RequestMapping(value = "/v1/cozinhas")
 public class CozinhaController implements CozinhaControllerOpenApi {
     @Autowired
     private CozinhaRepository cozinhaRepository;
