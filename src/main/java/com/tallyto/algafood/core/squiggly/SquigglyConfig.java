@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class SquigglyConfig {
     @Bean
     public FilterRegistrationBean<SquigglyRequestFilter> squigglyRequestFilter(ObjectMapper objectMapper) {
-        Squiggly.init(objectMapper, new RequestSquigglyContextProvider("campos", null));
+        Squiggly.init(objectMapper, new RequestSquigglyContextProvider("fields", null));
         var urlPatterns = Arrays.asList("/pedidos/*", "/restaurantes/*");
         var filterRegistration = new FilterRegistrationBean<SquigglyRequestFilter>();
         filterRegistration.setFilter(new SquigglyRequestFilter());
