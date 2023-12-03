@@ -52,7 +52,7 @@ import java.util.List;
 public class OpenApiConfig implements WebMvcConfigurer {
     TypeResolver typeResolver = new TypeResolver();
 
-    @Bean
+//    @Bean
     public Docket apiDocketV1() {
         return new Docket(DocumentationType.SWAGGER_2)
             .groupName("V1")
