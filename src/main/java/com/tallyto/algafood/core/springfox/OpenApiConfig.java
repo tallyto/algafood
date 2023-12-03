@@ -5,6 +5,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.tallyto.algafood.api.exceptionhandler.Problem;
 import com.tallyto.algafood.api.v1.model.*;
 import com.tallyto.algafood.api.v1.openapi.model.*;
+import com.tallyto.algafood.api.v2.model.CidadeModelV2;
+import com.tallyto.algafood.api.v2.model.CozinhaModelV2;
+import com.tallyto.algafood.api.v2.openapi.model.CidadesModelV2OpenApi;
+import com.tallyto.algafood.api.v2.openapi.model.CozinhasModelV2OpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -130,6 +134,13 @@ public class OpenApiConfig implements WebMvcConfigurer {
                 File.class, InputStream.class)
             .directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
             .directModelSubstitute(Links.class, LinksModelOpenApi.class)
+            .alternateTypeRules(AlternateTypeRules.newRule(
+                typeResolver.resolve(PagedModel.class, CozinhaModelV2.class),
+                CozinhasModelV2OpenApi.class))
+
+            .alternateTypeRules(AlternateTypeRules.newRule(
+                typeResolver.resolve(CollectionModel.class, CidadeModelV2.class),
+                CidadesModelV2OpenApi.class))
             .apiInfo(apiInfoV2());
 
     }

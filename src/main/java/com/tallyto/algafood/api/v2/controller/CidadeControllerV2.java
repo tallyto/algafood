@@ -4,6 +4,7 @@ import com.tallyto.algafood.api.utils.ResourceUriHelper;
 import com.tallyto.algafood.api.v2.assembler.CidadeModelAssemblerV2;
 import com.tallyto.algafood.api.v2.model.CidadeModelV2;
 import com.tallyto.algafood.api.v2.model.input.CidadeInputV2;
+import com.tallyto.algafood.api.v2.openapi.controller.CidadeControllerV2OpenApi;
 import com.tallyto.algafood.domain.model.Cidade;
 import com.tallyto.algafood.domain.service.CadastroCidadeService;
 import io.swagger.annotations.Api;
@@ -16,10 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Api(tags = "Cidades")
 @RestController
 @RequestMapping(path = "v2/cidades", produces = MediaType.APPLICATION_JSON_VALUE)
-public class CidadeControllerV2 {
+public class CidadeControllerV2  implements CidadeControllerV2OpenApi {
     @Autowired
     private CadastroCidadeService cadastroCidade;
 
