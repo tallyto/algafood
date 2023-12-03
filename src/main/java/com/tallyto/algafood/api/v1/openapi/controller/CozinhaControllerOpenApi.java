@@ -3,14 +3,12 @@ package com.tallyto.algafood.api.v1.openapi.controller;
 import com.tallyto.algafood.api.exceptionhandler.Problem;
 import com.tallyto.algafood.api.v1.model.CozinhaModel;
 import com.tallyto.algafood.api.v1.model.input.CozinhaInput;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.web.bind.annotation.PathVariable;
 
+@Api(tags = "Cozinhas")
 public interface CozinhaControllerOpenApi {
     @ApiOperation(value = "Lista todas as cozinhas")
     PagedModel<CozinhaModel> listar(Pageable pageable);
@@ -20,7 +18,7 @@ public interface CozinhaControllerOpenApi {
         @ApiResponse(code = 200, message = "Cozinha encontrada"),
         @ApiResponse(code = 404, message = "Cozinha não encontrada", response = Problem.class)
     })
-    public CozinhaModel buscar(@ApiParam(value = "ID da cozinha", example = "1", required = true)
+    CozinhaModel buscar(@ApiParam(value = "ID da cozinha", example = "1", required = true)
                                @PathVariable Long cozinhaId);
 
     @ApiOperation(value = "Cadastra uma nova cozinha")

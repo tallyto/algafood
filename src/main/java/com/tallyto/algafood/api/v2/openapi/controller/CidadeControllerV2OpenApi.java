@@ -3,11 +3,7 @@ package com.tallyto.algafood.api.v2.openapi.controller;
 import com.tallyto.algafood.api.exceptionhandler.Problem;
 import com.tallyto.algafood.api.v2.model.CidadeModelV2;
 import com.tallyto.algafood.api.v2.model.input.CidadeInputV2;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.hateoas.CollectionModel;
 
 @Api(tags = "Cidades")

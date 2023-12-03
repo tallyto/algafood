@@ -7,9 +7,7 @@ import com.tallyto.algafood.api.v1.openapi.controller.CozinhaControllerOpenApi;
 import com.tallyto.algafood.domain.model.Cozinha;
 import com.tallyto.algafood.domain.repository.CozinhaRepository;
 import com.tallyto.algafood.domain.service.CadastroCozinhaService;
-import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,10 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static org.slf4j.LoggerFactory.getLogger;
-
 @Slf4j
-@Api(tags = "Cozinhas")
+
 @RestController
 @RequestMapping(value = "/v1/cozinhas")
 public class CozinhaController implements CozinhaControllerOpenApi {

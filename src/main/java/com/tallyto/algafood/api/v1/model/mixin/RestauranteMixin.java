@@ -1,11 +1,11 @@
 package com.tallyto.algafood.api.v1.model.mixin;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tallyto.algafood.domain.model.Cozinha;
 import com.tallyto.algafood.domain.model.Endereco;
 import com.tallyto.algafood.domain.model.FormaPagamento;
 import com.tallyto.algafood.domain.model.Produto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;

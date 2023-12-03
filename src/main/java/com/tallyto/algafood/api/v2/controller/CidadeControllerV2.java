@@ -7,7 +7,6 @@ import com.tallyto.algafood.api.v2.model.input.CidadeInputV2;
 import com.tallyto.algafood.api.v2.openapi.controller.CidadeControllerV2OpenApi;
 import com.tallyto.algafood.domain.model.Cidade;
 import com.tallyto.algafood.domain.service.CadastroCidadeService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;

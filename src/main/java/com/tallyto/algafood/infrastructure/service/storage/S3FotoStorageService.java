@@ -1,11 +1,11 @@
 package com.tallyto.algafood.infrastructure.service.storage;
 
-import com.tallyto.algafood.core.storage.StorageProperties;
-import com.tallyto.algafood.domain.service.FotoStorageService;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.tallyto.algafood.core.storage.StorageProperties;
+import com.tallyto.algafood.domain.service.FotoStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URL;

@@ -1,13 +1,12 @@
 package com.tallyto.algafood.api.v1.controller;
 
+import com.tallyto.algafood.api.utils.ResourceUriHelper;
 import com.tallyto.algafood.api.v1.assembler.CidadeModelAssembler;
 import com.tallyto.algafood.api.v1.model.CidadeModel;
 import com.tallyto.algafood.api.v1.model.input.CidadeInput;
 import com.tallyto.algafood.api.v1.openapi.controller.CidadeControllerOpenApi;
-import com.tallyto.algafood.api.utils.ResourceUriHelper;
 import com.tallyto.algafood.domain.model.Cidade;
 import com.tallyto.algafood.domain.service.CadastroCidadeService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Api(tags = "Cidades")
+
 @RestController
 @RequestMapping(path = "/v1/cidades", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CidadeController implements CidadeControllerOpenApi {
