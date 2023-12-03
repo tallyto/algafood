@@ -27,6 +27,7 @@ public class CidadeController implements CidadeControllerOpenApi {
     @Autowired
     private CidadeModelAssembler cidadeModelAssembler;
 
+    @Deprecated
     @GetMapping
     public CollectionModel<CidadeModel> listar() {
         List<Cidade> cidades = cadastroCidade.listar();

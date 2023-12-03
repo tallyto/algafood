@@ -212,8 +212,10 @@ public class OpenApiConfig implements WebMvcConfigurer {
 
     public ApiInfo apiInfoV1() {
         return new ApiInfoBuilder()
-            .title("AlgaFood API")
-            .description("API do projeto AlgaFood")
+            .title("AlgaFood API (Depreciada)")
+            .description("API aberta para clientes e restaurantes.<br>" +
+                "<strong>Essa versão da API está depreciada e deixará de existir a partir de 01/12/2024." +
+                "Use a versão mais atual da API.</strong>")
             .version("1.0")
             .build();
     }
@@ -222,7 +224,7 @@ public class OpenApiConfig implements WebMvcConfigurer {
         return new ApiInfoBuilder()
             .title("AlgaFood API")
             .description("API do projeto AlgaFood")
-            .version("1.0")
+            .version("2.0")
             .build();
     }
 
