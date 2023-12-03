@@ -1,6 +1,7 @@
 package com.tallyto.algafood.api.v1.assembler;
 
 import com.tallyto.algafood.api.v1.LinkBuilder;
+import com.tallyto.algafood.api.v1.controller.CozinhaController;
 import com.tallyto.algafood.api.v1.model.CozinhaModel;
 import com.tallyto.algafood.api.v1.model.input.CozinhaInput;
 import com.tallyto.algafood.domain.model.Cozinha;
@@ -21,7 +22,7 @@ public class CozinhaModelAssembler extends RepresentationModelAssemblerSupport<C
     LinkBuilder linkBuilder;
 
     public CozinhaModelAssembler() {
-        super(CozinhaModel.class, CozinhaModel.class);
+        super(CozinhaController.class, CozinhaModel.class);
     }
 
     @Override
