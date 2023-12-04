@@ -23,7 +23,7 @@ import javax.validation.Valid;
 @Slf4j
 
 @RestController
-@RequestMapping(value = "/v1/cozinhas")
+@RequestMapping(value = "/v1/cozinhas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CozinhaController implements CozinhaControllerOpenApi {
     @Autowired
     private CozinhaRepository cozinhaRepository;
