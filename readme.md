@@ -1,3 +1,10 @@
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=tallyto_algafood&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=tallyto_algafood)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=tallyto_algafood&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=tallyto_algafood)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=tallyto_algafood&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=tallyto_algafood)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=tallyto_algafood&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=tallyto_algafood)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=tallyto_algafood&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=tallyto_algafood)
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=tallyto_algafood)
+
 # README - Aplicação Spring
 
 Este é o README da nossa aplicação Spring, que abrange diversos tópicos relacionados ao desenvolvimento de APIs usando o Spring. Neste guia, você encontrará informações sobre como executar a aplicação e uma breve visão geral das principais funcionalidades.
