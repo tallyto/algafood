@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tallyto.algafood.api.v1.model.input.CozinhaInput;
 import com.tallyto.algafood.domain.model.Cozinha;
 import com.tallyto.algafood.domain.repository.CozinhaRepository;
-import com.tallyto.algafood.util.DatabaseCleaner;
+import com.tallyto.algafood.util.BaseTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
@@ -19,7 +19,7 @@ import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
-public class CadastroCozinhaApiIT {
+public class CadastroCozinhaApiIT extends BaseTest {
 
     public static final int COZINHA_ID_INEXISTENTE = 100;
 
@@ -31,8 +31,6 @@ public class CadastroCozinhaApiIT {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private DatabaseCleaner databaseCleaner;
 
     @Autowired
     private CozinhaRepository cozinhaRepository;
@@ -46,7 +44,6 @@ public class CadastroCozinhaApiIT {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
         RestAssured.basePath = "v1/cozinhas";
-        databaseCleaner.clearTables();
         prepareData();
         cozinhaInput.setNome("Americana");
     }
@@ -123,7 +120,7 @@ public class CadastroCozinhaApiIT {
     }
 
     @Test
-    public void shouldReturn404WhenUpdatingANonExistentCozinha() throws JsonProcessingException {
+    void shouldReturn404WhenUpdatingANonExistentCozinha() throws JsonProcessingException {
         RestAssured.given()
             .pathParam("cozinhaId", COZINHA_ID_INEXISTENTE)
             .accept(ContentType.JSON)
