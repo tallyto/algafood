@@ -27,7 +27,7 @@ create table pedido
     constraint fk_pedido_restaurante foreign key (restaurante_id) references restaurante (id),
     constraint fk_pedido_usuario_cliente foreign key (usuario_cliente_id) references usuario (id),
     constraint fk_pedido_forma_pagamento foreign key (forma_pagamento_id) references forma_pagamento (id)
-) engine = InnoDB;
+);
 
 
 create table item_pedido
@@ -41,8 +41,7 @@ create table item_pedido
     produto_id     bigint         not null,
 
     primary key (id),
-    unique key uk_item_pedido_produto (pedido_id, produto_id),
 
     constraint fk_item_pedido_pedido foreign key (pedido_id) references pedido (id),
     constraint fk_item_pedido_produto foreign key (produto_id) references produto (id)
-) engine = InnoDB;
+);

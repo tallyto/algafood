@@ -1,7 +1,7 @@
 package com.tallyto.algafood.api.v1.model;
 
-import com.tallyto.algafood.api.v1.model.view.RestauranteView;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.tallyto.algafood.api.v1.model.view.RestauranteView;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

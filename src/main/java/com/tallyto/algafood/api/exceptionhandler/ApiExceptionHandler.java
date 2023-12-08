@@ -1,11 +1,11 @@
 package com.tallyto.algafood.api.exceptionhandler;
 
-import com.tallyto.algafood.domain.exception.EntidadeEmUsoException;
-import com.tallyto.algafood.domain.exception.EntidadeNaoEncontradaException;
-import com.tallyto.algafood.domain.exception.NegocioException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
+import com.tallyto.algafood.domain.exception.EntidadeEmUsoException;
+import com.tallyto.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.tallyto.algafood.domain.exception.NegocioException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
@@ -99,7 +99,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
         String detail = MSG_ERRO_GENERICA_USUARIO_FINAL;
 
-        ex.printStackTrace();
+        log.error(ex.getMessage(), ex);
 
         Problem problem = createProblemBuilder(status, problemType, detail)
             .userMessage(detail)

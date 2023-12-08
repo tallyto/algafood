@@ -1,10 +1,10 @@
 package com.tallyto.algafood.core.jackson;
 
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.tallyto.algafood.api.v1.model.mixin.CidadeMixin;
 import com.tallyto.algafood.api.v1.model.mixin.RestauranteMixin;
 import com.tallyto.algafood.domain.model.Cidade;
 import com.tallyto.algafood.domain.model.Restaurante;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.stereotype.Component;
 
 @Component

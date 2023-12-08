@@ -3,26 +3,26 @@ create table forma_pagamento
     id        bigint      not null auto_increment,
     descricao varchar(60) not null,
     primary key (id)
-) engine = InnoDB;
+);
 create table grupo
 (
     id   bigint       not null auto_increment,
     nome varchar(255) not null,
     primary key (id)
-) engine = InnoDB;
+);
 create table grupo_permissao
 (
     grupo_id     bigint not null,
     permissao_id bigint not null,
     primary key (grupo_id, permissao_id)
-) engine = InnoDB;
+);
 create table permissao
 (
     id        bigint       not null auto_increment,
     descricao varchar(60)  not null,
     nome      varchar(100) not null,
     primary key (id)
-) engine = InnoDB;
+);
 
 create table produto
 (
@@ -33,7 +33,7 @@ create table produto
     preco          decimal(19, 2) not null,
     restaurante_id bigint,
     primary key (id)
-) engine = InnoDB;
+);
 create table restaurante
 (
     id                   bigint         not null auto_increment,
@@ -50,14 +50,14 @@ create table restaurante
     cozinha_id           bigint         not null,
     endereco_cidade_id   bigint,
     primary key (id)
-) engine = InnoDB;
+);
 CREATE TABLE restaurante_forma_pagamento
 (
     restaurante_id     BIGINT NOT NULL,
     forma_pagamento_id BIGINT NOT NULL,
     PRIMARY KEY (restaurante_id, forma_pagamento_id),
     CONSTRAINT uk_restaurante_forma_pagamento UNIQUE (restaurante_id, forma_pagamento_id)
-) ENGINE = InnoDB;
+);
 
 create table usuario
 (
@@ -67,13 +67,13 @@ create table usuario
     nome          varchar(80)  not null,
     senha         varchar(100) not null,
     primary key (id)
-) engine = InnoDB;
+);
 create table usuario_grupo
 (
     usuario_id bigint not null,
     grupo_id   bigint not null,
     primary key (usuario_id, grupo_id)
-) engine = InnoDB;
+);
 
 
 alter table grupo_permissao

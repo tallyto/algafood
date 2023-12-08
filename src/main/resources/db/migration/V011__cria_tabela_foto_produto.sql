@@ -7,4 +7,4 @@ create table foto_produto
     tamanho      int          not null,
     primary key (produto_id),
     constraint fk_foto_produto_produto foreign key (produto_id) references produto (id)
-) engine = InnoDB;
+);

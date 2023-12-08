@@ -5,10 +5,12 @@ import com.tallyto.algafood.domain.model.Pedido;
 import com.tallyto.algafood.domain.service.EnvioEmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
+@Profile("prod")
 @Component
 @Slf4j
 public class NotificacoClientePedidoCanceladoListener {

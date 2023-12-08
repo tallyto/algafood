@@ -1,5 +1,7 @@
 package com.tallyto.algafood.api.v1.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tallyto.algafood.api.v1.assembler.RestauranteApenasNomeModelAssembler;
 import com.tallyto.algafood.api.v1.assembler.RestauranteBasicoModelAssembler;
 import com.tallyto.algafood.api.v1.assembler.RestauranteModelAssembler;
@@ -14,8 +16,6 @@ import com.tallyto.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.tallyto.algafood.domain.model.Restaurante;
 import com.tallyto.algafood.domain.repository.RestauranteRepository;
 import com.tallyto.algafood.domain.service.RestauranteService;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;

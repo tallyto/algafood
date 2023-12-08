@@ -1,10 +1,11 @@
 package com.tallyto.algafood;
 
-import com.tallyto.algafood.domain.model.Cozinha;
-import com.tallyto.algafood.domain.repository.CozinhaRepository;
-import com.tallyto.algafood.util.DatabaseCleaner;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tallyto.algafood.api.v1.model.input.CozinhaInput;
+import com.tallyto.algafood.domain.model.Cozinha;
+import com.tallyto.algafood.domain.repository.CozinhaRepository;
+import com.tallyto.algafood.util.BaseTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
@@ -18,11 +19,11 @@ import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
-public class CadastroCozinhaApiIT {
+public class CadastroCozinhaApiIT extends BaseTest {
 
     public static final int COZINHA_ID_INEXISTENTE = 100;
 
-    private final Cozinha cozinhaDefault = new Cozinha("Americana");
+    private final CozinhaInput cozinhaInput = new CozinhaInput();
 
     @LocalServerPort
     private int port;
@@ -30,8 +31,6 @@ public class CadastroCozinhaApiIT {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private DatabaseCleaner databaseCleaner;
 
     @Autowired
     private CozinhaRepository cozinhaRepository;
@@ -44,13 +43,13 @@ public class CadastroCozinhaApiIT {
     public void setUp() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
-        RestAssured.basePath = "/cozinhas";
-        databaseCleaner.clearTables();
+        RestAssured.basePath = "v1/cozinhas";
         prepareData();
+        cozinhaInput.setNome("Americana");
     }
 
     @Test
-    public void shouldReturn200WhenConsultingCozinha() {
+    void shouldReturn200WhenConsultingCozinha() {
         RestAssured.given()
             .accept(ContentType.JSON)
             .when()
@@ -60,22 +59,22 @@ public class CadastroCozinhaApiIT {
     }
 
     @Test
-    public void shouldContainCozinhaWhenConsultingCozinha() {
+    void shouldContainCozinhaWhenConsultingCozinha() {
         RestAssured.given()
             .accept(ContentType.JSON)
             .when()
             .get()
             .then()
-            .body("nome", Matchers.hasSize(this.numeroCozinhas))
-            .body("nome", Matchers.hasItems("Indiana", "Tailandesa"));
+            .body("_embedded.cozinhas", Matchers.hasSize(this.numeroCozinhas))
+            .body("_embedded.cozinhas.nome", Matchers.containsInAnyOrder("Indiana", "Tailandesa"));
     }
 
     @Test
-    public void shouldReturn201WhenCreatingCozinha() throws JsonProcessingException {
+    void shouldReturn201WhenCreatingCozinha() throws JsonProcessingException {
         RestAssured.given()
             .accept(ContentType.JSON)
             .contentType(ContentType.JSON)
-            .body(objectMapper.writeValueAsString(cozinhaDefault))
+            .body(objectMapper.writeValueAsString(cozinhaInput))
             .when()
             .post()
             .then()
@@ -83,7 +82,7 @@ public class CadastroCozinhaApiIT {
     }
 
     @Test
-    public void shouldReturn200WhenGetAnExistentCozinhaById() {
+    void shouldReturn200WhenGetAnExistentCozinhaById() {
         RestAssured.given()
             .pathParam("cozinhaId", cozinhaSalva.getId())
             .accept(ContentType.JSON)
@@ -95,7 +94,7 @@ public class CadastroCozinhaApiIT {
     }
 
     @Test
-    public void shouldReturn404WhenGetAnNonExistentCozinhaById() {
+    void shouldReturn404WhenGetAnNonExistentCozinhaById() {
         RestAssured.given()
             .pathParam("cozinhaId", COZINHA_ID_INEXISTENTE)
             .accept(ContentType.JSON)
@@ -106,27 +105,27 @@ public class CadastroCozinhaApiIT {
     }
 
     @Test
-    public void shouldReturn200WhenUpdatingAnExistentCozinha() throws JsonProcessingException {
+    void shouldReturn200WhenUpdatingAnExistentCozinha() throws JsonProcessingException {
 
         RestAssured.given()
             .pathParam("cozinhaId", cozinhaSalva.getId())
             .accept(ContentType.JSON)
             .contentType(ContentType.JSON)
-            .body(objectMapper.writeValueAsString(cozinhaDefault))
+            .body(objectMapper.writeValueAsString(cozinhaInput))
             .when()
             .put("/{cozinhaId}")
             .then()
             .statusCode(HttpStatus.OK.value())
-            .body("nome", Matchers.equalTo(cozinhaDefault.getNome()));
+            .body("nome", Matchers.equalTo(cozinhaInput.getNome()));
     }
 
     @Test
-    public void shouldReturn404WhenUpdatingANonExistentCozinha() throws JsonProcessingException {
+    void shouldReturn404WhenUpdatingANonExistentCozinha() throws JsonProcessingException {
         RestAssured.given()
             .pathParam("cozinhaId", COZINHA_ID_INEXISTENTE)
             .accept(ContentType.JSON)
             .contentType(ContentType.JSON)
-            .body(objectMapper.writeValueAsString(cozinhaDefault))
+            .body(objectMapper.writeValueAsString(cozinhaInput))
             .when()
             .put("/{cozinhaId}")
             .then()
@@ -134,7 +133,7 @@ public class CadastroCozinhaApiIT {
     }
 
     @Test
-    public void shouldReturn204WhenDeletingAnExistentCozinha() {
+    void shouldReturn204WhenDeletingAnExistentCozinha() {
         RestAssured.given()
             .pathParam("cozinhaId", cozinhaSalva.getId())
             .accept(ContentType.JSON)
