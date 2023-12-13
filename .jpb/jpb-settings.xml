@@ -4,7 +4,7 @@
     <persistence-units>
       <persistence-unit moduleName="algafood" name="Default">
         <packages>
-          <package value="com.algaworks.algafood" />
+          <package value="com.tallyto.algafood" />
         </packages>
       </persistence-unit>
     </persistence-units>
