@@ -16,14 +16,16 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Component
 public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Cidade, CidadeModel> {
-    @Autowired
-    ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    private final LinkBuilder linkBuilder;
 
     @Autowired
-    LinkBuilder linkBuilder;
-
-    public CidadeModelAssembler() {
+    public CidadeModelAssembler(ModelMapper modelMapper, LinkBuilder linkBuilder) {
         super(CidadeController.class, CidadeModel.class);
+
+        this.linkBuilder = linkBuilder;
+        this.modelMapper = modelMapper;
     }
 
     @Override
