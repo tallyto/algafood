@@ -2,12 +2,14 @@ package com.tallyto.algafood.core.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.server.resource.introspection.NimbusOpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.web.SecurityFilterChain;
 
+@Profile("production")
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -24,9 +26,9 @@ public class WebSecurityConfig {
     }
 
 
-    @Bean
-    public OpaqueTokenIntrospector introspector() {
-        return new NimbusOpaqueTokenIntrospector("http://localhost:3002/oauth/check_token", "algafood-web", "web123");
-    }
+//    @Bean
+//    public OpaqueTokenIntrospector introspector() {
+//        return new NimbusOpaqueTokenIntrospector();
+//    }
 
 }

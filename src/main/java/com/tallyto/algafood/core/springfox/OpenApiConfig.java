@@ -12,6 +12,7 @@ import com.tallyto.algafood.api.v2.openapi.model.CozinhasModelV2OpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,6 +47,7 @@ import java.net.URLStreamHandler;
 import java.util.Arrays;
 import java.util.List;
 
+@Profile("developer")
 @Configuration
 @EnableSwagger2
 @Import(BeanValidatorPluginsConfiguration.class)
