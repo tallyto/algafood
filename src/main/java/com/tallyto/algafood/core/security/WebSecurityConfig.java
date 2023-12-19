@@ -9,7 +9,6 @@ import org.springframework.security.oauth2.server.resource.introspection.NimbusO
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Profile("production")
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -19,6 +18,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
                 .anyRequest().authenticated()
+            .and()
+                .cors()
             .and()
                 .oauth2ResourceServer().opaqueToken();
 
