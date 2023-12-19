@@ -5,13 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.oauth2.server.resource.introspection.NimbusOpaqueTokenIntrospector;
-import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Profile("production")
 @Configuration
 @EnableWebSecurity
+@Profile("developer")
 public class WebSecurityConfig {
 
 
@@ -20,15 +18,11 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests()
                 .anyRequest().authenticated()
             .and()
+                .cors()
+            .and()
                 .oauth2ResourceServer().opaqueToken();
 
         return http.build();
     }
-
-
-//    @Bean
-//    public OpaqueTokenIntrospector introspector() {
-//        return new NimbusOpaqueTokenIntrospector();
-//    }
 
 }

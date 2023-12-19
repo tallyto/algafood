@@ -12,7 +12,6 @@ import com.tallyto.algafood.api.v2.openapi.model.CozinhasModelV2OpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,11 +46,12 @@ import java.net.URLStreamHandler;
 import java.util.Arrays;
 import java.util.List;
 
-@Profile("developer")
 @Configuration
 @EnableSwagger2
 @Import(BeanValidatorPluginsConfiguration.class)
 public class OpenApiConfig implements WebMvcConfigurer {
+    public static final String ERRO_INTERNO_DO_SERVIDOR = "Erro interno do servidor";
+    public static final String PROBLEM = "Problem";
     TypeResolver typeResolver = new TypeResolver();
 
     @Bean
@@ -156,8 +156,8 @@ public class OpenApiConfig implements WebMvcConfigurer {
         return Arrays.asList(
             new ResponseMessageBuilder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .message("Erro interno do servidor")
-                .responseModel(new ModelRef("Problem"))
+                .message(ERRO_INTERNO_DO_SERVIDOR)
+                .responseModel(new ModelRef(PROBLEM))
                 .build(),
             new ResponseMessageBuilder()
                 .code(HttpStatus.NOT_ACCEPTABLE.value())
@@ -166,7 +166,7 @@ public class OpenApiConfig implements WebMvcConfigurer {
             new ResponseMessageBuilder()
                 .code(HttpStatus.NOT_FOUND.value())
                 .message("Recurso não encontrado")
-                .responseModel(new ModelRef("Problem"))
+                .responseModel(new ModelRef(PROBLEM))
                 .build()
         );
     }
@@ -176,12 +176,12 @@ public class OpenApiConfig implements WebMvcConfigurer {
             new ResponseMessageBuilder()
                 .code(HttpStatus.BAD_REQUEST.value())
                 .message("Requisição inválida (erro do cliente)")
-                .responseModel(new ModelRef("Problem"))
+                .responseModel(new ModelRef(PROBLEM))
                 .build(),
             new ResponseMessageBuilder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .message("Erro interno do servidor")
-                .responseModel(new ModelRef("Problem"))
+                .message(ERRO_INTERNO_DO_SERVIDOR)
+                .responseModel(new ModelRef(PROBLEM))
                 .build(),
             new ResponseMessageBuilder()
                 .code(HttpStatus.NOT_ACCEPTABLE.value())
@@ -200,12 +200,12 @@ public class OpenApiConfig implements WebMvcConfigurer {
             new ResponseMessageBuilder()
                 .code(HttpStatus.BAD_REQUEST.value())
                 .message("Recurso não encontrado")
-                .responseModel(new ModelRef("Problem"))
+                .responseModel(new ModelRef(PROBLEM))
                 .build(),
             new ResponseMessageBuilder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .message("Erro interno do servidor")
-                .responseModel(new ModelRef("Problem"))
+                .message(ERRO_INTERNO_DO_SERVIDOR)
+                .responseModel(new ModelRef(PROBLEM))
                 .build()
         );
 
