@@ -171,25 +171,25 @@ INSERT INTO produto (ativo, descricao, nome, preco, restaurante_id)
 VALUES (false, 'arroz doce com canela e leite condensado', 'Arroz Doce', 4.5, 1);
 
 insert into usuario (id, nome, email, senha, data_cadastro)
-values (1, 'fulano', 'rodrigues.tallyto@gmail.com', '123456', utc_timestamp);
+values (1, 'fulano', 'rodrigues.tallyto@gmail.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-values (2, 'beltrano', 'beltrano@teste.com', 'abcdef', utc_timestamp);
+values (2, 'beltrano', 'beltrano@teste.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-values (3, 'ciclano', 'ciclano@teste.com', 'ghijkl', utc_timestamp);
+values (3, 'ciclano', 'ciclano@teste.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-values (4, 'fulana', 'fulana@teste.com', 'mnopqr', utc_timestamp);
+values (4, 'fulana', 'fulana@teste.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-values (5, 'beltrana', 'beltrana@teste.com', 'stuvwx', utc_timestamp);
+values (5, 'beltrana', 'beltrana@teste.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-values (6, 'ciclana', 'ciclana@teste.com', 'yzabcd', utc_timestamp);
+values (6, 'ciclana', 'ciclana@teste.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-values (7, 'fulano2', 'fulano2@teste.com', '123456', utc_timestamp);
+values (7, 'fulano2', 'fulano2@teste.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-values (8, 'beltrano2', 'beltrano2@teste.com', 'abcdef', utc_timestamp);
+values (8, 'beltrano2', 'beltrano2@teste.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-values (9, 'ciclano2', 'ciclano2@teste.com', 'ghijkl', utc_timestamp);
+values (9, 'ciclano2', 'ciclano2@teste.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-values (10, 'fulana2', 'fulana2@teste.com', 'mnopqr', utc_timestamp);
+values (10, 'fulana2', 'fulana2@teste.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
 insert into grupo (id, nome)
 values (1, 'admin');
 insert into grupo (id, nome)
