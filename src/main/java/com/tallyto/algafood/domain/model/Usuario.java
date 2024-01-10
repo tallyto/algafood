@@ -50,4 +50,8 @@ public class Usuario {
     public boolean senhaCoincideCom(String senhaAtual) {
         return senha.equals(senhaAtual);
     }
+
+    public boolean isNovo() {
+        return getId() == null;
+    }
 }

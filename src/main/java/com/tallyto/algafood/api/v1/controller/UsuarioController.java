@@ -38,7 +38,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
     @PostMapping()
     public UsuarioModel adicionar(@RequestBody @Valid UsuarioInput usuarioInput) {
         Usuario usuario = assembler.toEntity(usuarioInput);
-        return assembler.toModel(usuarioService.criar(usuario));
+        return assembler.toModel(usuarioService.salvar(usuario));
     }
 
     @PutMapping("{usuarioId}")
@@ -47,10 +47,11 @@ public class UsuarioController implements UsuarioControllerOpenApi {
         return assembler.toModel(usuarioService.atualizar(usuarioId, usuario));
     }
 
-    @PutMapping("{usuarioId}/senha")
+    @Override
+    @PutMapping("/{usuarioId}/senha")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senhaInput) {
-        usuarioService.alterarSenha(usuarioId, senhaInput.getSenhaAtual(), senhaInput.getNovaSenha());
+    public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
+        usuarioService.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
     }
 
 
