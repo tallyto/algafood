@@ -9,6 +9,7 @@ import com.tallyto.algafood.api.v1.model.input.PedidoInput;
 import com.tallyto.algafood.api.v1.openapi.controller.PedidoControllerOpenApi;
 import com.tallyto.algafood.core.data.PageWrapper;
 import com.tallyto.algafood.core.data.PageableTranslator;
+import com.tallyto.algafood.core.security.AlgaSecurity;
 import com.tallyto.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.tallyto.algafood.domain.exception.NegocioException;
 import com.tallyto.algafood.domain.model.Pedido;
@@ -48,6 +49,9 @@ public class PedidoController implements PedidoControllerOpenApi {
     @Autowired
     private PagedResourcesAssembler<Pedido> pagedResourcesAssembler;
 
+    @Autowired
+    private AlgaSecurity algaSecurity;
+
     @GetMapping
     public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro,
                                                    @PageableDefault(size = 10) Pageable pageable) {
@@ -68,9 +72,8 @@ public class PedidoController implements PedidoControllerOpenApi {
         try {
             Pedido novoPedido = assembler.toEntity(pedidoInput);
 
-            // TODO pegar usuário autenticado
             novoPedido.setCliente(new Usuario());
-            novoPedido.getCliente().setId(1L);
+            novoPedido.getCliente().setId(algaSecurity.getUsuarioId());
 
             novoPedido = emissaoPedido.emitir(novoPedido);
 
