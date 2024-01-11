@@ -66,7 +66,6 @@ alter table item_pedido
 alter table restaurante_usuario_responsavel
     auto_increment = 1;
 
-
 insert into estado (id, nome)
 values (1, 'Roraima');
 insert into estado (id, nome)
@@ -88,6 +87,7 @@ insert into cozinha (id, nome)
 values (3, 'Brasileira');
 insert into cozinha (id, nome)
 values (4, 'Macuxi');
+
 -- Inserir o endereço para todos os restaurantes
 insert into restaurante (id, nome, taxa_frete, cozinha_id, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, data_cadastro, data_atualizacao)
 values (1, 'Restaurante Dona Maria', 9.0, 1, 1, '00000000', 'Rua Principal', 123, 'Sala 101', 'Centro', utc_timestamp, utc_timestamp);
@@ -110,26 +110,45 @@ insert into forma_pagamento (id, descricao, data_atualizacao)
 values (2, 'dinheiro', utc_timestamp);
 insert into forma_pagamento (id, descricao, data_atualizacao)
 values (3, 'pix', utc_timestamp);
-insert into permissao (id, descricao, nome)
-values (1, 'Pode editar uma cozinha', 'EDITAR_COZINHA');
-insert into permissao (id, descricao, nome)
-values (2, 'Pode visualizar estatísticas', 'VISUALIZAR_ESTATISTICAS');
-insert into permissao (id, descricao, nome)
-values (3, 'Pode criar posts', 'CRIAR_POST');
-insert into permissao (id, descricao, nome)
-values (4, 'Pode editar um restaurante', 'EDITAR_RESTAURANTE');
-insert into permissao (id, descricao, nome)
-values (5, 'Pode visualizar relatórios', 'VISUALIZAR_RELATORIOS');
-insert into permissao (id, descricao, nome)
-values (6, 'Pode publicar posts', 'PUBLICAR_POSTS');
-insert into permissao (id, descricao, nome)
-values (7, 'Pode gerenciar usuários', 'GERENCIAR_USUARIOS');
-insert into permissao (id, descricao, nome)
-values (8, 'Pode aprovar comentários', 'APROVAR_COMENTARIOS');
-insert into permissao (id, descricao, nome)
-values (9, 'Pode excluir produtos', 'EXCLUIR_PRODUTOS');
-insert into permissao (id, descricao, nome)
-values (10, 'Pode acessar configurações', 'ACESSAR_CONFIGURACOES');
+
+insert into grupo (id, nome) values (1, 'Gerente'), (2, 'Vendedor'), (3, 'Secretária'), (4, 'Cadastrador');
+
+insert into permissao (id, nome, descricao) values (1, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
+insert into permissao (id, nome, descricao) values (2, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
+insert into permissao (id, nome, descricao) values (3, 'CONSULTAR_FORMAS_PAGAMENTO', 'Permite consultar formas de pagamento');
+insert into permissao (id, nome, descricao) values (4, 'EDITAR_FORMAS_PAGAMENTO', 'Permite criar ou editar formas de pagamento');
+insert into permissao (id, nome, descricao) values (5, 'CONSULTAR_CIDADES', 'Permite consultar cidades');
+insert into permissao (id, nome, descricao) values (6, 'EDITAR_CIDADES', 'Permite criar ou editar cidades');
+insert into permissao (id, nome, descricao) values (7, 'CONSULTAR_ESTADOS', 'Permite consultar estados');
+insert into permissao (id, nome, descricao) values (8, 'EDITAR_ESTADOS', 'Permite criar ou editar estados');
+insert into permissao (id, nome, descricao) values (9, 'CONSULTAR_USUARIOS', 'Permite consultar usuários');
+insert into permissao (id, nome, descricao) values (10, 'EDITAR_USUARIOS', 'Permite criar ou editar usuários');
+insert into permissao (id, nome, descricao) values (11, 'CONSULTAR_RESTAURANTES', 'Permite consultar restaurantes');
+insert into permissao (id, nome, descricao) values (12, 'EDITAR_RESTAURANTES', 'Permite criar, editar ou gerenciar restaurantes');
+insert into permissao (id, nome, descricao) values (13, 'CONSULTAR_PRODUTOS', 'Permite consultar produtos');
+insert into permissao (id, nome, descricao) values (14, 'EDITAR_PRODUTOS', 'Permite criar ou editar produtos');
+insert into permissao (id, nome, descricao) values (15, 'CONSULTAR_PEDIDOS', 'Permite consultar pedidos');
+insert into permissao (id, nome, descricao) values (16, 'GERENCIAR_PEDIDOS', 'Permite gerenciar pedidos');
+insert into permissao (id, nome, descricao) values (17, 'GERAR_RELATORIOS', 'Permite gerar relatórios');
+
+--  Adiciona todas as permissoes no grupo do gerente
+insert into grupo_permissao (grupo_id, permissao_id)
+select 1, id from permissao;
+
+--  Adiciona permissoes no grupo do vendedor
+insert into grupo_permissao (grupo_id, permissao_id)
+select 2, id from permissao where nome like 'CONSULTAR_%';
+
+insert into grupo_permissao (grupo_id, permissao_id) values (2, 14);
+
+--  Adiciona permissoes no grupo do auxiliar
+insert into grupo_permissao (grupo_id, permissao_id)
+select 3, id from permissao where nome like 'CONSULTAR_%';
+
+--  Adiciona permissoes no grupo cadastrador
+insert into grupo_permissao (grupo_id, permissao_id)
+select 4, id from permissao where nome like '%_RESTAURANTES' or nome like '%_PRODUTOS';
+
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id)
 values (1, 1);
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id)
@@ -190,48 +209,9 @@ insert into usuario (id, nome, email, senha, data_cadastro)
 values (9, 'ciclano2', 'ciclano2@teste.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
 values (10, 'fulana2', 'fulana2@teste.com', '$2a$12$N4vn6FFL/7Upq7NBAVBDAedVlQYLuiI8nLB5ta365Fb.QccbzZu0e', utc_timestamp);
-insert into grupo (id, nome)
-values (1, 'admin');
-insert into grupo (id, nome)
-values (2, 'usuario');
-insert into grupo (id, nome)
-values (3, 'gerente');
-insert into grupo (id, nome)
-values (4, 'atendente');
-insert into grupo (id, nome)
-values (5, 'financeiro');
-insert into grupo (id, nome)
-values (6, 'moderador');
-insert into grupo (id, nome)
-values (7, 'suporte');
-insert into grupo (id, nome)
-values (8, 'analista');
-insert into usuario_grupo (usuario_id, grupo_id)
-values (1, 1);
-insert into usuario_grupo (usuario_id, grupo_id)
-values (2, 2);
-insert into usuario_grupo (usuario_id, grupo_id)
-values (3, 3);
-insert into usuario_grupo (usuario_id, grupo_id)
-values (4, 3);
-insert into usuario_grupo (usuario_id, grupo_id)
-values (5, 1);
-insert into usuario_grupo (usuario_id, grupo_id)
-values (6, 3);
-insert into grupo_permissao (grupo_id, permissao_id)
-values (1, 1);
-insert into grupo_permissao (grupo_id, permissao_id)
-values (2, 1);
-insert into grupo_permissao (grupo_id, permissao_id)
-values (3, 1);
-insert into grupo_permissao (grupo_id, permissao_id)
-values (1, 2);
-insert into grupo_permissao (grupo_id, permissao_id)
-values (2, 3);
-insert into grupo_permissao (grupo_id, permissao_id)
-values (3, 3);
-insert into grupo_permissao (grupo_id, permissao_id)
-values (2, 2);
+
+insert into usuario_grupo (usuario_id, grupo_id) values (1, 1), (1, 2), (2, 2);
+
 insert into restaurante_usuario_responsavel(restaurante_id, usuario_id)
 values (1, 1);
 insert into restaurante_usuario_responsavel(restaurante_id, usuario_id)
@@ -245,7 +225,6 @@ values (2, 2);
 insert into restaurante_usuario_responsavel(restaurante_id, usuario_id)
 values (3, 2);
 
-# Inserir pedidos
 -- Inserção Básica
 INSERT INTO pedido (codigo, data_criacao, subtotal, taxa_frete, valor_total, usuario_cliente_id, forma_pagamento_id,
                     restaurante_id, status, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero)
@@ -272,7 +251,6 @@ INSERT INTO pedido (codigo, data_criacao, data_confirmacao, data_entrega, data_c
 VALUES ('1e0c5337-7081-11ee-82b5-0242ac120002', '2023-08-18 14:20:00', '2023-08-22 15:00:00', '2023-08-23 12:30:00', NULL, 'CRIADO', 90.00, 10.00,
         100.00, 5, 3, 4, 3, 'Bairro 5', '12345-789', 'Complemento 5', 'Rua 5', '555');
 
-# Inserir items de pedido
 -- Pedido 1
 INSERT INTO item_pedido (observacao, preco_total, preco_unitario, quantidade, pedido_id, produto_id)
 VALUES ('Sem cebola', 12.50, 2.50, 5, 1, 1);
